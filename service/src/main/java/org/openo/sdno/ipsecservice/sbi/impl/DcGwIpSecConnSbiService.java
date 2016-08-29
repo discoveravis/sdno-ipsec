@@ -27,12 +27,11 @@ import org.openo.sdno.exception.HttpCode;
 import org.openo.sdno.framework.container.resthelper.RestfulProxy;
 import org.openo.sdno.framework.container.util.JsonUtil;
 import org.openo.sdno.ipsecservice.sbi.inf.IDcGwIpSecConnSbiService;
+import org.openo.sdno.ipsecservice.util.operation.RestfulParametesUtil;
 import org.openo.sdno.overlayvpn.consts.UrlAdapterConst;
 import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
 import org.openo.sdno.overlayvpn.model.netmodel.ipsec.DcGwIpSecConnection;
 import org.openo.sdno.overlayvpn.result.ResultRsp;
-import org.openo.sdno.overlayvpn.security.authentication.HttpContext;
-import org.openo.sdno.overlayvpn.security.authentication.TokenDataHolder;
 import org.openo.sdno.rest.ResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,9 +51,10 @@ public class DcGwIpSecConnSbiService implements IDcGwIpSecConnSbiService {
             throws ServiceException {
 
         String ctrlUuid = ipSecConnectionList.get(0).getControllerId();
+        RestfulParametes restfulParametes =
+                RestfulParametesUtil.getRestfulParametesWithBody(JsonUtil.toJson(ipSecConnectionList), ctrlUuid);
 
-        RestfulParametes restfulParametes = getCreateIpSecNeConnectionParam(ipSecConnectionList);
-        String url = UrlAdapterConst.ADAPTER_BASE_URL + ctrlUuid + UrlAdapterConst.CREATE_DCGW_IPSEC_CONNECTION;
+        String url = UrlAdapterConst.IPSEC_ADAPTER_BASE_URL + UrlAdapterConst.CREATE_DCGW_IPSEC_CONNECTION;
 
         LOGGER.info("createIpSecNeConnection begin: " + url + "\n" + restfulParametes.getRawData());
 
@@ -79,12 +79,12 @@ public class DcGwIpSecConnSbiService implements IDcGwIpSecConnSbiService {
         DcGwIpSecConnection ipSecConnection = ipSecConnectionList.get(0);
         String ctrlUuid = ipSecConnection.getControllerId();
 
-        String url = UrlAdapterConst.ADAPTER_BASE_URL + ctrlUuid
+        String url = UrlAdapterConst.IPSEC_ADAPTER_BASE_URL
                 + MessageFormat.format(UrlAdapterConst.DELETE_DCGW_IPSEC_CONNECTION, ipSecConnection.getUuid());
 
         LOGGER.info("deleteIpSecConnection begin: " + url);
 
-        RestfulResponse response = RestfulProxy.delete(url, getDeleteIpSecParam());
+        RestfulResponse response = RestfulProxy.delete(url, RestfulParametesUtil.getRestfulParametes(ctrlUuid));
         if(response.getStatus() == HttpCode.NOT_FOUND) {
             return new ResultRsp<String>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
                     "connect to os controller failed", "connect to os controller failed, please check");
@@ -98,21 +98,4 @@ public class DcGwIpSecConnSbiService implements IDcGwIpSecConnSbiService {
         return restResult;
     }
 
-    private RestfulParametes getCreateIpSecNeConnectionParam(List<DcGwIpSecConnection> ipSecNeConnectionList)
-            throws ServiceException {
-        RestfulParametes restfulParametes = new RestfulParametes();
-
-        String requestJsonString = JsonUtil.toJson(ipSecNeConnectionList);
-        restfulParametes.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
-        TokenDataHolder.addToken2HttpRequest(restfulParametes);
-        restfulParametes.setRawData(requestJsonString);
-
-        return restfulParametes;
-    }
-
-    private RestfulParametes getDeleteIpSecParam() throws ServiceException {
-        RestfulParametes restfulParametes = new RestfulParametes();
-        TokenDataHolder.addToken2HttpRequest(restfulParametes);
-        return restfulParametes;
-    }
 }

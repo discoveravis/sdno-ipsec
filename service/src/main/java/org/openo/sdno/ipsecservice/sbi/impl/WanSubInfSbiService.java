@@ -53,8 +53,8 @@ public class WanSubInfSbiService implements IWanSubInfSbiService {
     @Override
     public ResultRsp<List<WanSubInterface>> queryNeWanSubInterface(String ctrlUuid, String deviceId,
             String subInterUsedType) throws ServiceException {
-        RestfulParametes restfulParametes = getQueryWanInterfaceParam(subInterUsedType);
-        String queryUrl = UrlAdapterConst.ADAPTER_BASE_URL + ctrlUuid
+        RestfulParametes restfulParametes = getQueryWanInterfaceParam(subInterUsedType, ctrlUuid);
+        String queryUrl = UrlAdapterConst.WAN_INTERFACE_ADAPTER_BASE_URL
                 + MessageFormat.format(UrlAdapterConst.QUERY_WAN_INTERFACE, deviceId);
         LOGGER.info("queryNeWanSubInterface begin: " + queryUrl + "\n" + restfulParametes.getRawData());
 
@@ -71,9 +71,10 @@ public class WanSubInfSbiService implements IWanSubInfSbiService {
         return result;
     }
 
-    private RestfulParametes getQueryWanInterfaceParam(String subInterUsedType) {
+    private RestfulParametes getQueryWanInterfaceParam(String subInterUsedType, String ctrlUuid) {
         RestfulParametes restfulParametes = new RestfulParametes();
         restfulParametes.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
+        restfulParametes.putHttpContextHeader("X-Driver-Parameter", "extSysID=" + ctrlUuid);
         TokenDataHolder.addToken2HttpRequest(restfulParametes);
 
         Map<String, String> queryParamMap = new ConcurrentHashMap<String, String>();

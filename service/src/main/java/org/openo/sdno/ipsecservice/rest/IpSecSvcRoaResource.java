@@ -55,7 +55,7 @@ import org.springframework.stereotype.Service;
  * @version SDNO 0.5 Jun 16, 2016
  */
 @Service
-@Path("/svc/ipsec/v1/ipsecs")
+@Path("/sdnoipsec/v1/ipsecs")
 public class IpSecSvcRoaResource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IpSecSvcRoaResource.class);

@@ -221,9 +221,12 @@ public class CheckOverlayVpn {
             neIdToNeMap.put(epgNeId, tempNe);
         }
 
-        SiteInvDao siteDao = new SiteInvDao();
-        SiteMO siteMO = siteDao.query(tempNe.getSiteID().get(0));
-        epg.setSiteType(siteMO.getType());
+        // For DC, No need to set Site information
+        if(!EndpointType.VPC.getName().equals(epg.getType())) {
+            SiteInvDao siteDao = new SiteInvDao();
+            SiteMO siteMO = siteDao.query(tempNe.getSiteID().get(0));
+            epg.setSiteType(siteMO.getType());
+        }
     }
 
     @SuppressWarnings("unchecked")

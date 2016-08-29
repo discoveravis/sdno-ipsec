@@ -42,6 +42,7 @@ import org.openo.sdno.ipsecservice.util.operation.VpcInfo;
 import org.openo.sdno.ipsecservice.util.security.Security;
 import org.openo.sdno.overlayvpn.brs.model.ControllerMO;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
+import org.openo.sdno.overlayvpn.enums.WanInterfaceUsedType;
 import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
 import org.openo.sdno.overlayvpn.model.common.enums.ActionStatus;
 import org.openo.sdno.overlayvpn.model.common.enums.EndpointType;
@@ -222,7 +223,7 @@ public class IpSecSvcImpl implements IIpSecService {
 
             // query wan interface
             ResultRsp<List<WanSubInterface>> queryResult =
-                    wanSubInfSbiService.queryNeWanSubInterface(ctrlUuid, deviceId, "wanInterfaceForIpsec");
+                    wanSubInfSbiService.queryNeWanSubInterface(ctrlUuid, deviceId, WanInterfaceUsedType.IPSEC.getName());
             if(!queryResult.isValid()) {
                 LOGGER.error("failed to query wan sub interface for deviceid: " + deviceId);
                 return new ResultRsp<Map<String, WanSubInterface>>(queryResult);
