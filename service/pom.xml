@@ -3,7 +3,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.openo.sdno</groupId>
+        <groupId>org.openo.sdno.ipsec</groupId>
         <artifactId>ipsecservice-root</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -23,13 +23,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.openo.sdno</groupId>
+            <groupId>org.openo.sdno.overlay</groupId>
             <artifactId>org.openo.sdno.overlayvpn-cbb</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>org.openo.sdno</groupId>
+            <groupId>org.openo.integration</groupId>
             <artifactId>org.openo.sdno.testframework</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>test</scope>
