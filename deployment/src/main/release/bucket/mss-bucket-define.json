@@ -1,0 +1,14 @@
+{
+    "name":"ipsecdb",
+    
+    "owner":"ipsecSvc",
+    
+    "authorization":"private",
+    
+    "allowread":
+    [
+        "ipsecSvc"
+    ]
+}
+
+
