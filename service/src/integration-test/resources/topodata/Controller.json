@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Controller1",
+        "category": "NE",
+        "vendor": "huawei",
+        "productName": "AcBranch",
+        "version": "V1R2C10",
+        "hostName": "10.144.98.13",
+        "slaveHostName": "10.10.10.10",
+        "regionId": "1",
+        "adminStatus": "enable",
+        "adapterType": "inner",
+        "location": "shenzhenD2-F1",
+        "description": "abc",
+        "reserved": "dddd"
+    },
+    {
+        "name": "Controller2",
+        "category": "NE",
+        "vendor": "huawei",
+        "productName": "Fusionsphere",
+        "version": "V1R2C10",
+        "hostName": "10.144.98.14",
+        "slaveHostName": "10.10.10.10",
+        "regionId": "1",
+        "adminStatus": "enable",
+        "adapterType": "inner",
+        "location": "shenzhenD2-F1",
+        "description": "eeee",
+        "reserved": "dddd"
+    }
+]
