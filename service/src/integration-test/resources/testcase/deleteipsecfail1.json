@@ -1,0 +1,13 @@
+{
+    "request": {
+        "uri": "/rest/svc/ipsec/v1/ipsecs/{connectionid}",
+        "method": "delete",
+        "headers": {
+            "Content-Type": "application/json;charset=UTF-8"
+        }
+    },
+    "response": {
+        "status": 500,
+        "json": null
+    }
+}

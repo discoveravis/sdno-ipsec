@@ -1,0 +1,23 @@
+{
+    "request": {
+        "uri": "/rest/svc/ipsec/v1/ipsecs",
+        "method": "post",
+        "headers": {
+            "Content-Type": "application/json;charset=UTF-8"
+        },
+        "json": {
+            "id": "vpn1id",
+            "tenantId": "tenantid",
+            "name": "vpn1",
+            "description": "test ipsec",
+            "operStatus": "none",
+            "adminStatus": "active",
+            "connectionIds": null,
+            "vpnConnections": null
+        }
+    },
+    "response": {
+        "status": 400,
+        "json": null
+    }
+}

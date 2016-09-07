@@ -1,0 +1,13 @@
+{
+    "request": {
+        "uri": "/rest/svc/ipsec/v1/ipsecs/{connectionid}",
+        "method": "get",
+        "headers": {
+            "Content-Type": "application/json;charset=UTF-8"
+        }
+    },
+    "response": {
+        "status": 400,
+        "json": null
+    }
+}

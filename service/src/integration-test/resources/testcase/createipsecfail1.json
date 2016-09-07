@@ -1,0 +1,75 @@
+{
+    "request": {
+        "uri": "/rest/svc/ipsec/v1/ipsecs",
+        "method": "post",
+        "headers": {
+            "Content-Type": "application/json;charset=UTF-8"
+        },
+        "json": {
+            "id": "(*111111",
+            "tenantId": "tenantid",
+            "name": "vpn1",
+            "description": "test ipsec",
+            "operStatus": "none",
+            "adminStatus": "active",
+            "connectionIds": null,
+            "vpnConnections": [
+                {
+                    "id": "connection1id",
+                    "tenantId": "tenantid",
+                    "name": "connection1",
+                    "description": "test connection",
+                    "adminStatus": "active",
+                    "topology": "hub_spoke",
+                    "technology": "ipsec",
+                    "compositeVpnId": "vpn1id",
+                    "mappingPolicyId": null,
+                    "epgIds": null,
+                    "endpointGroups": [
+                        {
+                            "id": "egp1id",
+                            "tenantId": "tenantid",
+                            "name": "epg1",
+                            "description": "Test for Epg",
+                            "adminStatus": "active",
+                            "type": "cidr",
+                            "endpoints": "[\"10.8.1.1/24\"]",
+                            "cidr": null,
+                            "endpointList": null,
+                            "gatewayId": null,
+                            "neId": "ne1id",
+                            "topologyRole": "hub",
+                            "connectionId": "connection1id",
+                            "qosPolicyId": null,
+                            "gateway": null
+                        },
+                        {
+                            "id": "egp2id",
+                            "tenantId": "tenantid",
+                            "name": "epg2",
+                            "description": "Test for Epg",
+                            "adminStatus": "active",
+                            "type": "vpc",
+                            "endpoints": "[\"10.8.1.2/24|vpcId|osRouterID|routerExternalIP|subnetID\"]",
+                            "cidr": null,
+                            "endpointList": null,
+                            "gatewayId": null,
+                            "neId": "ne2id",
+                            "topologyRole": "spoke",
+                            "connectionId": "connection1id",
+                            "qosPolicyId": null,
+                            "gateway": null
+                        }
+                    ],
+                    "greMappingPolicy": null,
+                    "ipsecMappingPolicy": null,
+                    "vxlanMappingPolicy": null
+                }
+            ]
+        }
+    },
+    "response": {
+        "status": 400,
+        "json": null
+    }
+}
