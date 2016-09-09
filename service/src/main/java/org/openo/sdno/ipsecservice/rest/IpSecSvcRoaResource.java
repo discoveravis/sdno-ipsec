@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016, Huawei Technologies Co., Ltd.
+ * Copyright 2016 Huawei Technologies Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
- * The rest interface of ipsec. <br/>
+ * The rest interface of ipsec. <br>
  * 
  * @author
  * @version SDNO 0.5 Jun 16, 2016
@@ -72,7 +72,7 @@ public class IpSecSvcRoaResource {
     }
 
     /**
-     * Rest interface to perform create ipsec operation. <br/>
+     * Rest interface to perform create ipsec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
@@ -123,7 +123,7 @@ public class IpSecSvcRoaResource {
     }
 
     /**
-     * Rest interface to perform query ipsec operation. <br/>
+     * Rest interface to perform query ipsec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
@@ -149,7 +149,7 @@ public class IpSecSvcRoaResource {
     }
 
     /**
-     * Rest interface to perform delete ipsec operation. <br/>
+     * Rest interface to perform delete ipsec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object

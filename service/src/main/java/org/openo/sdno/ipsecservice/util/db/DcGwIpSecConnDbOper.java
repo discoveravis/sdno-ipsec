@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016, Huawei Technologies Co., Ltd.
+ * Copyright 2016 Huawei Technologies Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ import org.springframework.util.StringUtils;
 import net.sf.json.JSONObject;
 
 /**
- * It is used to operate DcGwIpSecConnection table. <br/>
+ * It is used to operate DcGwIpSecConnection table. <br>
  * 
  * @author
  * @version SDNO 0.5 Jun 22, 2016
@@ -47,7 +47,7 @@ public class DcGwIpSecConnDbOper {
     private static final String CONNECTION_SERVICE_ID = "connectionServiceId";
 
     /**
-     * Constructor<br/>
+     * Constructor<br>
      * 
      * @since SDNO 0.5
      */
@@ -56,7 +56,7 @@ public class DcGwIpSecConnDbOper {
     }
 
     /**
-     * It is used to insert DcGwIpSecConnection data. <br/>
+     * It is used to insert DcGwIpSecConnection data. <br>
      * 
      * @param dcGwIpSecConnectionList The list of DcGwIpSecConnection data
      * @throws ServiceException When insert failed.
@@ -68,7 +68,7 @@ public class DcGwIpSecConnDbOper {
     }
 
     /**
-     * It is used to update status. <br/>
+     * It is used to update status. <br>
      * 
      * @param dcGwIpSecConnectionList The data that want to be updated
      * @param updateFieldList The field that want to be updated
@@ -82,7 +82,7 @@ public class DcGwIpSecConnDbOper {
     }
 
     /**
-     * It is used to query DcGwIpSecConnection data. <br/>
+     * It is used to query DcGwIpSecConnection data. <br>
      * 
      * @param connectionId The connection id
      * @return The object list of DcGwIpSecConnection
@@ -94,7 +94,7 @@ public class DcGwIpSecConnDbOper {
     }
 
     /**
-     * It is used to delete DcGwIpSecConnection data. <br/>
+     * It is used to delete DcGwIpSecConnection data. <br>
      * 
      * @param connectionId The connection id
      * @throws ServiceException When delete failed.

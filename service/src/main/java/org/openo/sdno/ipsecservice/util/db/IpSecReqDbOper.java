@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016, Huawei Technologies Co., Ltd.
+ * Copyright 2016 Huawei Technologies Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,7 +39,7 @@ import org.springframework.util.StringUtils;
 import net.sf.json.JSONObject;
 
 /**
- * It is used to operate IpSecReqModelInfo table. <br/>
+ * It is used to operate IpSecReqModelInfo table. <br>
  * 
  * @author
  * @version SDNO 0.5 Jun 16, 2016
@@ -55,7 +55,7 @@ public class IpSecReqDbOper {
     private static final String CONNECTION_ID = "connectionId";
 
     /**
-     * Constructor<br/>
+     * Constructor<br>
      * 
      * @since SDNO 0.5
      */
@@ -64,7 +64,7 @@ public class IpSecReqDbOper {
     }
 
     /**
-     * It is used to check the special record is existed or not. <br/>
+     * It is used to check the special record is existed or not. <br>
      * 
      * @param connectionId The connectionId field in IpSecReqModelInfo
      * @return true if the record is existed
@@ -81,7 +81,7 @@ public class IpSecReqDbOper {
     }
 
     /**
-     * It is used to insert the original data. <br/>
+     * It is used to insert the original data. <br>
      * 
      * @param overlayVpn The original data
      * @throws ServiceException When insert failed.
@@ -101,7 +101,7 @@ public class IpSecReqDbOper {
     }
 
     /**
-     * It is used to update status. <br/>
+     * It is used to update status. <br>
      * 
      * @param connectionId The connection id
      * @param actionState The status
@@ -123,7 +123,7 @@ public class IpSecReqDbOper {
     }
 
     /**
-     * It is used to query the original data. <br/>
+     * It is used to query the original data. <br>
      * 
      * @param connectionId The connection id
      * @return The object of OverlayVpn
@@ -143,7 +143,7 @@ public class IpSecReqDbOper {
     }
 
     /**
-     * It is used to delete the original data. <br/>
+     * It is used to delete the original data. <br>
      * 
      * @param connectionId The connection id
      * @throws ServiceException When delete failed.

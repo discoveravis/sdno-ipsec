@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016, Huawei Technologies Co., Ltd.
+ * Copyright 2016 Huawei Technologies Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Throw exception implementation. <br/>
+ * Throw exception implementation. <br>
  * 
  * @author
  * @version SDNO 0.5 Jun 20, 2016
@@ -35,7 +35,7 @@ public class ThrowException {
     private static final Logger LOGGER = LoggerFactory.getLogger(ThrowException.class);
 
     /**
-     * Constructor<br/>
+     * Constructor<br>
      * 
      * @since SDNO 0.5
      */
@@ -43,7 +43,7 @@ public class ThrowException {
     }
 
     /**
-     * It is used to throw exception when the connection id is existed. <br/>
+     * It is used to throw exception when the connection id is existed. <br>
      * 
      * @param connectionId The connection id
      * @throws ServiceException Throw 400 error
@@ -58,7 +58,7 @@ public class ThrowException {
     }
 
     /**
-     * It is used to throw exception when the tenant id is missing. <br/>
+     * It is used to throw exception when the tenant id is missing. <br>
      * 
      * @throws ServiceException Throw 400 error
      * @since SDNO 0.5
@@ -72,7 +72,7 @@ public class ThrowException {
     }
 
     /**
-     * It is used to throw exception when read security file failed. <br/>
+     * It is used to throw exception when read security file failed. <br>
      * 
      * @throws ServiceException Throw 400 error
      * @since SDNO 0.5
@@ -87,7 +87,7 @@ public class ThrowException {
 
     /**
      * It is used to throw exception when the tenant id that pass by caller doesn't match with current
-     * user. <br/>
+     * user. <br>
      * 
      * @param exptTenantId The tenant id that pass by caller
      * @param realTenantId The tenant id of current user
@@ -103,7 +103,7 @@ public class ThrowException {
     }
 
     /**
-     * It is used to throw exception when the uuids don't match. <br/>
+     * It is used to throw exception when the uuids don't match. <br>
      * 
      * @param obj1 The object1
      * @param uuid1 The uuid1
@@ -128,7 +128,7 @@ public class ThrowException {
     }
 
     /**
-     * It is used to throw exception when parameter is invalid. <br/>
+     * It is used to throw exception when parameter is invalid. <br>
      * 
      * @param description The description
      * @throws ServiceException Throw 400 error
@@ -144,7 +144,7 @@ public class ThrowException {
     }
 
     /**
-     * It is used to throw exception when the resource is not existed. <br/>
+     * It is used to throw exception when the resource is not existed. <br>
      * 
      * @param description The description
      * @throws ServiceException Throw 404 error
@@ -160,7 +160,7 @@ public class ThrowException {
     }
 
     /**
-     * It is used to check the operation result. <br/>
+     * It is used to check the operation result. <br>
      * 
      * @param result The operation result
      * @throws ServiceException Throw 500 error

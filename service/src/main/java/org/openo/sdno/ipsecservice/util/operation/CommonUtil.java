@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016, Huawei Technologies Co., Ltd.
+ * Copyright 2016 Huawei Technologies Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -24,7 +24,7 @@ import org.openo.sdno.overlayvpn.model.servicemodel.OverlayVpn;
 import org.springframework.util.CollectionUtils;
 
 /**
- * It is common util. <br/>
+ * It is common util. <br>
  * 
  * @author
  * @version SDNO 0.5 Jun 20, 2016
@@ -32,7 +32,7 @@ import org.springframework.util.CollectionUtils;
 public class CommonUtil {
 
     /**
-     * Constructor<br/>
+     * Constructor<br>
      * 
      * @since SDNO 0.5
      */
@@ -40,7 +40,7 @@ public class CommonUtil {
     }
 
     /**
-     * It is used to get ipsec connection from overlayvpn. <br/>
+     * It is used to get ipsec connection from overlayvpn. <br>
      * 
      * @param overlayVpn The object of OverlayVpn
      * @return The ipsec connection
@@ -69,7 +69,7 @@ public class CommonUtil {
     }
 
     /**
-     * It is used to check string1 and string2 are same or not. <br/>
+     * It is used to check string1 and string2 are same or not. <br>
      * 
      * @param string1 The string1
      * @param string2 The string2

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016, Huawei Technologies Co., Ltd.
+ * Copyright 2016 Huawei Technologies Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,7 +33,7 @@ import org.springframework.util.StringUtils;
 import net.sf.json.JSONObject;
 
 /**
- * It is used to operate NeIpSecConnection table. <br/>
+ * It is used to operate NeIpSecConnection table. <br>
  * 
  * @author
  * @version SDNO 0.5 Jun 22, 2016
@@ -47,7 +47,7 @@ public class NeIpSecConnDbOper {
     private static final String CONNECTION_SERVICE_ID = "connectionServiceId";
 
     /**
-     * Constructor<br/>
+     * Constructor<br>
      * 
      * @since SDNO 0.5
      */
@@ -56,7 +56,7 @@ public class NeIpSecConnDbOper {
     }
 
     /**
-     * It is used to insert NeIpSecConnection data. <br/>
+     * It is used to insert NeIpSecConnection data. <br>
      * 
      * @param neIpSecNeConnectionList The list of NeIpSecConnection data
      * @throws ServiceException When insert failed.
@@ -68,7 +68,7 @@ public class NeIpSecConnDbOper {
     }
 
     /**
-     * It is used to update status. <br/>
+     * It is used to update status. <br>
      * 
      * @param neIpSecNeConnectionList The data that want to be updated
      * @param updateFieldList The field that want to be updated
@@ -82,7 +82,7 @@ public class NeIpSecConnDbOper {
     }
 
     /**
-     * It is used to query NeIpSecConnection data. <br/>
+     * It is used to query NeIpSecConnection data. <br>
      * 
      * @param connectionId The connection id
      * @return The object list of NeIpSecConnection
@@ -94,7 +94,7 @@ public class NeIpSecConnDbOper {
     }
 
     /**
-     * It is used to delete NeIpSecConnection data. <br/>
+     * It is used to delete NeIpSecConnection data. <br>
      * 
      * @param connectionId The connection id
      * @throws ServiceException When delete failed.

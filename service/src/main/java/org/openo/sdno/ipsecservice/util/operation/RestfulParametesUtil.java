@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2016, Huawei Technologies Co., Ltd.
+ * Copyright 2016 Huawei Technologies Co., Ltd.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,7 +21,7 @@ import org.openo.sdno.overlayvpn.security.authentication.HttpContext;
 import org.openo.sdno.overlayvpn.security.authentication.TokenDataHolder;
 
 /**
- * Build restful parameters object for restful request.<br/>
+ * Build restful parameters object for restful request.<br>
  * 
  * @author
  * @version     SDNO 0.5  Aug 22, 2016
@@ -32,7 +32,7 @@ public class RestfulParametesUtil {
     }
     
     /**
-     * Get restful parameters with body data.<br/>
+     * Get restful parameters with body data.<br>
      * 
      * @param bodyData Creating body data
      * @param ctrlUuid Controller UUID
@@ -51,7 +51,7 @@ public class RestfulParametesUtil {
     }
     
     /**
-     * Get restful parameters object.<br/>
+     * Get restful parameters object.<br>
      * 
      * @param ctrlUuid Controller UUID
      * @return Restful parameters object
