@@ -1,9 +1,10 @@
 {
     "request": {
-        "uri": "/rest/svc/sbiadp/controller/[a-zA-Z0-9\\-\\_]{1,36}/v1/overlay/batch-create-ipsecs",
+        "uri": "/openoapi/sbi-ipsec/v1/overlay/batch-create-ipsecs",
         "method": "post",
         "headers": {
-            "Content-Type": "application/json;charset=UTF-8"
+            "Content-Type": "application/json;charset=UTF-8",
+            "X-Driver-Parameter": "extSysID=123"
         },
         "json": null
     },

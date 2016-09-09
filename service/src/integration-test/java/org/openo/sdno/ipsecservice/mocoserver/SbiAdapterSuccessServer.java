@@ -51,10 +51,6 @@ public class SbiAdapterSuccessServer extends MocoHttpServer {
 
     }
 
-    public SbiAdapterSuccessServer(String configFile) {
-        super(configFile);
-    }
-
     @Override
     public void addRequestResponsePairs() {
 

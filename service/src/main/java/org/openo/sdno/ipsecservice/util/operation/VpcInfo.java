@@ -43,7 +43,7 @@ public class VpcInfo {
      * @since SDNO 0.5
      */
     public VpcInfo(String vpcInfos) {
-        String[] vpcInfoArray = vpcInfos.split("|");
+        String[] vpcInfoArray = vpcInfos.split("\\|");
         List<String> vpcList = Arrays.asList(vpcInfoArray);
 
         this.vpcId = vpcList.get(1);

@@ -1,6 +1,6 @@
 {
     "request": {
-        "uri": "/rest/svc/ipsec/v1/ipsecs/{connectionid}",
+        "uri": "/openoapi/sdnoipsec/v1/ipsecs/{connectionid}",
         "method": "delete",
         "headers": {
             "Content-Type": "application/json;charset=UTF-8"

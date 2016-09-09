@@ -66,45 +66,14 @@ public class Security {
      */
     public static void getSecurity(Connection connection) throws ServiceException {
         IpsecMappingPolicy ipsecMappingPolicy = new IpsecMappingPolicy();
-        List<Map<String, String>> values = getJsonFileData(DOMAIN);
+        List<Map<String, String>> values = getJsonDataFromFile(DOMAIN);
         getIkePolicy(values, ipsecMappingPolicy);
         getIpSecPolicy(values, ipsecMappingPolicy);
         getMappingPolicy(values, ipsecMappingPolicy);
         connection.setIpsecMappingPolicy(ipsecMappingPolicy);
     }
 
-    private static void getIkePolicy(List<Map<String, String>> values, IpsecMappingPolicy ipsecMappingPolicy) {
-        IkePolicy ikePolicy = new IkePolicy();
-        ikePolicy.setName(getCfgValue(values, SecurityConfigKeyConst.IKE_POLICY_NAME));
-        ikePolicy.setAuthAlgorithm(getCfgValue(values, SecurityConfigKeyConst.IKE_AUTH_ALGORITHM));
-        ikePolicy.setEncryptionAlgorithm(getCfgValue(values, SecurityConfigKeyConst.IKE_ENCRYPTION_ALGORITHM));
-        ikePolicy.setPfs(getCfgValue(values, SecurityConfigKeyConst.IKE_PFS));
-        ikePolicy.setLifeTime(getCfgValue(values, SecurityConfigKeyConst.IKE_LIFETIME));
-        ikePolicy.setIkeVersion(getCfgValue(values, SecurityConfigKeyConst.IKE_VERSION));
-        ipsecMappingPolicy.setIkePolicy(ikePolicy);
-    }
-
-    private static void getIpSecPolicy(List<Map<String, String>> values, IpsecMappingPolicy ipsecMappingPolicy) {
-        IpSecPolicy ipSecPolicy = new IpSecPolicy();
-        ipSecPolicy.setName(getCfgValue(values, SecurityConfigKeyConst.IPSEC_POLICY_NAME));
-        ipSecPolicy.setAuthAlgorithm(getCfgValue(values, SecurityConfigKeyConst.IPSEC_AUTH_ALGORITHM));
-        ipSecPolicy.setEncryptionAlgorithm(getCfgValue(values, SecurityConfigKeyConst.IPSEC_ENCRYPTION_ALGORITHM));
-        ipSecPolicy.setPfs(getCfgValue(values, SecurityConfigKeyConst.IPSEC_PFS));
-        ipSecPolicy.setLifeTime(getCfgValue(values, SecurityConfigKeyConst.IPSEC_LIFETIME));
-        ipSecPolicy.setTransformProtocol(getCfgValue(values, SecurityConfigKeyConst.IPSEC_TRANSFORM_PROTOCOL));
-        ipSecPolicy.setEncapsulationMode(getCfgValue(values, SecurityConfigKeyConst.IPSEC_ENCAPSULTION_MODE));
-        ipsecMappingPolicy.setIpSecPolicy(ipSecPolicy);
-    }
-
-    private static void getMappingPolicy(List<Map<String, String>> values, IpsecMappingPolicy ipsecMappingPolicy) {
-        ipsecMappingPolicy.setName(getCfgValue(values, SecurityConfigKeyConst.MAPPING_POLICY_NAME));
-        ipsecMappingPolicy.setType(getCfgValue(values, SecurityConfigKeyConst.MAPPING_TYPE));
-        ipsecMappingPolicy.setRouteMode(getCfgValue(values, SecurityConfigKeyConst.MAPPING_ROUTE_MODE));
-        ipsecMappingPolicy.setAuthMode(getCfgValue(values, SecurityConfigKeyConst.MAPPING_AUTH_MODE));
-        ipsecMappingPolicy.setPsk(getCfgValue(values, SecurityConfigKeyConst.MAPPING_PSK));
-    }
-
-    private static String getCfgValue(List<Map<String, String>> values, String cfgKey) {
+    private static String getValue(List<Map<String, String>> values, String cfgKey) {
         String result = null;
         for(Map<String, String> value : values) {
             String cfgKeyValue = value.get(CFG_KEY);
@@ -117,7 +86,38 @@ public class Security {
         return result;
     }
 
-    private static List<Map<String, String>> getJsonFileData(String domain) throws ServiceException {
+    private static void getIkePolicy(List<Map<String, String>> values, IpsecMappingPolicy ipsecMappingPolicy) {
+        IkePolicy ikePolicy = new IkePolicy();
+        ikePolicy.setName(getValue(values, SecurityConfigKeyConst.IKE_POLICY_NAME));
+        ikePolicy.setAuthAlgorithm(getValue(values, SecurityConfigKeyConst.IKE_AUTH_ALGORITHM));
+        ikePolicy.setEncryptionAlgorithm(getValue(values, SecurityConfigKeyConst.IKE_ENCRYPTION_ALGORITHM));
+        ikePolicy.setPfs(getValue(values, SecurityConfigKeyConst.IKE_PFS));
+        ikePolicy.setLifeTime(getValue(values, SecurityConfigKeyConst.IKE_LIFETIME));
+        ikePolicy.setIkeVersion(getValue(values, SecurityConfigKeyConst.IKE_VERSION));
+        ipsecMappingPolicy.setIkePolicy(ikePolicy);
+    }
+
+    private static void getIpSecPolicy(List<Map<String, String>> values, IpsecMappingPolicy ipsecMappingPolicy) {
+        IpSecPolicy ipSecPolicy = new IpSecPolicy();
+        ipSecPolicy.setName(getValue(values, SecurityConfigKeyConst.IPSEC_POLICY_NAME));
+        ipSecPolicy.setAuthAlgorithm(getValue(values, SecurityConfigKeyConst.IPSEC_AUTH_ALGORITHM));
+        ipSecPolicy.setEncryptionAlgorithm(getValue(values, SecurityConfigKeyConst.IPSEC_ENCRYPTION_ALGORITHM));
+        ipSecPolicy.setPfs(getValue(values, SecurityConfigKeyConst.IPSEC_PFS));
+        ipSecPolicy.setLifeTime(getValue(values, SecurityConfigKeyConst.IPSEC_LIFETIME));
+        ipSecPolicy.setTransformProtocol(getValue(values, SecurityConfigKeyConst.IPSEC_TRANSFORM_PROTOCOL));
+        ipSecPolicy.setEncapsulationMode(getValue(values, SecurityConfigKeyConst.IPSEC_ENCAPSULTION_MODE));
+        ipsecMappingPolicy.setIpSecPolicy(ipSecPolicy);
+    }
+
+    private static void getMappingPolicy(List<Map<String, String>> values, IpsecMappingPolicy ipsecMappingPolicy) {
+        ipsecMappingPolicy.setName(getValue(values, SecurityConfigKeyConst.MAPPING_POLICY_NAME));
+        ipsecMappingPolicy.setType(getValue(values, SecurityConfigKeyConst.MAPPING_TYPE));
+        ipsecMappingPolicy.setRouteMode(getValue(values, SecurityConfigKeyConst.MAPPING_ROUTE_MODE));
+        ipsecMappingPolicy.setAuthMode(getValue(values, SecurityConfigKeyConst.MAPPING_AUTH_MODE));
+        ipsecMappingPolicy.setPsk(getValue(values, SecurityConfigKeyConst.MAPPING_PSK));
+    }
+
+    private static List<Map<String, String>> getJsonDataFromFile(String domain) throws ServiceException {
         try {
             String path = "generalconfig/" + domain + ".json";
             ObjectMapper mapper = new ObjectMapper();

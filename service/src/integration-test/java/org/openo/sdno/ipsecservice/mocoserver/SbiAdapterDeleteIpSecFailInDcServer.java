@@ -30,10 +30,6 @@ public class SbiAdapterDeleteIpSecFailInDcServer extends MocoHttpServer {
 
     }
 
-    public SbiAdapterDeleteIpSecFailInDcServer(String configFile) {
-        super(configFile);
-    }
-
     @Override
     public void addRequestResponsePairs() {
         this.addRequestResponsePair(DELETE_IPSEC_SUCCESS_IN_AC_FILE);

@@ -33,10 +33,6 @@ public class SbiAdapterWanInterfaceFailServer extends MocoHttpServer {
 
     }
 
-    public SbiAdapterWanInterfaceFailServer(String configFile) {
-        super(configFile);
-    }
-
     @Override
     public void addRequestResponsePairs() {
         this.addRequestResponsePair(QUERY_WANSUBINF_FAIL_IN_AC_FILE);

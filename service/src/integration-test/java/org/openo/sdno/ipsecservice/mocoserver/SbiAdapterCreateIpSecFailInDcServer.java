@@ -52,10 +52,6 @@ public class SbiAdapterCreateIpSecFailInDcServer extends MocoHttpServer {
 
     }
 
-    public SbiAdapterCreateIpSecFailInDcServer(String configFile) {
-        super(configFile);
-    }
-
     public void setCreateErrStatus(int status) {
         this.status = status;
     }

@@ -23,13 +23,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.codehaus.jackson.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
-import org.openo.sdno.framework.container.util.JsonUtil;
-import org.openo.sdno.ipsecservice.util.operation.CommonUtil;
 import org.openo.sdno.overlayvpn.brs.invdao.NetworkElementInvDao;
 import org.openo.sdno.overlayvpn.brs.invdao.SiteInvDao;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
@@ -55,51 +52,7 @@ public class CheckOverlayVpnTest {
 
     @Before
     public void setUp() throws Exception {
-        neIdToNeMap.clear();
-
-        overlayVpn = new OverlayVpn();
-
-        Connection connection = new Connection();
-        List<Connection> connectionList = new ArrayList<>();
-        connectionList.add(connection);
-        overlayVpn.setVpnConnections(connectionList);
-
-        EndpointGroup endpointGroupAc = new EndpointGroup();
-        EndpointGroup endpointGroupDc = new EndpointGroup();
-        List<EndpointGroup> endpointGroupList = new ArrayList<>();
-        endpointGroupList.add(endpointGroupAc);
-        endpointGroupList.add(endpointGroupDc);
-        connection.setEndpointGroups(endpointGroupList);
-
-        overlayVpn.setUuid("000001");
-        overlayVpn.setName("overlayVpn");
-        overlayVpn.setAdminStatus(AdminStatus.ACTIVE.getName());
-
-        connection.setUuid("000002");
-        connection.setName("connection");
-        connection.setAdminStatus(AdminStatus.ACTIVE.getName());
-        connection.setTopology(TopologyType.HUB_SPOKE.getName());
-        connection.setTechnology(TechnologyType.IPSEC.getName());
-        connection.setCompositeVpnId("000001");
-
-        endpointGroupAc.setUuid("000003");
-        endpointGroupAc.setName("endpointGroupAc");
-        endpointGroupAc.setAdminStatus(AdminStatus.ACTIVE.getName());
-        endpointGroupAc.setType(EndpointType.CIDR.getName());
-        endpointGroupAc.setEndpoints("[\"10.8.1.1/24\"]");
-        endpointGroupAc.setTopologyRole(TopologyRole.HUB.getName());
-        endpointGroupAc.setNeId("100001");
-        endpointGroupAc.setConnectionId("000002");
-
-        endpointGroupDc.setUuid("000004");
-        endpointGroupDc.setName("endpointGroupDc");
-        endpointGroupDc.setAdminStatus(AdminStatus.ACTIVE.getName());
-        endpointGroupDc.setType(EndpointType.VPC.getName());
-        // cidr|vpcId|osRouterID|routerExternalIP|subnetID
-        endpointGroupDc.setEndpoints("[\"10.8.1.2/24|100003|100004|10.8.1.3|100005\"]");
-        endpointGroupDc.setTopologyRole(TopologyRole.SPOKE.getName());
-        endpointGroupDc.setNeId("100002");
-        endpointGroupDc.setConnectionId("000002");
+        overlayVpn = buildOverlayVpn();
     }
 
     @Test
@@ -169,18 +122,10 @@ public class CheckOverlayVpnTest {
 
     @Test(expected = ServiceException.class)
     public void testCheckConnectionTechnologyInvalid() throws ServiceException {
-        new MockUp<CommonUtil>() {
+        OverlayVpn vpn = buildOverlayVpn();
+        vpn.getVpnConnections().get(0).setTechnology(TechnologyType.GRE.getName());
+        CheckOverlayVpn.check(vpn, neIdToNeMap);
 
-            @Mock
-            public Connection getIpSecConnection(OverlayVpn overlayVpn) throws ServiceException {
-                Connection connection = overlayVpn.getVpnConnections().get(0);
-                connection.setTechnology(TechnologyType.GRE.getName());
-
-                return connection;
-            }
-        };
-
-        CheckOverlayVpn.check(overlayVpn, neIdToNeMap);
     }
 
     @Test(expected = ServiceException.class)
@@ -249,15 +194,9 @@ public class CheckOverlayVpnTest {
 
     @Test(expected = ServiceException.class)
     public void testCheckEndpointGroupEndpointListNull() throws ServiceException {
-        new MockUp<JsonUtil>() {
-
-            @Mock
-            public <T> T fromJson(String jsonStr, TypeReference<T> typeRef) {
-                return null;
-            }
-        };
-
-        CheckOverlayVpn.check(overlayVpn, neIdToNeMap);
+        OverlayVpn vpn = buildOverlayVpn();
+        vpn.getVpnConnections().get(0).getEndpointGroups().get(0).setEndpoints("[]");
+        CheckOverlayVpn.check(vpn, neIdToNeMap);
     }
 
     @Test(expected = ServiceException.class)
@@ -342,10 +281,11 @@ public class CheckOverlayVpnTest {
     public void testCheckTopoRoleSpokeEpgsNull() throws ServiceException {
         new MockNeDao();
         new MockSiteDao();
-        overlayVpn.getVpnConnections().get(0).getEndpointGroups().get(1).setTopologyRole(TopologyRole.NONE.getName());
+        OverlayVpn vpn = buildOverlayVpn();
+        vpn.getVpnConnections().get(0).getEndpointGroups().get(1).setTopologyRole(TopologyRole.NONE.getName());
 
         try {
-            CheckOverlayVpn.check(overlayVpn, neIdToNeMap);
+            CheckOverlayVpn.check(vpn, neIdToNeMap);
             assertTrue(false);
         } catch(ServiceException e) {
             assertTrue("connection topology type no spoke".equals(e.getExceptionArgs().getDescArgs()[0]));
@@ -382,6 +322,55 @@ public class CheckOverlayVpnTest {
 
             return site;
         }
+    }
+
+    private OverlayVpn buildOverlayVpn() {
+        neIdToNeMap.clear();
+
+        OverlayVpn vpn = new OverlayVpn();
+
+        Connection connection = new Connection();
+        List<Connection> connectionList = new ArrayList<>();
+        connectionList.add(connection);
+        vpn.setVpnConnections(connectionList);
+
+        EndpointGroup endpointGroupAc = new EndpointGroup();
+        EndpointGroup endpointGroupDc = new EndpointGroup();
+        List<EndpointGroup> endpointGroupList = new ArrayList<>();
+        endpointGroupList.add(endpointGroupAc);
+        endpointGroupList.add(endpointGroupDc);
+        connection.setEndpointGroups(endpointGroupList);
+
+        vpn.setUuid("000001");
+        vpn.setName("overlayVpn");
+        vpn.setAdminStatus(AdminStatus.ACTIVE.getName());
+
+        connection.setUuid("000002");
+        connection.setName("connection");
+        connection.setAdminStatus(AdminStatus.ACTIVE.getName());
+        connection.setTopology(TopologyType.HUB_SPOKE.getName());
+        connection.setTechnology(TechnologyType.IPSEC.getName());
+        connection.setCompositeVpnId("000001");
+
+        endpointGroupAc.setUuid("000003");
+        endpointGroupAc.setName("endpointGroupAc");
+        endpointGroupAc.setAdminStatus(AdminStatus.ACTIVE.getName());
+        endpointGroupAc.setType(EndpointType.CIDR.getName());
+        endpointGroupAc.setEndpoints("[\"10.8.1.1/24\"]");
+        endpointGroupAc.setTopologyRole(TopologyRole.HUB.getName());
+        endpointGroupAc.setNeId("100001");
+        endpointGroupAc.setConnectionId("000002");
+
+        endpointGroupDc.setUuid("000004");
+        endpointGroupDc.setName("endpointGroupDc");
+        endpointGroupDc.setAdminStatus(AdminStatus.ACTIVE.getName());
+        endpointGroupDc.setType(EndpointType.VPC.getName());
+        endpointGroupDc.setEndpoints("[\"10.8.1.2/24|100003|100004|10.8.1.3|100005\"]");
+        endpointGroupDc.setTopologyRole(TopologyRole.SPOKE.getName());
+        endpointGroupDc.setNeId("100002");
+        endpointGroupDc.setConnectionId("000002");
+
+        return vpn;
     }
 
 }
