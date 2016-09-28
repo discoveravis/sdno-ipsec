@@ -86,7 +86,7 @@ public class CheckOverlayVpnTest {
     }
 
     @Ignore
-    // 放到getIpSecConnection
+    //TODO: move to getIpSecConnection
     public void testVpnConnectionsNull() throws ServiceException {
         overlayVpn.setVpnConnections(null);
         try {
