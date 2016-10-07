@@ -20,28 +20,35 @@ import java.util.List;
 
 import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.framework.container.service.IService;
-import org.openo.sdno.overlayvpn.model.port.WanSubInterface;
+import org.openo.sdno.overlayvpn.model.netmodel.ipsec.DcGwIpSecConnection;
 import org.openo.sdno.overlayvpn.result.ResultRsp;
 
 /**
- * Wan south branch interface. <br>
+ * DC gateway controller south branch interface. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 21, 2016
+ * @version SDNO 0.5 Jun 22, 2016
  */
-public interface IWanSubInfSbiService extends IService {
+public interface DcGwIpSecConnSbiService extends IService {
 
     /**
-     * It is used to query wan interface. <br>
+     * It is used to create ipsec connection. <br>
      * 
-     * @param ctrlUuid The uuid of controller
-     * @param deviceId The device id
-     * @param subInterUsedType The interface type
-     * @return The list of wan interace
-     * @throws ServiceException When query failed.
+     * @param ipSecConnectionList The ipsec connection data
+     * @return The create result
+     * @throws ServiceException When create failed.
      * @since SDNO 0.5
      */
-    ResultRsp<List<WanSubInterface>> queryNeWanSubInterface(String ctrlUuid, String deviceId, String subInterUsedType)
+    ResultRsp<List<DcGwIpSecConnection>> createIpSecNeConnection(List<DcGwIpSecConnection> ipSecConnectionList)
             throws ServiceException;
 
+    /**
+     * It is used to delete ipsec connection. <br>
+     * 
+     * @param ipSecConnectionList The ipsec connection data
+     * @return The delete result
+     * @throws ServiceException When create failed.
+     * @since SDNO 0.5
+     */
+    ResultRsp<String> deleteIpSecConnection(List<DcGwIpSecConnection> ipSecConnectionList) throws ServiceException;
 }

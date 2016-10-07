@@ -33,7 +33,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.openo.baseservice.remoteservice.exception.ServiceException;
-import org.openo.sdno.ipsecservice.service.inf.IIpSecService;
+import org.openo.sdno.ipsecservice.service.inf.IpSecService;
 import org.openo.sdno.ipsecservice.util.check.CheckOverlayVpn;
 import org.openo.sdno.ipsecservice.util.db.IpSecReqDbOper;
 import org.openo.sdno.ipsecservice.util.exception.ThrowException;
@@ -61,13 +61,13 @@ public class IpSecSvcRoaResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(IpSecSvcRoaResource.class);
 
     @Resource
-    private IIpSecService ipSecService;
+    private IpSecService ipSecService;
 
-    public IIpSecService getIpSecService() {
+    public IpSecService getIpSecService() {
         return ipSecService;
     }
 
-    public void setIpSecService(IIpSecService ipSecService) {
+    public void setIpSecService(IpSecService ipSecService) {
         this.ipSecService = ipSecService;
     }
 

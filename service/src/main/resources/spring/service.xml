@@ -40,9 +40,9 @@
         </jaxrs:providers>
     </jaxrs:server>
 
-    <bean id="wanSubInfSbiService" class="org.openo.sdno.ipsecservice.sbi.impl.WanSubInfSbiService"></bean>
-    <bean id="neIpSecConnSbiService" class="org.openo.sdno.ipsecservice.sbi.impl.NeIpSecConnSbiService"></bean>
-    <bean id="dcGwIpSecConnSbiService" class="org.openo.sdno.ipsecservice.sbi.impl.DcGwIpSecConnSbiService"></bean>
+    <bean id="wanSubInfSbiService" class="org.openo.sdno.ipsecservice.sbi.impl.WanSubInfSbiServiceImpl"></bean>
+    <bean id="neIpSecConnSbiService" class="org.openo.sdno.ipsecservice.sbi.impl.NeIpSecConnSbiServiceImpl"></bean>
+    <bean id="dcGwIpSecConnSbiService" class="org.openo.sdno.ipsecservice.sbi.impl.DcGwIpSecConnSbiServiceImpl"></bean>
     <bean id="ipSecService" class="org.openo.sdno.ipsecservice.service.impl.IpSecSvcImpl">
         <property name="wanSubInfSbiService" ref="wanSubInfSbiService"></property>
         <property name="neIpSecConnSbiService" ref="neIpSecConnSbiService"></property>

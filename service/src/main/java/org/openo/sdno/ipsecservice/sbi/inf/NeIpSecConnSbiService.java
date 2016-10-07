@@ -29,7 +29,7 @@ import org.openo.sdno.overlayvpn.result.ResultRsp;
  * @author
  * @version SDNO 0.5 Jun 22, 2016
  */
-public interface INeIpSecConnSbiService extends IService {
+public interface NeIpSecConnSbiService extends IService {
 
     /**
      * It is used to create ipsec connection. <br>

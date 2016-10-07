@@ -33,7 +33,7 @@ import org.openo.sdno.overlayvpn.result.ResultRsp;
  * @author
  * @version SDNO 0.5 Jun 16, 2016
  */
-public interface IIpSecService extends IService {
+public interface IpSecService extends IService {
 
     /**
      * Create ipsec operation. <br>

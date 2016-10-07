@@ -26,7 +26,7 @@ import org.openo.baseservice.roa.util.restclient.RestfulResponse;
 import org.openo.sdno.exception.HttpCode;
 import org.openo.sdno.framework.container.resthelper.RestfulProxy;
 import org.openo.sdno.framework.container.util.JsonUtil;
-import org.openo.sdno.ipsecservice.sbi.inf.INeIpSecConnSbiService;
+import org.openo.sdno.ipsecservice.sbi.inf.NeIpSecConnSbiService;
 import org.openo.sdno.ipsecservice.util.operation.RestfulParametesUtil;
 import org.openo.sdno.overlayvpn.consts.UrlAdapterConst;
 import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
@@ -42,9 +42,9 @@ import org.slf4j.LoggerFactory;
  * @author
  * @version SDNO 0.5 Jun 22, 2016
  */
-public class NeIpSecConnSbiService implements INeIpSecConnSbiService {
+public class NeIpSecConnSbiServiceImpl implements NeIpSecConnSbiService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NeIpSecConnSbiService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(NeIpSecConnSbiServiceImpl.class);
 
     @Override
     public ResultRsp<List<NeIpSecConnection>> createIpSecNeConnection(List<NeIpSecConnection> ipSecConnectionList)

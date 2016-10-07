@@ -29,10 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
-import org.openo.sdno.ipsecservice.sbi.inf.IDcGwIpSecConnSbiService;
-import org.openo.sdno.ipsecservice.sbi.inf.INeIpSecConnSbiService;
-import org.openo.sdno.ipsecservice.sbi.inf.IWanSubInfSbiService;
-import org.openo.sdno.ipsecservice.service.inf.IIpSecService;
+import org.openo.sdno.ipsecservice.sbi.inf.DcGwIpSecConnSbiService;
+import org.openo.sdno.ipsecservice.sbi.inf.NeIpSecConnSbiService;
+import org.openo.sdno.ipsecservice.sbi.inf.WanSubInfSbiService;
+import org.openo.sdno.ipsecservice.service.inf.IpSecService;
 import org.openo.sdno.ipsecservice.util.db.DcGwIpSecConnDbOper;
 import org.openo.sdno.ipsecservice.util.db.IpSecReqDbOper;
 import org.openo.sdno.ipsecservice.util.db.NeIpSecConnDbOper;
@@ -68,7 +68,7 @@ import org.springframework.stereotype.Service;
  * @version SDNO 0.5 Jun 16, 2016
  */
 @Service
-public class IpSecSvcImpl implements IIpSecService {
+public class IpSecSvcImpl implements IpSecService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IpSecSvcImpl.class);
 
@@ -77,35 +77,35 @@ public class IpSecSvcImpl implements IIpSecService {
     private static final String OPER_STATUS = "operStatus";
 
     @Resource
-    private IWanSubInfSbiService wanSubInfSbiService;
+    private WanSubInfSbiService wanSubInfSbiService;
 
     @Resource
-    private INeIpSecConnSbiService neIpSecConnSbiService;
+    private NeIpSecConnSbiService neIpSecConnSbiService;
 
     @Resource
-    private IDcGwIpSecConnSbiService dcGwIpSecConnSbiService;
+    private DcGwIpSecConnSbiService dcGwIpSecConnSbiService;
 
-    public IWanSubInfSbiService getWanSubInfSbiService() {
+    public WanSubInfSbiService getWanSubInfSbiService() {
         return wanSubInfSbiService;
     }
 
-    public void setWanSubInfSbiService(IWanSubInfSbiService wanSubInfSbiService) {
+    public void setWanSubInfSbiService(WanSubInfSbiService wanSubInfSbiService) {
         this.wanSubInfSbiService = wanSubInfSbiService;
     }
 
-    public INeIpSecConnSbiService getNeIpSecConnSbiService() {
+    public NeIpSecConnSbiService getNeIpSecConnSbiService() {
         return neIpSecConnSbiService;
     }
 
-    public void setNeIpSecConnSbiService(INeIpSecConnSbiService neIpSecConnSbiService) {
+    public void setNeIpSecConnSbiService(NeIpSecConnSbiService neIpSecConnSbiService) {
         this.neIpSecConnSbiService = neIpSecConnSbiService;
     }
 
-    public IDcGwIpSecConnSbiService getDcGwIpSecConnSbiService() {
+    public DcGwIpSecConnSbiService getDcGwIpSecConnSbiService() {
         return dcGwIpSecConnSbiService;
     }
 
-    public void setDcGwIpSecConnSbiService(IDcGwIpSecConnSbiService dcGwIpSecConnSbiService) {
+    public void setDcGwIpSecConnSbiService(DcGwIpSecConnSbiService dcGwIpSecConnSbiService) {
         this.dcGwIpSecConnSbiService = dcGwIpSecConnSbiService;
     }
 
