@@ -28,7 +28,7 @@ import org.openo.baseservice.roa.util.restclient.RestfulResponse;
 import org.openo.sdno.exception.HttpCode;
 import org.openo.sdno.framework.container.resthelper.RestfulProxy;
 import org.openo.sdno.framework.container.util.JsonUtil;
-import org.openo.sdno.ipsecservice.sbi.inf.IWanSubInfSbiService;
+import org.openo.sdno.ipsecservice.sbi.inf.WanSubInfSbiService;
 import org.openo.sdno.overlayvpn.consts.CommConst;
 import org.openo.sdno.overlayvpn.consts.UrlAdapterConst;
 import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
@@ -46,9 +46,9 @@ import org.slf4j.LoggerFactory;
  * @author
  * @version SDNO 0.5 Jun 21, 2016
  */
-public class WanSubInfSbiService implements IWanSubInfSbiService {
+public class WanSubInfSbiServiceImpl implements WanSubInfSbiService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(WanSubInfSbiService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WanSubInfSbiServiceImpl.class);
 
     @Override
     public ResultRsp<List<WanSubInterface>> queryNeWanSubInterface(String ctrlUuid, String deviceId,
