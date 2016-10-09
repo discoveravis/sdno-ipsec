@@ -1,0 +1,14 @@
+{
+  "serviceName": "sdnoipsec",
+  "version": "v1",
+  "url": "/openoapi/sdnoipsec/v1",
+  "protocol": "REST",
+  "visualRange": "1",
+  "nodes": [
+    {
+      "ip": "",
+      "port": "8515",
+      "ttl": 0
+    }
+  ]
+}
