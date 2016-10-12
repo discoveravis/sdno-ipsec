@@ -27,7 +27,7 @@ import org.openo.sdno.overlayvpn.model.uuid.AbstUuidModel;
  * </p>
  * 
  * @author
- * @version SDNO 0.5 Jun 16, 2016
+ * @version SDNO 0.5 June 16, 2016
  */
 @MOResType(infoModelName = "ipsecreqmodelinfo")
 public class IpSecReqModelInfo extends AbstUuidModel {

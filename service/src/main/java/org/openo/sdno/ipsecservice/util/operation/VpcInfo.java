@@ -20,10 +20,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * It is used to get vpc information. <br>
+ * It is used to get VPC information. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 20, 2016
+ * @version SDNO 0.5 June 20, 2016
  */
 public class VpcInfo {
 
@@ -38,7 +38,7 @@ public class VpcInfo {
     /**
      * Constructor<br>
      * 
-     * @param vpcInfos The vpc information string, the format is
+     * @param vpcInfos The VPC information string, the format is
      *            "cidr|vpcId|osRouterID|routerExternalIP|subnetID"
      * @since SDNO 0.5
      */

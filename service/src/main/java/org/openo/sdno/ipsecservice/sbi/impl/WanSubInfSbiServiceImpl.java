@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * Wan south branch interface implementation. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 21, 2016
+ * @version SDNO 0.5 June 21, 2016
  */
 public class WanSubInfSbiServiceImpl implements WanSubInfSbiService {
 

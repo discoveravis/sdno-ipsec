@@ -30,6 +30,12 @@ import org.openo.sdno.testframework.http.model.HttpRquestResponse;
 import org.openo.sdno.testframework.moco.MocoHttpServer;
 import org.openo.sdno.testframework.moco.responsehandler.MocoResponseHandler;
 
+/**
+ * SbiAdapterSuccessServer class for success test cases. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class SbiAdapterSuccessServer extends MocoHttpServer {
 
     private static final String CREATE_IPSEC_SUCCESS_IN_AC_FILE =

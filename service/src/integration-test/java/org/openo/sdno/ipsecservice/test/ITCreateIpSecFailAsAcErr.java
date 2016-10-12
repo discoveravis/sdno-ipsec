@@ -40,6 +40,12 @@ import org.openo.sdno.testframework.testmanager.TestManager;
 import org.openo.sdno.testframework.topology.ResourceType;
 import org.openo.sdno.testframework.topology.Topology;
 
+/**
+ * ITCreateIpSecFailAsAcErr test class. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class ITCreateIpSecFailAsAcErr extends TestManager {
 
     private static SbiAdapterCreateIpSecFailInAcServer sbiAdapterServer = new SbiAdapterCreateIpSecFailInAcServer();

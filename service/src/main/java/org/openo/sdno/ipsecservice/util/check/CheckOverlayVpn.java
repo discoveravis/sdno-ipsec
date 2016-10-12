@@ -49,7 +49,7 @@ import org.springframework.util.StringUtils;
  * It is used to check parameters that pass by caller. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 20, 2016
+ * @version SDNO 0.5 June 20, 2016
  */
 public class CheckOverlayVpn {
 
@@ -76,10 +76,10 @@ public class CheckOverlayVpn {
         // check parameters by annotation in OverlayVpn class
         checkModelData(overlayVpn);
 
-        // check uuids are existed or not
+        // check UUIDs are existed or not
         UuidAllocUtil.checkUuid(overlayVpn);
 
-        // check uuids are consistency or not
+        // check UUIDs are consistency or not
         Connection connection = CommonUtil.getIpSecConnection(overlayVpn);
         checkModelUuidConsistency(overlayVpn.getUuid(), connection);
 

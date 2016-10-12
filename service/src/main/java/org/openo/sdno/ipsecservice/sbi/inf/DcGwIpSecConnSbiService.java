@@ -27,14 +27,14 @@ import org.openo.sdno.overlayvpn.result.ResultRsp;
  * DC gateway controller south branch interface. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 22, 2016
+ * @version SDNO 0.5 June 22, 2016
  */
 public interface DcGwIpSecConnSbiService extends IService {
 
     /**
-     * It is used to create ipsec connection. <br>
+     * It is used to create IpSec connection. <br>
      * 
-     * @param ipSecConnectionList The ipsec connection data
+     * @param ipSecConnectionList The IpSec connection data
      * @return The create result
      * @throws ServiceException When create failed.
      * @since SDNO 0.5
@@ -43,9 +43,9 @@ public interface DcGwIpSecConnSbiService extends IService {
             throws ServiceException;
 
     /**
-     * It is used to delete ipsec connection. <br>
+     * It is used to delete IpSec connection. <br>
      * 
-     * @param ipSecConnectionList The ipsec connection data
+     * @param ipSecConnectionList The IpSec connection data
      * @return The delete result
      * @throws ServiceException When create failed.
      * @since SDNO 0.5

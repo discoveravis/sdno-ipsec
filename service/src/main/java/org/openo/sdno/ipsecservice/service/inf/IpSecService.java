@@ -31,12 +31,12 @@ import org.openo.sdno.overlayvpn.result.ResultRsp;
  * IpSec service interface. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 16, 2016
+ * @version SDNO 0.5 June 16, 2016
  */
 public interface IpSecService extends IService {
 
     /**
-     * Create ipsec operation. <br>
+     * Create IpSec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
@@ -50,26 +50,26 @@ public interface IpSecService extends IService {
             Map<String, NetworkElementMO> neIdToNeMap) throws ServiceException;
 
     /**
-     * Query ipsec operation. <br>
+     * Query IpSec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
-     * @param connectionId The uuid of connection
+     * @param connectionId The UUID of connection
      * @return The object of ResultRsp
-     * @throws ServiceException When query ipsec failed
+     * @throws ServiceException When query IpSec failed
      * @since SDNO 0.5
      */
     ResultRsp<OverlayVpn> query(HttpServletRequest req, HttpServletResponse resp, String connectionId)
             throws ServiceException;
 
     /**
-     * Delete ipsec operation. <br>
+     * Delete IpSec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
-     * @param connectionId The uuid of connection
+     * @param connectionId The UUID of connection
      * @return The object of ResultRsp
-     * @throws ServiceException When delete ipsec failed
+     * @throws ServiceException When delete IpSec failed
      * @since SDNO 0.5
      */
     ResultRsp<String> delete(HttpServletRequest req, HttpServletResponse resp, String connectionId)

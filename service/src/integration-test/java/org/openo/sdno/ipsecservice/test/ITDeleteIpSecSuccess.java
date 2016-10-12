@@ -28,6 +28,12 @@ import org.openo.sdno.testframework.http.model.HttpRquestResponse;
 import org.openo.sdno.testframework.replace.PathReplace;
 import org.openo.sdno.testframework.testmanager.TestManager;
 
+/**
+ * ITDeleteIpSecSuccess test class. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class ITDeleteIpSecSuccess extends TestManager {
 
     private static final String DELETE_IPSEC_SUCCESS_TESTCASE =

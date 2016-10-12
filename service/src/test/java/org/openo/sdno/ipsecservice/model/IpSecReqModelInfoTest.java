@@ -23,6 +23,12 @@ import org.junit.Test;
 import org.openo.sdno.framework.container.util.JsonUtil;
 import org.openo.sdno.overlayvpn.model.common.enums.ActionStatus;
 
+/**
+ * IpSecReqModelInfo test class. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class IpSecReqModelInfoTest {
 
     IpSecReqModelInfo ipSecReqModelInfo;

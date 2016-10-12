@@ -17,10 +17,10 @@
 package org.openo.sdno.ipsecservice.util.security;
 
 /**
- * The security const define. <br>
+ * The security constant define. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 20, 2016
+ * @version SDNO 0.5 June 20, 2016
  */
 public class SecurityConfigKeyConst {
 

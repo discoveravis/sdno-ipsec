@@ -24,20 +24,20 @@ import org.openo.sdno.overlayvpn.security.authentication.TokenDataHolder;
  * Build restful parameters object for restful request.<br>
  * 
  * @author
- * @version     SDNO 0.5  Aug 22, 2016
+ * @version SDNO 0.5 August 22, 2016
  */
 public class RestfulParametesUtil {
-    
+
     private RestfulParametesUtil() {
     }
-    
+
     /**
      * Get restful parameters with body data.<br>
      * 
      * @param bodyData Creating body data
      * @param ctrlUuid Controller UUID
      * @return Restful parameters object
-     * @since  SDNO 0.5
+     * @since SDNO 0.5
      */
     public static RestfulParametes getRestfulParametesWithBody(String bodyData, String ctrlUuid) {
         RestfulParametes restfulParametes = new RestfulParametes();
@@ -49,13 +49,13 @@ public class RestfulParametesUtil {
 
         return restfulParametes;
     }
-    
+
     /**
      * Get restful parameters object.<br>
      * 
      * @param ctrlUuid Controller UUID
      * @return Restful parameters object
-     * @since  SDNO 0.5
+     * @since SDNO 0.5
      */
     public static RestfulParametes getRestfulParametes(String ctrlUuid) {
         RestfulParametes restfulParametes = new RestfulParametes();

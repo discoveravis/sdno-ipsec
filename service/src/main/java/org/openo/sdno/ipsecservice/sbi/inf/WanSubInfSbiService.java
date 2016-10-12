@@ -27,17 +27,17 @@ import org.openo.sdno.overlayvpn.result.ResultRsp;
  * Wan south branch interface. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 21, 2016
+ * @version SDNO 0.5 June 21, 2016
  */
 public interface WanSubInfSbiService extends IService {
 
     /**
      * It is used to query wan interface. <br>
      * 
-     * @param ctrlUuid The uuid of controller
+     * @param ctrlUuid The UUID of controller
      * @param deviceId The device id
      * @param subInterUsedType The interface type
-     * @return The list of wan interace
+     * @return The list of wan interface
      * @throws ServiceException When query failed.
      * @since SDNO 0.5
      */

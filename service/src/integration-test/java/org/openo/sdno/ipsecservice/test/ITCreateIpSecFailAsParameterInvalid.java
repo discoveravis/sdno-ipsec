@@ -41,6 +41,12 @@ import org.openo.sdno.testframework.testmanager.TestManager;
 import org.openo.sdno.testframework.topology.ResourceType;
 import org.openo.sdno.testframework.topology.Topology;
 
+/**
+ * ITCreateIpSecFailAsParameterInvalid test class. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class ITCreateIpSecFailAsParameterInvalid extends TestManager {
 
     private static SbiAdapterSuccessServer sbiAdapterServer = new SbiAdapterSuccessServer();

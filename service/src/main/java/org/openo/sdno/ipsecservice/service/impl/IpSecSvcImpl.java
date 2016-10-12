@@ -65,7 +65,7 @@ import org.springframework.stereotype.Service;
  * IpSec service implementation. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 16, 2016
+ * @version SDNO 0.5 June 16, 2016
  */
 @Service
 public class IpSecSvcImpl implements IpSecService {
@@ -164,10 +164,10 @@ public class IpSecSvcImpl implements IpSecService {
         NeIpSecConnDbOper.insert(neIpSecNeConnectionList);
         DcGwIpSecConnDbOper.insert(dcGwIpSecConnectionList);
 
-        // create ipsec connection in AC Branch
+        // create IpSec connection in AC Branch
         createNeIpSecConnection(neIpSecNeConnectionList);
 
-        // create ipsec connection in DC Gateway
+        // create IpSec connection in DC Gateway
         createDcGwIpSecConnection(dcGwIpSecConnectionList);
 
         return new ResultRsp<OverlayVpn>(ErrorCode.OVERLAYVPN_SUCCESS, overlayVpn);
@@ -190,10 +190,10 @@ public class IpSecSvcImpl implements IpSecService {
     public ResultRsp<String> delete(HttpServletRequest req, HttpServletResponse resp, String connectionId)
             throws ServiceException {
 
-        // delete ipsec connection in AC Branch
+        // delete IpSec connection in AC Branch
         deleteNeIpSecConnection(connectionId);
 
-        // delete ipsec connection in DC Gateway
+        // delete IpSec connection in DC Gateway
         deleteDcGwIpSecConnection(connectionId);
 
         return new ResultRsp<String>(ErrorCode.OVERLAYVPN_SUCCESS);
@@ -201,7 +201,7 @@ public class IpSecSvcImpl implements IpSecService {
 
     private Map<String, ControllerMO> queryControllerMo(NetworkElementMO neMo) throws ServiceException {
         Map<String, ControllerMO> deviceIdToCtrlMap = new HashMap<String, ControllerMO>();
-        // get neid list
+        // get neId list
         List<String> neUuidList = new ArrayList<String>();
         neUuidList.add(neMo.getId());
 
@@ -222,8 +222,8 @@ public class IpSecSvcImpl implements IpSecService {
             String deviceId = entry.getKey();
 
             // query wan interface
-            ResultRsp<List<WanSubInterface>> queryResult =
-                    wanSubInfSbiService.queryNeWanSubInterface(ctrlUuid, deviceId, WanInterfaceUsedType.IPSEC.getName());
+            ResultRsp<List<WanSubInterface>> queryResult = wanSubInfSbiService.queryNeWanSubInterface(ctrlUuid,
+                    deviceId, WanInterfaceUsedType.IPSEC.getName());
             if(!queryResult.isValid()) {
                 LOGGER.error("failed to query wan sub interface for deviceid: " + deviceId);
                 return new ResultRsp<Map<String, WanSubInterface>>(queryResult);

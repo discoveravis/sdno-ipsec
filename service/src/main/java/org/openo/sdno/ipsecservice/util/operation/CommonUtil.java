@@ -24,10 +24,10 @@ import org.openo.sdno.overlayvpn.model.servicemodel.OverlayVpn;
 import org.springframework.util.CollectionUtils;
 
 /**
- * It is common util. <br>
+ * It is common utility. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 20, 2016
+ * @version SDNO 0.5 June 20, 2016
  */
 public class CommonUtil {
 
@@ -40,11 +40,11 @@ public class CommonUtil {
     }
 
     /**
-     * It is used to get ipsec connection from overlayvpn. <br>
+     * It is used to get IpSec connection from OverlayVpn. <br>
      * 
      * @param overlayVpn The object of OverlayVpn
-     * @return The ipsec connection
-     * @throws ServiceException When miss ipsec connection in overlayvpn
+     * @return The IpSec connection
+     * @throws ServiceException When miss IpSec connection in OverlayVpn
      * @since SDNO 0.5
      */
     public static Connection getIpSecConnection(OverlayVpn overlayVpn) throws ServiceException {

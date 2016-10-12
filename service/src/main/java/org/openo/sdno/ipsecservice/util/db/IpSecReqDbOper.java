@@ -42,7 +42,7 @@ import net.sf.json.JSONObject;
  * It is used to operate IpSecReqModelInfo table. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 16, 2016
+ * @version SDNO 0.5 June 16, 2016
  */
 public class IpSecReqDbOper {
 

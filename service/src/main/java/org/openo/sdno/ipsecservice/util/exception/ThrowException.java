@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * Throw exception implementation. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 20, 2016
+ * @version SDNO 0.5 June 20, 2016
  */
 public class ThrowException {
 
@@ -86,7 +86,8 @@ public class ThrowException {
     }
 
     /**
-     * It is used to throw exception when the tenant id that pass by caller doesn't match with current
+     * It is used to throw exception when the tenant id that pass by caller doesn't match with
+     * current
      * user. <br>
      * 
      * @param exptTenantId The tenant id that pass by caller
@@ -103,7 +104,7 @@ public class ThrowException {
     }
 
     /**
-     * It is used to throw exception when the uuids don't match. <br>
+     * It is used to throw exception when the UUIDs don't match. <br>
      * 
      * @param obj1 The object1
      * @param uuid1 The uuid1
@@ -117,12 +118,10 @@ public class ThrowException {
         LOGGER.error("Uuids do not match, [obj1 = " + obj1 + ", uuid = " + uuid1 + "], [obj2 = " + obj2 + ", uuid = "
                 + uuid2 + "]");
 
-        String message =
-                "Uuids do not match, [obj1 = " + obj1 + ", uuid = " + uuid1 + "], [obj2 = " + obj2 + ", uuid = "
-                        + uuid2 + "]";
-        String advice =
-                "Uuids do not match, [obj1 = " + obj1 + ", uuid = " + uuid1 + "], [obj2 = " + obj2 + ", uuid = "
-                        + uuid2 + "], please modify data and try again";
+        String message = "Uuids do not match, [obj1 = " + obj1 + ", uuid = " + uuid1 + "], [obj2 = " + obj2
+                + ", uuid = " + uuid2 + "]";
+        String advice = "Uuids do not match, [obj1 = " + obj1 + ", uuid = " + uuid1 + "], [obj2 = " + obj2 + ", uuid = "
+                + uuid2 + "], please modify data and try again";
         SvcExcptUtil.throwBadReqSvcExptionWithInfo(ErrorCode.OVERLAYVPN_PARAMETER_INVALID, message, message, message,
                 advice);
     }

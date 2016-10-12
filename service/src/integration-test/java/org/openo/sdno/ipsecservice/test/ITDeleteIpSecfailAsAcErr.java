@@ -41,6 +41,12 @@ import org.openo.sdno.testframework.testmanager.TestManager;
 import org.openo.sdno.testframework.topology.ResourceType;
 import org.openo.sdno.testframework.topology.Topology;
 
+/**
+ * ITDeleteIpSecfailAsAcErr test class. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class ITDeleteIpSecfailAsAcErr extends TestManager {
 
     private static final String CREATE_IPSEC_SUCCESS_TESTCASE =

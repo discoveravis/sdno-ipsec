@@ -29,6 +29,12 @@ import org.openo.sdno.testframework.http.model.HttpRquestResponse;
 import org.openo.sdno.testframework.moco.MocoHttpServer;
 import org.openo.sdno.testframework.moco.responsehandler.MocoResponseHandler;
 
+/**
+ * SbiAdapterCreateIpSecFailInDcServer class for fail test cases. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class SbiAdapterCreateIpSecFailInDcServer extends MocoHttpServer {
 
     private int status = 500;

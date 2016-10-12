@@ -44,6 +44,12 @@ import org.openo.sdno.overlayvpn.model.servicemodel.OverlayVpn;
 import mockit.Mock;
 import mockit.MockUp;
 
+/**
+ * CheckOverlayVpn test class. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class CheckOverlayVpnTest {
 
     Map<String, NetworkElementMO> neIdToNeMap = new ConcurrentHashMap<String, NetworkElementMO>();
@@ -86,7 +92,7 @@ public class CheckOverlayVpnTest {
     }
 
     @Ignore
-    //TODO: move to getIpSecConnection
+    // TODO: move to getIpSecConnection
     public void testVpnConnectionsNull() throws ServiceException {
         overlayVpn.setVpnConnections(null);
         try {

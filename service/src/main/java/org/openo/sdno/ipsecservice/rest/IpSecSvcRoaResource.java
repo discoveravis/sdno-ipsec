@@ -49,10 +49,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
- * The rest interface of ipsec. <br>
+ * The rest interface of IpSec. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 16, 2016
+ * @version SDNO 0.5 June 16, 2016
  */
 @Service
 @Path("/sdnoipsec/v1/ipsecs")
@@ -72,13 +72,13 @@ public class IpSecSvcRoaResource {
     }
 
     /**
-     * Rest interface to perform create ipsec operation. <br>
+     * Rest interface to perform create IpSec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
-     * @param overlayVpn The object of OverlayVpn that contain ipsec
+     * @param overlayVpn The object of OverlayVpn that contain IpSec
      * @return The object of ResultRsp
-     * @throws ServiceException When create ipsec failed
+     * @throws ServiceException When create IpSec failed
      * @since SDNO 0.5
      */
     @POST
@@ -123,13 +123,13 @@ public class IpSecSvcRoaResource {
     }
 
     /**
-     * Rest interface to perform query ipsec operation. <br>
+     * Rest interface to perform query IpSec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
-     * @param connectionId The uuid of connection
+     * @param connectionId The UUID of connection
      * @return The object of ResultRsp
-     * @throws ServiceException When query ipsec failed
+     * @throws ServiceException When query IpSec failed
      * @since SDNO 0.5
      */
     @GET
@@ -149,13 +149,13 @@ public class IpSecSvcRoaResource {
     }
 
     /**
-     * Rest interface to perform delete ipsec operation. <br>
+     * Rest interface to perform delete IpSec operation. <br>
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
-     * @param connectionId The uuid of connection
+     * @param connectionId The UUID of connection
      * @return The object of ResultRsp
-     * @throws ServiceException When delete ipsec failed
+     * @throws ServiceException When delete IpSec failed
      * @since SDNO 0.5
      */
     @DELETE

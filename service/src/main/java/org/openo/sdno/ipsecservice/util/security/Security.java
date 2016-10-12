@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * Get security policy implementation. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 20, 2016
+ * @version SDNO 0.5 June 20, 2016
  */
 public class Security {
 

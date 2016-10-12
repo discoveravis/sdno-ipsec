@@ -18,6 +18,12 @@ package org.openo.sdno.ipsecservice.mocoserver;
 
 import org.openo.sdno.testframework.moco.MocoHttpServer;
 
+/**
+ * SbiAdapterDeleteIpSecFailInAcServer class for fail test cases. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class SbiAdapterDeleteIpSecFailInAcServer extends MocoHttpServer {
 
     private static final String DELETE_IPSEC_FAIL_IN_AC_FILE =

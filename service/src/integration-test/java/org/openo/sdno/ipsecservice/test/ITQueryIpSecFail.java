@@ -27,6 +27,12 @@ import org.openo.sdno.testframework.http.model.HttpRquestResponse;
 import org.openo.sdno.testframework.replace.PathReplace;
 import org.openo.sdno.testframework.testmanager.TestManager;
 
+/**
+ * ITQueryIpSecFail test class. <br>
+ * 
+ * @author
+ * @version SDNO 0.5 June 16, 2016
+ */
 public class ITQueryIpSecFail extends TestManager {
 
     private static final String QUERY_IPSEC_FAIL_TESTCASE =

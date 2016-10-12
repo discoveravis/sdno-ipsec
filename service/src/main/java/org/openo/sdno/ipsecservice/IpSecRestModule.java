@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * IPSecService Rest Module Class. <br>
  * 
  * @author
- * @version SDNO 0.5 Jun 23, 2016
+ * @version SDNO 0.5 June 23, 2016
  */
 public class IpSecRestModule extends IRoaModule {
 
