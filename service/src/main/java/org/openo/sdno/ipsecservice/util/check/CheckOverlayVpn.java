@@ -28,9 +28,7 @@ import org.openo.sdno.framework.container.util.JsonUtil;
 import org.openo.sdno.ipsecservice.util.exception.ThrowException;
 import org.openo.sdno.ipsecservice.util.operation.CommonUtil;
 import org.openo.sdno.overlayvpn.brs.invdao.NetworkElementInvDao;
-import org.openo.sdno.overlayvpn.brs.invdao.SiteInvDao;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
-import org.openo.sdno.overlayvpn.brs.model.SiteMO;
 import org.openo.sdno.overlayvpn.consts.ValidationConsts;
 import org.openo.sdno.overlayvpn.model.common.enums.EndpointType;
 import org.openo.sdno.overlayvpn.model.common.enums.TechnologyType;
@@ -219,13 +217,6 @@ public class CheckOverlayVpn {
         epg.setDeviceId(deviceId);
         if(!neIdToNeMap.containsKey(epgNeId)) {
             neIdToNeMap.put(epgNeId, tempNe);
-        }
-
-        // For DC, No need to set Site information
-        if(!EndpointType.VPC.getName().equals(epg.getType())) {
-            SiteInvDao siteDao = new SiteInvDao();
-            SiteMO siteMO = siteDao.query(tempNe.getSiteID().get(0));
-            epg.setSiteType(siteMO.getType());
         }
     }
 
