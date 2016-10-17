@@ -19,7 +19,7 @@
     },
     {
         "cfgkey":"ikePfs",
-        "cfgvalue":"Group5",
+        "cfgvalue":"group5",
         "validator":"",
         "encrypt":"false"
     },
@@ -55,7 +55,7 @@
     },
     {
         "cfgkey":"ipsecPfs",
-        "cfgvalue":"Group5",
+        "cfgvalue":"group5",
         "validator":"",
         "encrypt":"false"
     },
