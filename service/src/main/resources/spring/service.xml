@@ -19,9 +19,9 @@
     xmlns:osgi="http://www.springframework.org/schema/osgi" xmlns:context="http://www.springframework.org/schema/context"
     xmlns:jaxrs="http://cxf.apache.org/jaxrs"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-	 http://www.springframework.org/schema/beans/spring-beans.xsd
-	 http://www.springframework.org/schema/context 
-	 http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context.xsd
      http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
     <!-- these are included in the dependency jar -->
@@ -33,6 +33,7 @@
         <!-- registering beans -->
         <jaxrs:serviceBeans>
             <ref bean="ipSecSvcRoaResource"></ref>
+            <ref bean="SwaggerRoaResource"></ref>
         </jaxrs:serviceBeans>
         <!-- registering providers -->
         <jaxrs:providers>
@@ -47,6 +48,8 @@
         <property name="wanSubInfSbiService" ref="wanSubInfSbiService"></property>
         <property name="neIpSecConnSbiService" ref="neIpSecConnSbiService"></property>
         <property name="dcGwIpSecConnSbiService" ref="dcGwIpSecConnSbiService"></property>
+    </bean>
+    <bean id="SwaggerRoaResource" class="org.openo.sdno.ipsecservice.rest.SwaggerRoa">
     </bean>
 
     <bean id="ipSecSvcRoaResource" class="org.openo.sdno.ipsecservice.rest.IpSecSvcRoaResource">
