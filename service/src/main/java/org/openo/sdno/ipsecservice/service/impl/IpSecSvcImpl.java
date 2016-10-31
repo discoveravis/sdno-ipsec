@@ -321,8 +321,7 @@ public class IpSecSvcImpl implements IpSecService {
 
         WanSubInterface currNeWanSubInf = deviceIdToWansubInfMap.get(acEndpointGroup.getDeviceId());
         dcGwIpSecConnection.setSourceAddress(vpcInfo.getRouterExternalIp());
-        dcGwIpSecConnection
-                .setPeerAddress(currNeWanSubInf.getIpAddress() + "/" + IpUtils.maskToPrefix(currNeWanSubInf.getMask()));
+        dcGwIpSecConnection.setPeerAddress(currNeWanSubInf.getIpAddress());
 
         IpsecMappingPolicy ipsecMappingPolicy = connection.getIpsecMappingPolicy();
         dcGwIpSecConnection.setAuthMode(ipsecMappingPolicy.getAuthMode());
