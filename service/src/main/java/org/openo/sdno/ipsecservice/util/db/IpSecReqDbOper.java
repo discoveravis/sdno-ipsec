@@ -94,9 +94,6 @@ public class IpSecReqDbOper {
         ipSecReqModelInfo.setActionState(ActionStatus.CREATING.getName());
         ipSecReqModelInfo.setConnectionId(CommonUtil.getIpSecConnection(overlayVpn).getUuid());
 
-        String requestJsonString = JsonUtil.toJson(overlayVpn);
-        ipSecReqModelInfo.setData(requestJsonString);
-
         new InventoryDaoUtil<IpSecReqModelInfo>().getInventoryDao().insert(ipSecReqModelInfo);
     }
 
