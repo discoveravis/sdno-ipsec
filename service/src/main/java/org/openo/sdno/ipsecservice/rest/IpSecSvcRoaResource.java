@@ -40,7 +40,6 @@ import org.openo.sdno.ipsecservice.util.exception.ThrowException;
 import org.openo.sdno.ipsecservice.util.operation.CommonUtil;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
 import org.openo.sdno.overlayvpn.consts.HttpCode;
-import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
 import org.openo.sdno.overlayvpn.model.common.enums.ActionStatus;
 import org.openo.sdno.overlayvpn.model.servicemodel.OverlayVpn;
 import org.openo.sdno.overlayvpn.result.ResultRsp;
@@ -166,13 +165,6 @@ public class IpSecSvcRoaResource {
             @PathParam("connectionid") String connectionId) throws ServiceException {
 
         long infterEnterTime = System.currentTimeMillis();
-
-        // query data
-        OverlayVpn overlayVpn = IpSecReqDbOper.query(connectionId);
-        if(null == overlayVpn) {
-            LOGGER.info("Exit delete method. cost time = " + (System.currentTimeMillis() - infterEnterTime));
-            return new ResultRsp<String>(ErrorCode.OVERLAYVPN_SUCCESS);
-        }
 
         // update actionState to exception firstly
         IpSecReqDbOper.update(connectionId, ActionStatus.DELETE_EXCEPTION.getName());
