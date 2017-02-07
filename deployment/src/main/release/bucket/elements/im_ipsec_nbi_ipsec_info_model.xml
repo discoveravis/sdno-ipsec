@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2016 Huawei Technologies Co., Ltd.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<inventory xmlns="http://www.w3school.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.w3school.com.cn inv-infomodule-1.0.xsd">
+    <infomodel name="ipsec_nbi_ipsec" datamodel="inv_ipsec_nbi_ipsec" version="1.0">
+        <!--basic property -->
+        <basic>
+            <property name="tenantId" type="string" length="255" />
+            <property name="name" type="string" length="255" />
+            <property name="description" type="string" length="255" />
+            <property name="additionalInfo" type="string" length="255" />
+            <property name="deployStatus" type="string" length="255" />
+            <property name="operationStatus" type="string" length="255" />
+            <property name="activeStatus" type="string" length="255" />
+            <property name="runningStatus" type="string" length="255" />
+            <property name="srcNeId" type="string" length="255" />
+            <property name="connectionId" type="string" length="255" />
+            <property name="srcNeRole" type="string" length="255" />
+            <property name="destNeRole" type="string" length="255" />
+            <property name="type" type="string" length="255" />
+            <property name="destNeId" type="string" length="255" />
+            <property name="srcPortName" type="string" length="255" />
+            <property name="destPortName" type="string" length="255" />
+            <property name="workType" type="string" length="255" />
+            <property name="protectionPolicy" type="string" length="255" />
+            <property name="nqa" type="string" length="255" />
+            <property name="ikePolicy" type="string" length="1024" />
+            <property name="ipsecPolicy" type="string" length="255" />
+            <property name="srcIsTemplateType" type="string" length="255" />
+            <property name="destIsTemplateType" type="string" length="255" />
+            <property name="ruleSrcPortName" type="string" length="255" />
+            <property name="ruleDestPortName" type="string" length="255" />
+            <property name="sourceLanCidrs" type="string" length="4096" />
+            <property name="destLanCidrs" type="string" length="4096" />
+            <property name="qosPreClassify" type="string" length="255" />
+            <property name="regionId" type="string" length="255" />
+        </basic>
+        <!-- extension -->
+        <extension>
+        </extension>
+    </infomodel>
+</inventory>
