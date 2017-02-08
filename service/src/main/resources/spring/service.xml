@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright 2016 Huawei Technologies Co., Ltd.
+    Copyright 2016-2017 Huawei Technologies Co., Ltd.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -32,12 +32,15 @@
     <jaxrs:server id="restContainer" address="/">
         <!-- registering beans -->
         <jaxrs:serviceBeans>
+            <ref bean="ipSecSite2DcRoaResource"></ref>
             <ref bean="ipSecSvcRoaResource"></ref>
             <ref bean="SwaggerRoaResource"></ref>
         </jaxrs:serviceBeans>
         <!-- registering providers -->
         <jaxrs:providers>
             <bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+            <bean class="org.openo.sdno.exception.GenericExceptionMapper" />
+            <bean class="org.openo.sdno.exception.ServiceExceptionMapper" />
         </jaxrs:providers>
     </jaxrs:server>
 
@@ -55,7 +58,8 @@
     <bean id="ipSecSvcRoaResource" class="org.openo.sdno.ipsecservice.rest.IpSecSvcRoaResource">
         <property name="ipSecService" ref="ipSecService"></property>
     </bean>
-
+    <bean id="ipSecSite2DcRoaResource" class="org.openo.sdno.ipsecservice.rest.IpSecSite2DcRoaResource">    
+    </bean>
     <bean id="IpSecRestModule" class="org.openo.sdno.ipsecservice.IpSecRestModule" init-method="start"
         destroy-method="stop">
     </bean>
