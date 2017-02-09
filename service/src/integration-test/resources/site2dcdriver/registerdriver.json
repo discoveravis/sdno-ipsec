@@ -1,0 +1,33 @@
+{
+	"request": {
+		"uri": "/openoapi/drivermgr/v1/drivers",
+		"method": "post",
+		"headers": {
+			"Content-Type": "application/json;charset=UTF-8",
+			"Accept": "application/json"
+		},
+		"json": {
+			"driverInfo": {
+				"driverName": "sdnoipsecdriver-0-1",
+				"instanceID": "sdnoipsecdriver-0-1",
+				"ip": "10.229.32.162",
+				"port": "12306",
+				"protocol": "http",
+				"services": [
+					{
+						"service_url": "/openoapi/sbi-ipsec/v1",
+						"support_sys": [
+							{
+								"type": "Agile Controller-BRANCH",
+								"version": "V200R002C00"
+							}
+						]
+					}
+				]
+			}
+		}
+	},
+	"response": {
+		"status": 201
+	}
+}

@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Controller1",
+        "category": "NE",
+        "vendor": "huawei",
+        "productName": "AcBranch",
+        "version": "V200R002C00",
+        "hostName": "10.144.98.13",
+        "slaveHostName": "10.10.10.10",
+        "regionId": "1",
+        "adminStatus": "enable",
+        "type": "Agile Controller-BRANCH",
+        "location": "shenzhenD2-F1",
+        "description": "abc",
+        "reserved": "dddd"
+    }
+]

@@ -1,0 +1,25 @@
+{
+	"request": {
+		"uri": "/openoapi/sbi-ipsec/v1/device/[a-zA-Z0-9\\-\\_]{1,36}/ipsecs/[a-zA-Z0-9\\-\\_]{1,36}/batch-delete-ipsec",
+		"method": "post",
+		"headers": {
+			"Content-Type": "application/json;charset=UTF-8"
+		}
+	},
+	"response": {
+		"status": 200,
+		"json": {
+			"errorCode": "overlayvpn.operation.success",
+			"descArg": "",
+			"reasonArg": "",
+			"detailArg": "",
+			"adviceArg": "",
+			"httpCode": 200,
+			"message": "",
+			"smallErrorCodeList": null,
+			"successed": null,
+			"fail": null,
+			"data": null
+		}
+	}
+}

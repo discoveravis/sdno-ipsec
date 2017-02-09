@@ -1,0 +1,16 @@
+[
+	{
+		"name": "Port01",
+		"meID": "NeId1",
+		"logicalType": "ETH",
+		"ipAddress": "192.123.1.1",
+		"ipMask": "24"
+	},
+	{
+		"name": "Port02",
+		"meID": "NeId2",
+		"logicalType": "ETH",
+		"ipAddress": "192.123.1.2",
+		"ipMask": "24"
+	}
+]

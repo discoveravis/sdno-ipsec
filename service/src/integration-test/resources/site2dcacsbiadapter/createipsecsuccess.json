@@ -1,0 +1,25 @@
+{
+    "request": {
+        "uri": "/openoapi/sbi-ipsec/v1/device/batch-create-ipsecs",
+        "method": "post",
+        "headers": {
+            "Content-Type": "application/json;charset=UTF-8"
+        }
+    },
+    "response": {
+        "status": 201,
+        "json": {
+            "errorCode": "overlayvpn.operation.success",
+            "descArg": "",
+            "reasonArg": "",
+            "detailArg": "",
+            "adviceArg": "",
+            "httpCode": 201,
+            "message": "",
+            "smallErrorCodeList": null,
+            "successed": null,
+            "fail": null,
+            "data": null
+        }
+    }
+}

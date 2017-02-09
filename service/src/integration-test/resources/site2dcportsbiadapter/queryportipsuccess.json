@@ -1,0 +1,28 @@
+{
+    "request": {
+        "uri": "/openoapi/sbi-ipsec/v1/device/[a-zA-Z0-9\\-\\_]{1,36}/ports",
+        "method": "get",
+        "headers": {
+            "Content-Type": "application/json;charset=UTF-8"
+        }
+    },
+    "response": {
+        "status": 201,
+        "json": {
+            "errorCode": "overlayvpn.operation.success",
+            "descArg": "",
+            "reasonArg": "",
+            "detailArg": "",
+            "adviceArg": "",
+            "httpCode": 201,
+            "message": "",
+            "smallErrorCodeList": null,
+            "successed": null,
+            "fail": null,
+            "data": {
+                "ipv4": "1.1.1.1",
+                "ipMask": "24"
+            }
+        }
+    }
+}
