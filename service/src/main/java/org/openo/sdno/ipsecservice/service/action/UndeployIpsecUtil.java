@@ -172,6 +172,9 @@ public class UndeployIpsecUtil {
 
     private static void undeployByAc(List<SbiNeIpSec> acActiveNeIpsecs, ResultRsp<SbiNeIpSec> acUndeployRsp)
             throws ServiceException {
+        if(CollectionUtils.isEmpty(acActiveNeIpsecs)) {
+            return;
+        }
         String ctrlId = acActiveNeIpsecs.get(0).getControllerId();
         String extIpsecId = acActiveNeIpsecs.get(0).getExternalIpSecId();
         String deviceId = acActiveNeIpsecs.get(0).getDeviceId();

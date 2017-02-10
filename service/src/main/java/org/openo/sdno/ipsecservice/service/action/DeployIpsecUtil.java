@@ -85,10 +85,12 @@ public class DeployIpsecUtil {
         fsDeployRsp.setSuccessed(new ArrayList<SbiNeIpSec>());
         fsDeployRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
 
-        CreateUtil.createByFs(fsInactiveNeIpsecs, fsDeployRsp);
-        if(!CollectionUtils.isEmpty(fsDeployRsp.getFail())) {
-            LOGGER.error("deploy fs failed. fail num = ", fsDeployRsp.getFail().size());
-            throw new InnerErrorServiceException("deploy failed!");
+        if(!CollectionUtils.isEmpty(fsInactiveNeIpsecs)) {
+            CreateUtil.createByFs(fsInactiveNeIpsecs, fsDeployRsp);
+            if(!CollectionUtils.isEmpty(fsDeployRsp.getFail())) {
+                LOGGER.error("deploy fs failed. fail num = ", fsDeployRsp.getFail().size());
+                throw new InnerErrorServiceException("deploy failed!");
+            }
         }
 
         fillLanCidrByFsRsp(activeNeIpsecs, acInactiveNeIpsecs, fsDeployRsp);
@@ -96,10 +98,12 @@ public class DeployIpsecUtil {
         ResultRsp<SbiNeIpSec> acDeployRsp = new ResultRsp<SbiNeIpSec>();
         acDeployRsp.setSuccessed(activeNeIpsecs);
         acDeployRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
-        CreateUtil.createByAc(acInactiveNeIpsecs, acDeployRsp);
-        if(!CollectionUtils.isEmpty(acDeployRsp.getFail())) {
-            LOGGER.error("deploy ac failed. fail num = ", acDeployRsp.getFail().size());
-            throw new InnerErrorServiceException("deploy failed!");
+        if(!CollectionUtils.isEmpty(acInactiveNeIpsecs)) {
+            CreateUtil.createByAc(acInactiveNeIpsecs, acDeployRsp);
+            if(!CollectionUtils.isEmpty(acDeployRsp.getFail())) {
+                LOGGER.error("deploy ac failed. fail num = ", acDeployRsp.getFail().size());
+                throw new InnerErrorServiceException("deploy failed!");
+            }
         }
 
         ResultRsp<NbiIpSec> deployRsp =
