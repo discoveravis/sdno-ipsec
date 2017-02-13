@@ -31,22 +31,28 @@ import org.openo.sdno.framework.container.service.IResource;
 import org.springframework.stereotype.Service;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * The health check rest interface of IpSec.<br/>
  * 
  * @author
  * @version SDNO 0.5 Feb 13, 2017
  */
 @Service
-@Path("/openoapi/sdnoipsec/v1/healthcheck")
+@Path("/sdnoipsec/v1/healthcheck")
 public class IpSecHealthCheckResource extends IResource {
 
     @Override
     public String getResUri() {
-        return "/openoapi/sdnoipsec/v1/healthcheck";
+        return "/sdnoipsec/v1/healthcheck";
     }
 
+    /**
+     * Health check api.<br/>
+     * 
+     * @param req Http request
+     * @param resp Http response
+     * @throws ServiceException when health check failed
+     * @since SDNO 0.5
+     */
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
