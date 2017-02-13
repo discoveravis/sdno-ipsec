@@ -32,6 +32,7 @@
     <jaxrs:server id="restContainer" address="/">
         <!-- registering beans -->
         <jaxrs:serviceBeans>
+            <ref bean="ipSecHealthCheckResource"></ref>
             <ref bean="ipSecSite2DcRoaResource"></ref>
             <ref bean="ipSecSvcRoaResource"></ref>
             <ref bean="SwaggerRoaResource"></ref>
@@ -59,6 +60,8 @@
         <property name="ipSecService" ref="ipSecService"></property>
     </bean>
     <bean id="ipSecSite2DcRoaResource" class="org.openo.sdno.ipsecservice.rest.IpSecSite2DcRoaResource">    
+    </bean>
+    <bean id="ipSecHealthCheckResource" class="org.openo.sdno.ipsecservice.rest.IpSecHealthCheckResource">    
     </bean>
     <bean id="IpSecRestModule" class="org.openo.sdno.ipsecservice.IpSecRestModule" init-method="start"
         destroy-method="stop">
