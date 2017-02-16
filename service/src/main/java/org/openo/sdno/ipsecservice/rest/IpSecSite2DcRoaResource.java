@@ -77,9 +77,8 @@ public class IpSecSite2DcRoaResource extends IResource {
      * Rest interface to perform query IpSec operation. <br>
      * 
      * @param req HttpServletRequest Object
-     * @param resp HttpServletResponse Object
-     * @param connectionId The UUID of connection
-     * @return The object of ResultRsp
+     * @param ipsecConnectionId The UUID of ipsec connection
+     * @return The object of NbiIpSec
      * @throws ServiceException When query IpSec failed
      * @since SDNO 0.5
      */
@@ -104,7 +103,7 @@ public class IpSecSite2DcRoaResource extends IResource {
      * 
      * @param req HttpServletRequest Object
      * @param resp HttpServletResponse Object
-     * @param overlayVpn The object of OverlayVpn that contain IpSec
+     * @param ipsecs List of ipsec to be created
      * @return The object of ResultRsp
      * @throws ServiceException When create IpSec failed
      * @since SDNO 0.5
@@ -131,6 +130,15 @@ public class IpSecSite2DcRoaResource extends IResource {
         throw new InnerErrorServiceException("create failed!");
     }
 
+    /**
+     * Rest interface to delete ipsec.<br/>
+     * 
+     * @param req HttpServletRequest Object
+     * @param ipsecId Uuid of ipsec to be deleted
+     * @return Uuid of ipsec
+     * @throws ServiceException when delete ipsec failed
+     * @since SDNO 0.5
+     */
     @DELETE
     @Path("/{ipsecConnectionId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -156,6 +164,15 @@ public class IpSecSite2DcRoaResource extends IResource {
         return ipsecId;
     }
 
+    /**
+     * Rest interface to batch query ipsec.<br/>
+     * 
+     * @param req HttpServletRequest Object
+     * @param ids List of uuids to be queried
+     * @return List of NbiIpSec objects
+     * @throws ServiceException when batch query failed
+     * @since SDNO 0.5
+     */
     @POST
     @Path("/batch-query")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -187,6 +204,15 @@ public class IpSecSite2DcRoaResource extends IResource {
         return result.getData();
     }
 
+    /**
+     * Rest interface to update ipsec.<br/>
+     * 
+     * @param req HttpServletRequest Object
+     * @param nbiIpsecs List of nbi ipsec objects to be updated
+     * @return List of NbiIpSec objects
+     * @throws ServiceException when update failed
+     * @since SDNO 0.5
+     */
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -202,6 +228,15 @@ public class IpSecSite2DcRoaResource extends IResource {
         return nbiIpsecs;
     }
 
+    /**
+     * Rest interface to deploy or undeploy ipsec.<br/>
+     * 
+     * @param req HttpServletRequest Object
+     * @param actionModel Object contains uuids of ipsec to be deploy or undeploy
+     * @return List of uuids
+     * @throws ServiceException when deploy or undeploy failed
+     * @since SDNO 0.5
+     */
     @POST
     @Path("/action")
     @Consumes(MediaType.APPLICATION_JSON)

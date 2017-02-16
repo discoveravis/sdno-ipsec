@@ -27,9 +27,7 @@ import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiNeIpSec;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of model transfer util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 10, 2017
@@ -39,6 +37,14 @@ public class NbiModelToSbiModel {
     private NbiModelToSbiModel() {
     }
 
+    /**
+     * Transfer nbi model to sbi.<br/>
+     * 
+     * @param ipsecConnections list of nbi ipsecs
+     * @param deviceIdToCtrollMap map of device id and controller id
+     * @return list of sbi ipsecs
+     * @since SDNO 0.5
+     */
     public static List<SbiNeIpSec> convertToNeIpsec(List<NbiIpSec> ipsecConnections,
             Map<String, String> deviceIdToCtrollMap) {
         List<SbiNeIpSec> sbiNeIpSecs = new ArrayList<SbiNeIpSec>();

@@ -51,9 +51,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Undeploy ipsec util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 15, 2017
@@ -67,11 +65,11 @@ public class UndeployIpsecUtil {
     }
 
     /**
-     * <br/>
+     * Undeploy ipsec connections.<br/>
      * 
-     * @param undeploy
-     * @return
-     * @throws ServiceException
+     * @param ipsecIds uuids of ipsec to be undeploy
+     * @return List of uuids
+     * @throws ServiceException when undeploy failed
      * @since SDNO 0.5
      */
     public static List<String> doUndeploy(List<String> ipsecIds) throws ServiceException {

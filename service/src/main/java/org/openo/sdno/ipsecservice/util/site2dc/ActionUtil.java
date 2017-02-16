@@ -30,9 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of deploy and undeploy util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 13, 2017
@@ -44,6 +42,15 @@ public class ActionUtil {
     private ActionUtil() {
     }
 
+    /**
+     * Check data and query sbi data in db.<br/>
+     * 
+     * @param ipsecIds list of ipsec uuids
+     * @param nbiIpsecs list of nbi ipsecs
+     * @return list of sbi ipsecs
+     * @throws ServiceException when operate failed
+     * @since SDNO 0.5
+     */
     public static List<SbiNeIpSec> checkDataAndQueryIpsecInDb(List<String> ipsecIds, List<NbiIpSec> nbiIpsecs)
             throws ServiceException {
 

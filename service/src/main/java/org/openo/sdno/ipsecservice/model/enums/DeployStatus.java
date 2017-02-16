@@ -17,9 +17,7 @@
 package org.openo.sdno.ipsecservice.model.enums;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Enumeration class of deploy status.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 11, 2017
@@ -36,6 +34,12 @@ public enum DeployStatus {
         this.value = value;
     }
 
+    /**
+     * Get name of enumeration.<br/>
+     * 
+     * @return enumeration name
+     * @since SDNO 0.5
+     */
     public String getName() {
         switch(value) {
             case 0:

@@ -17,9 +17,7 @@
 package org.openo.sdno.ipsecservice.model.consts;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of Sbi adapter url.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 9, 2017

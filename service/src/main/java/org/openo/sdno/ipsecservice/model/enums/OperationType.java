@@ -17,9 +17,7 @@
 package org.openo.sdno.ipsecservice.model.enums;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Enumeration class of operation type.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 12, 2017

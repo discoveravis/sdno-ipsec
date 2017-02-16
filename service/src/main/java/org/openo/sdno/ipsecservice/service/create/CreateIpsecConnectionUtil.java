@@ -60,9 +60,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Create ipsec connection util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 7, 2017
@@ -74,6 +72,15 @@ public class CreateIpsecConnectionUtil {
     private CreateIpsecConnectionUtil() {
     }
 
+    /**
+     * Create ipsec connections.<br/>
+     * 
+     * @param req HttpServletRequest Object
+     * @param nbiIpsecs List of ipsec to be created
+     * @return result of creation
+     * @throws ServiceException when create failed
+     * @since SDNO 0.5
+     */
     public static ResultRsp<NbiIpSec> doCreate(@Context HttpServletRequest req, List<NbiIpSec> nbiIpsecs)
             throws ServiceException {
         long beginTime = System.currentTimeMillis();
@@ -99,6 +106,14 @@ public class CreateIpsecConnectionUtil {
 
     }
 
+    /**
+     * Process input Nbi ipsec objects, generate uuid and fill policy.<br/>
+     * 
+     * @param ipsecs List of ipsec
+     * @return List of ipsec objects
+     * @throws ServiceException when process failed
+     * @since SDNO 0.5
+     */
     public static List<NbiIpSec> getGreTunnelList(List<NbiIpSec> ipsecs) throws ServiceException {
 
         if(CollectionUtils.isEmpty(ipsecs)) {

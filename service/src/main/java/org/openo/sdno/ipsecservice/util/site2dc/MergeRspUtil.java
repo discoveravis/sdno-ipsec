@@ -36,9 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of merge result util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 12, 2017
@@ -50,6 +48,18 @@ public class MergeRspUtil {
     private MergeRspUtil() {
     }
 
+    /**
+     * Merge result of creation.<br/>
+     * 
+     * @param nbiTunnels list of nbi ipsecs
+     * @param createSbiNeTunnels list of sbi ipsecs
+     * @param acCreateRsp result of ac
+     * @param fsCreateRsp result of fs
+     * @param operType operation type
+     * @return operation result
+     * @throws ServiceException when merge failed
+     * @since SDNO 0.5
+     */
     public static ResultRsp<NbiIpSec> mergeAllCreateRsp(List<NbiIpSec> nbiTunnels, List<SbiNeIpSec> createSbiNeTunnels,
             ResultRsp<SbiNeIpSec> acCreateRsp, ResultRsp<SbiNeIpSec> fsCreateRsp, OperationType operType)
             throws ServiceException {

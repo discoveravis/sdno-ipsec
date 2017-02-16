@@ -48,9 +48,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Deploy ipsec util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 13, 2017
@@ -63,6 +61,15 @@ public class DeployIpsecUtil {
 
     }
 
+    /**
+     * Deploy ipsec connections.<br/>
+     * 
+     * @param req HttpServletRequest Object
+     * @param ipsecIds uuids of ipsec to be deploy
+     * @return List of uuids
+     * @throws ServiceException when deploy failed
+     * @since SDNO 0.5
+     */
     public static final List<String> doDeploy(HttpServletRequest req, List<String> ipsecIds) throws ServiceException {
         List<NbiIpSec> nbiIpsecs = new ArrayList<NbiIpSec>();
         List<SbiNeIpSec> sbiNeIpsecs = checkDataAndGetSbiNeIpsec(ipsecIds, nbiIpsecs);

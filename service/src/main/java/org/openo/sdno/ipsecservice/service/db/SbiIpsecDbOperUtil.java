@@ -36,9 +36,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of Sbi ipsec db operation util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 11, 2017
@@ -50,6 +48,13 @@ public class SbiIpsecDbOperUtil {
     private SbiIpsecDbOperUtil() {
     }
 
+    /**
+     * Insert Sbi ipsec data to db.<br/>
+     * 
+     * @param newSbiNeIpsecs List of sbi ipsec objects
+     * @throws ServiceException when insert data failed
+     * @since SDNO 0.5
+     */
     public static void insertNeIpsecList(List<SbiNeIpSec> newSbiNeIpsecs) throws ServiceException {
         InventoryDao<SbiNeIpSec> greTunnelDao = new InventoryDaoUtil<SbiNeIpSec>().getInventoryDao();
 
@@ -80,10 +85,10 @@ public class SbiIpsecDbOperUtil {
     }
 
     /**
-     * <br/>
+     * Delete Sbi ipsec data in db.<br/>
      * 
-     * @param sbiNeIpSecs
-     * @throws ServiceException
+     * @param sbiNeIpSecs List of sbi ipsec objects
+     * @throws ServiceException when delete failed
      * @since SDNO 0.5
      */
     public static void deleteNeIpsecList(List<SbiNeIpSec> sbiNeIpSecs) throws ServiceException {

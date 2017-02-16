@@ -44,9 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of port utils.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 9, 2017
@@ -62,6 +60,17 @@ public class PortUtil {
     private PortUtil() {
     }
 
+    /**
+     * Query port's Ip in db and sbi adapter.<br/>
+     * 
+     * @param deviceIdToNeMap Map of device id and ne
+     * @param deviceIdPortNameToPortNameMap Map of device id and port name
+     * @param nbiIpsecs List of Nbi ipsecs
+     * @param deviceIdToCtrollMap Map of device id and controller id
+     * @return Map of device id, port name and Ip.
+     * @throws ServiceException when query Ip failed
+     * @since SDNO 0.5
+     */
     public static Map<String, SbiIp> getPortIpMap(Map<String, NetworkElementMO> deviceIdToNeMap,
             Map<String, String> deviceIdPortNameToPortNameMap, List<NbiIpSec> nbiIpsecs,
             Map<String, String> deviceIdToCtrollMap) throws ServiceException {

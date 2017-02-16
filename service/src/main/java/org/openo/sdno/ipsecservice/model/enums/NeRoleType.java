@@ -34,6 +34,12 @@ public enum NeRoleType {
 
     }
 
+    /**
+     * Get name of enumeration.<br/>
+     * 
+     * @return enumeration name
+     * @since SDNO 0.5
+     */
     public String getName() {
         switch(value) {
             case 0:

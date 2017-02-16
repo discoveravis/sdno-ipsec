@@ -44,9 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of update ipsec util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 15, 2017
@@ -58,6 +56,13 @@ public class UpdateService {
     private UpdateService() {
     }
 
+    /**
+     * Update ipsec.<br/>
+     * 
+     * @param nbiIpsecs List of Nbi ipsec objects
+     * @throws ServiceException when update failed
+     * @since SDNO 0.5
+     */
     public static void doUpdate(List<NbiIpSec> nbiIpsecs) throws ServiceException {
 
         Set<String> uuids = checkData(nbiIpsecs);

@@ -35,9 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of allocate external Id resource util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 10, 2017
@@ -49,6 +47,13 @@ public class AllocateResUtil {
     private AllocateResUtil() {
     }
 
+    /**
+     * Allocate external id for ipsec.<br/>
+     * 
+     * @param sbiNeIpsecList list of Sbi ipsec objects
+     * @throws ServiceException when allocate id failed
+     * @since SDNO 0.5
+     */
     public static void allocateExternalId(List<SbiNeIpSec> sbiNeIpsecList) throws ServiceException {
         Map<String, String> neIdToSecIdMap = new HashMap<String, String>();
         Map<String, String> templateIdToSeqNum = new HashMap<String, String>();
@@ -100,6 +105,14 @@ public class AllocateResUtil {
         }
     }
 
+    /**
+     * Free serial number.<br/>
+     * 
+     * @param neIdPortName ne id and port name
+     * @param seqNum serial number
+     * @throws ServiceException when free resource failed
+     * @since SDNO 0.5
+     */
     public static void freeSeqNum(String neIdPortName, String seqNum) throws ServiceException {
         LOGGER.info("free SeqNum strat");
         ResourcesUtil.freeGlobalValueList(neIdPortName + "-ipsec", "ipsec", Arrays.asList(Long.valueOf(seqNum)));

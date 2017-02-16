@@ -31,9 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of update status util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 12, 2017
@@ -45,6 +43,15 @@ public class UpdateStatusUtil {
     private UpdateStatusUtil() {
     }
 
+    /**
+     * Update status of nbi data.<br/>
+     * 
+     * @param nbiIpsecs list of nbi ipsecs
+     * @param sbiNeTunnels list of sbi ipsecs
+     * @param operType operation type
+     * @throws ServiceException when update failed
+     * @since SDNO 0.5
+     */
     public static void updateNbiIpsecs(List<NbiIpSec> nbiIpsecs, List<SbiNeIpSec> sbiNeTunnels, OperationType operType)
             throws ServiceException {
         for(NbiIpSec tmpNbiTunnel : nbiIpsecs) {

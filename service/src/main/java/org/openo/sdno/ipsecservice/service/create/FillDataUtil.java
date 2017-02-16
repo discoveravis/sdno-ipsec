@@ -32,9 +32,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Fill data util class.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 7, 2017
@@ -46,6 +44,13 @@ public class FillDataUtil {
     private FillDataUtil() {
     }
 
+    /**
+     * Fill policy in Nbi model.<br/>
+     * 
+     * @param ipsecs List of Nbi ipsec objects
+     * @throws ServiceException when fill data failed
+     * @since SDNO 0.5
+     */
     public static void fillPolicy(List<NbiIpSec> ipsecs) throws ServiceException {
         for(NbiIpSec nbiIpSec : ipsecs) {
             try {
@@ -71,6 +76,15 @@ public class FillDataUtil {
         }
     }
 
+    /**
+     * Fill source ne data.<br/>
+     * 
+     * @param neIdPortNameToPortNameMap Map of ne id and port name
+     * @param neIdSet Set of ne id
+     * @param temGreTunnel Nbi ipsec
+     * @return ne id
+     * @since SDNO 0.5
+     */
     public static String fillSrcNeData(Map<String, String> neIdPortNameToPortNameMap, Set<String> neIdSet,
             NbiIpSec temGreTunnel) {
 
@@ -83,6 +97,15 @@ public class FillDataUtil {
         return srcNeId;
     }
 
+    /**
+     * Fill dest ne data.<br/>
+     * 
+     * @param neIdPortNameToPortNameMap Map of ne id and port name
+     * @param neIdSet Set of ne id
+     * @param temGreTunnel Nbi ipsec
+     * @return ne id
+     * @since SDNO 0.5
+     */
     public static String fillDestNeData(Map<String, String> neIdPortNameToPortNameMap, Set<String> neIdSet,
             NbiIpSec temGreTunnel) {
 
@@ -95,6 +118,15 @@ public class FillDataUtil {
         return destNeId;
     }
 
+    /**
+     * Fill device id and ip in Nbi model.<br/>
+     * 
+     * @param deviceIdPortNameToIpMap Map of device id and port name
+     * @param greTunnel Nbi ipsec model
+     * @param srcDeviceId source device id
+     * @param destDeviceId dest device id
+     * @since SDNO 0.5
+     */
     public static void fillDeviceIdAndIp(Map<String, SbiIp> deviceIdPortNameToIpMap, NbiIpSec greTunnel,
             String srcDeviceId, String destDeviceId) {
         greTunnel.setSrcDeviceId(srcDeviceId);

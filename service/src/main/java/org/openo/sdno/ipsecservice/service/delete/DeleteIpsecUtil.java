@@ -36,9 +36,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of delete ipsec utils.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 14, 2017
@@ -50,6 +48,14 @@ public class DeleteIpsecUtil {
     private DeleteIpsecUtil() {
     }
 
+    /**
+     * Query Nbi ipsec data in db.<br/>
+     * 
+     * @param ipsecId uuid of ipsec
+     * @return Nbi data
+     * @throws ServiceException when query failed
+     * @since SDNO 0.5
+     */
     public static NbiIpSec getNbiData(String ipsecId) throws ServiceException {
         if(!UuidUtil.validate(ipsecId)) {
             LOGGER.error("delete ipsec fail.invalid id: ", ipsecId);
@@ -68,6 +74,14 @@ public class DeleteIpsecUtil {
         return NbiIpsecs.get(0);
     }
 
+    /**
+     * Query Sbi ipsec data in db.<br/>
+     * 
+     * @param nbiIpSec Nbi ipsec object
+     * @return List of sbi ipsec objects
+     * @throws ServiceException when query failed
+     * @since SDNO 0.5
+     */
     public static List<SbiNeIpSec> getSbiData(NbiIpSec nbiIpSec) throws ServiceException {
         List<String> uuids = new ArrayList<String>();
         uuids.add(nbiIpSec.getUuid());
@@ -78,11 +92,11 @@ public class DeleteIpsecUtil {
     }
 
     /**
-     * <br/>
+     * Delete ipsec data.<br/>
      * 
-     * @param nbiIpsec
-     * @param sbiNeIpSecs
-     * @throws ServiceException
+     * @param nbiIpsec Nbi ipsec object
+     * @param sbiNeIpSecs List of sbi ipsec objects
+     * @throws ServiceException when delete failed
      * @since SDNO 0.5
      */
     public static void delData(NbiIpSec nbiIpsec, List<SbiNeIpSec> sbiNeIpSecs) throws ServiceException {

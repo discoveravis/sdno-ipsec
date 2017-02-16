@@ -23,9 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of restful transfer util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 11, 2017
@@ -39,6 +37,15 @@ public class RestTransferUtil {
     private RestTransferUtil() {
     }
 
+    /**
+     * Transfer response.<br/>
+     * 
+     * @param responseJons Json string
+     * @param responseClass response class.
+     * @return transfer result
+     * @throws ServiceException when transfer failed
+     * @since SDNO 0.5
+     */
     public static <T> T transferResponse(String responseJons, Class<T> responseClass) throws ServiceException {
         try {
             return MAPPER.readValue(responseJons, responseClass);
@@ -48,6 +55,14 @@ public class RestTransferUtil {
         }
     }
 
+    /**
+     * Transfer request.<br/>
+     * 
+     * @param pojoObject object
+     * @return transfer result
+     * @throws ServiceException when transfer failed
+     * @since SDNO 0.5
+     */
     public static String transferRequest(Object pojoObject) throws ServiceException {
         try {
             return MAPPER.writeValueAsString(pojoObject);

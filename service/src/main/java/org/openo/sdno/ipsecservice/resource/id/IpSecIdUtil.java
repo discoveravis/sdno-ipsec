@@ -27,9 +27,7 @@ import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.springframework.util.CollectionUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of ipsec Id utils.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 10, 2017
@@ -40,6 +38,13 @@ public class IpSecIdUtil {
 
     }
 
+    /**
+     * Alloc ipsec uuid.<br/>
+     * 
+     * @param ipsecCons List of Nbi ipsecs
+     * @return List of uuids
+     * @since SDNO 0.5
+     */
     public static List<String> allocTunnelListUuid(List<NbiIpSec> ipsecCons) {
         List<String> inputUuidList = new ArrayList<String>();
         if(CollectionUtils.isEmpty(ipsecCons)) {
@@ -57,6 +62,13 @@ public class IpSecIdUtil {
         return inputUuidList;
     }
 
+    /**
+     * Re create uuids for these conflict uuids which are created in this service<br/>
+     * 
+     * @param newTunnels Nbi ipsecs to be created
+     * @param dbTunnels ipsecs in db
+     * @since SDNO 0.5
+     */
     public static void reAllocTunnelListId(List<NbiIpSec> newTunnels, List<NbiIpSec> dbTunnels) {
         if(CollectionUtils.isEmpty(dbTunnels) || CollectionUtils.isEmpty(newTunnels)) {
             return;

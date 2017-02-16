@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
+ * Class of query ipsec util.<br/>
  * <p>
  * </p>
  * 
@@ -43,6 +43,14 @@ public class QueryIpSecService {
     private QueryIpSecService() {
     }
 
+    /**
+     * Query ipsec connection.<br/>
+     * 
+     * @param ipSecConnectionId uuid of ipsec
+     * @return query result
+     * @throws ServiceException when query failed
+     * @since SDNO 0.5
+     */
     public static ResultRsp<NbiIpSec> queryIpsecConnection(String ipSecConnectionId) throws ServiceException {
         NbiIpSec ipsecCon = new InventoryDaoUtil<NbiIpSec>().getInventoryDao()
                 .query(NbiIpSec.class, ipSecConnectionId, null).getData();
@@ -54,6 +62,14 @@ public class QueryIpSecService {
         return new ResultRsp<NbiIpSec>(ErrorCode.OVERLAYVPN_SUCCESS, ipsecCon);
     }
 
+    /**
+     * Batch query ipsec connections.<br/>
+     * 
+     * @param ids List of uuids
+     * @return query result
+     * @throws ServiceException when query failed
+     * @since SDNO 0.5
+     */
     public static ResultRsp<List<NbiIpSec>> queryIpsecConnection(List<String> ids) throws ServiceException {
         List<NbiIpSec> ipsecCons = new InventoryDaoUtil<NbiIpSec>().getInventoryDao()
                 .batchQuery(NbiIpSec.class, FilterDataUtil.getFilterData("uuid", ids)).getData();

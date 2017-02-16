@@ -35,9 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of check ipsec util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 11, 2017
@@ -49,6 +47,16 @@ public class CheckIpsecConCreateUtil {
     private CheckIpsecConCreateUtil() {
     }
 
+    /**
+     * Check ipsec has been created or not.<br/>
+     * 
+     * @param acSbiNeIpsecList list of ac sbi ipsec objects
+     * @param fsSbiNeIpsecList list of fs sbi ipsec objects
+     * @param fsCreateList list of created fs ipsecs
+     * @param acCreateList list of created ac ipsecs
+     * @throws ServiceException when check failed
+     * @since SDNO 0.5
+     */
     public static void checkIpsecConnIsCreated(List<SbiNeIpSec> acSbiNeIpsecList, List<SbiNeIpSec> fsSbiNeIpsecList,
             List<SbiNeIpSec> fsCreateList, List<SbiNeIpSec> acCreateList) throws ServiceException {
         Set<String> neIdSet = new HashSet<String>();

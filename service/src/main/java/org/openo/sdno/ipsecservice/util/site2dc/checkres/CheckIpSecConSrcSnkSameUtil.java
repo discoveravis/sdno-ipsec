@@ -24,9 +24,7 @@ import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiIp;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiNeIpSec;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of Sbi ipsec data check util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 11, 2017
@@ -36,6 +34,16 @@ public class CheckIpSecConSrcSnkSameUtil {
     private CheckIpSecConSrcSnkSameUtil() {
     }
 
+    /**
+     * Check the ne id and ip are same or not.<br/>
+     * 
+     * @param activeIpsecs List of sbi ipsecs
+     * @param iter iter
+     * @param sbiNeIpSec sbi ipsec object
+     * @param dbSbiNeIpSec sbi ipsec object in db
+     * @return result of check
+     * @since SDNO 0.5
+     */
     public static boolean checkSrcSnkSame(List<SbiNeIpSec> activeIpsecs, Iterator<SbiNeIpSec> iter,
             SbiNeIpSec sbiNeIpSec, SbiNeIpSec dbSbiNeIpSec) {
         if(checkNeIdSame(sbiNeIpSec, dbSbiNeIpSec) && isIpSame(sbiNeIpSec, dbSbiNeIpSec)) {

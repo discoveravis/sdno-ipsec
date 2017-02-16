@@ -28,9 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of check controller util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 9, 2017
@@ -42,6 +40,13 @@ public class CheckControllerUtil {
     private CheckControllerUtil() {
     }
 
+    /**
+     * Build a map of ne id and controller id.<br/>
+     * 
+     * @param neMoList List of nes
+     * @return map of ne id and controller id
+     * @since SDNO 0.5
+     */
     public static Map<String, String> testCtrlConnection(List<NetworkElementMO> neMoList) {
         Map<String, List<NetworkElementMO>> ctrlIdToNeMosMap = buildCtrlIdToNeMosMap(neMoList);
 

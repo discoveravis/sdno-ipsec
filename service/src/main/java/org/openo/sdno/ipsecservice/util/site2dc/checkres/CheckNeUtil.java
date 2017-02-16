@@ -33,9 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Class of ne check util.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 9, 2017
@@ -47,6 +45,15 @@ public class CheckNeUtil {
     private CheckNeUtil() {
     }
 
+    /**
+     * Check ne resource.<br/>
+     * 
+     * @param neIdSet set of ne ids
+     * @param deviceIdToNeMap map of device id and ne
+     * @param ipsecCons list of ipsecs
+     * @throws ServiceException when check failed
+     * @since SDNO 0.5
+     */
     public static void checkNesResource(Set<String> neIdSet, Map<String, NetworkElementMO> deviceIdToNeMap,
             List<NbiIpSec> ipsecCons) throws ServiceException {
         List<NetworkElementMO> queryedNeMos = new ArrayList<NetworkElementMO>();
@@ -91,11 +98,11 @@ public class CheckNeUtil {
     }
 
     /**
-     * <br/>
+     * Check ne and fill sbi objects.<br/>
      * 
-     * @param neIds
-     * @param sbiNeIpsecs
-     * @throws ServiceException
+     * @param neIds set of ne ids
+     * @param sbiNeIpsecs list of sbi ipsecs
+     * @throws ServiceException when operate failed
      * @since SDNO 0.5
      */
     @SuppressWarnings("null")

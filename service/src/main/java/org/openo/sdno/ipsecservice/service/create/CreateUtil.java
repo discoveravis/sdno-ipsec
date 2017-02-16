@@ -46,9 +46,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <br/>
- * <p>
- * </p>
+ * Create ipsec utils.<br/>
  * 
  * @author
  * @version SDNO 0.5 Jan 9, 2017
@@ -60,6 +58,14 @@ public class CreateUtil {
     private CreateUtil() {
     }
 
+    /**
+     * Create ipsec in Fs.<br/>
+     * 
+     * @param sbiNeIpsecList List of Sbi ipsec objects
+     * @param fsCreateResult Result object of creation
+     * @throws ServiceException when create failed
+     * @since SDNO 0.5
+     */
     public static void createByFs(List<SbiNeIpSec> sbiNeIpsecList, ResultRsp<SbiNeIpSec> fsCreateResult)
             throws ServiceException {
 
@@ -72,6 +78,14 @@ public class CreateUtil {
         }
     }
 
+    /**
+     * Fill map of device id and controller id.<br/>
+     * 
+     * @param deviceIdToNeMap Map of device id and ne
+     * @param deviceIdToCtrollMap Map of device id and controller id
+     * @param neIdToControllerMapRs Map of ne id and controller id
+     * @since SDNO 0.5
+     */
     public static void fillDeviceIdToCtrlMap(Map<String, NetworkElementMO> deviceIdToNeMap,
             Map<String, String> deviceIdToCtrollMap, Map<String, String> neIdToControllerMapRs) {
         for(Entry<String, NetworkElementMO> entry : deviceIdToNeMap.entrySet()) {
@@ -83,6 +97,14 @@ public class CreateUtil {
         }
     }
 
+    /**
+     * Fill map of device id and port name.<br/>
+     * 
+     * @param neIdPortNameToPortNameMap Map of ne id and port name
+     * @param deviceIdPortNameToPortNameMap Map of device id and port name
+     * @param deviceIdToNeMap Map of device id and ne
+     * @since SDNO 0.5
+     */
     public static void fillDeviceIdToPortMap(Map<String, String> neIdPortNameToPortNameMap,
             Map<String, String> deviceIdPortNameToPortNameMap, Map<String, NetworkElementMO> deviceIdToNeMap) {
         for(Entry<String, String> neEntry : neIdPortNameToPortNameMap.entrySet()) {
@@ -97,6 +119,14 @@ public class CreateUtil {
 
     }
 
+    /**
+     * Fill Sbi ipsecs of Ac by response of Fs.<br/>
+     * 
+     * @param acSbiNeIpsecList List of Ac Sbi ipsec objects
+     * @param fsCreateResult Result object of creation
+     * @throws ServiceException when fill data failed
+     * @since SDNO 0.5
+     */
     public static void fillDataByFsRsp(List<SbiNeIpSec> acSbiNeIpsecList, ResultRsp<SbiNeIpSec> fsCreateResult)
             throws ServiceException {
 
@@ -113,6 +143,14 @@ public class CreateUtil {
                 "sourceAddress, sourceLanCidrs,additionalInfo");
     }
 
+    /**
+     * Fill vpc Lan cidr in Nbi ipsec objects.<br/>
+     * 
+     * @param nbiIpsecs List of Nbi ipsec objects
+     * @param fsCreateResult Result object of creation
+     * @throws ServiceException when fill data failed
+     * @since SDNO 0.5
+     */
     public static void fillVpcLanCidrToNbi(List<NbiIpSec> nbiIpsecs, ResultRsp<SbiNeIpSec> fsCreateResult)
             throws ServiceException {
         if(CollectionUtils.isEmpty(fsCreateResult.getSuccessed()) || CollectionUtils.isEmpty(nbiIpsecs)) {
@@ -142,6 +180,13 @@ public class CreateUtil {
 
     }
 
+    /**
+     * Set Ac Sbi ipsec object's operation status.<br/>
+     * 
+     * @param sbiNeTunnels List of Sbi ipsec objects
+     * @throws ServiceException when set status failed
+     * @since SDNO 0.5
+     */
     public static void setAcSbiIpSecOperStatus(List<SbiNeIpSec> sbiNeTunnels) throws ServiceException {
         for(SbiNeIpSec tmpSbiIpsec : sbiNeTunnels) {
             if(NeRoleType.VPC.getName().equals(tmpSbiIpsec.getLocalNeRole())
@@ -154,6 +199,14 @@ public class CreateUtil {
         }
     }
 
+    /**
+     * Create ipsec in Ac.<br/>
+     * 
+     * @param sbiNeIpsecList List of Sbi ipsec objects
+     * @param AcCreateResult Result object of creation
+     * @throws ServiceException when create failed
+     * @since SDNO 0.5
+     */
     public static void createByAc(List<SbiNeIpSec> sbiNeIpsecList, ResultRsp<SbiNeIpSec> AcCreateResult)
             throws ServiceException {
         ResultRsp<SbiNeIpSec> createRst = createSbiNeIpsecToAc(sbiNeIpsecList);
