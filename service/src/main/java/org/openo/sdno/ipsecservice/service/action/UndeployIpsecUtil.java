@@ -160,11 +160,11 @@ public class UndeployIpsecUtil {
                 return;
             } catch(ServiceException e) {
                 LOGGER.error("undeployByFs exception. e: ", e);
-                throw new InnerErrorServiceException("undeployByFs failed!");
+                throw new InnerErrorServiceException("undeployByFs failed");
             }
         } else {
             LOGGER.error("undeployByFs fail.  response is: " + JsonUtil.toJson(rsp));
-            throw new InnerErrorServiceException("undeployByFs failed!");
+            throw new InnerErrorServiceException("undeployByFs failed!Rsp status is not success.");
         }
     }
 

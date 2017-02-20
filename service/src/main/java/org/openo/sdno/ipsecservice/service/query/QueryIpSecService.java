@@ -59,7 +59,7 @@ public class QueryIpSecService {
             throw new InnerErrorServiceException("query IpsecConnection.IpsecConnection not found!");
         }
 
-        return new ResultRsp<NbiIpSec>(ErrorCode.OVERLAYVPN_SUCCESS, ipsecCon);
+        return new ResultRsp<>(ErrorCode.OVERLAYVPN_SUCCESS, ipsecCon);
     }
 
     /**
@@ -74,6 +74,6 @@ public class QueryIpSecService {
         List<NbiIpSec> ipsecCons = new InventoryDaoUtil<NbiIpSec>().getInventoryDao()
                 .batchQuery(NbiIpSec.class, FilterDataUtil.getFilterData("uuid", ids)).getData();
 
-        return new ResultRsp<List<NbiIpSec>>(ErrorCode.OVERLAYVPN_SUCCESS, ipsecCons);
+        return new ResultRsp<>(ErrorCode.OVERLAYVPN_SUCCESS, ipsecCons);
     }
 }

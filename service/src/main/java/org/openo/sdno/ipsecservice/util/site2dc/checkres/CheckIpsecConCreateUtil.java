@@ -59,7 +59,7 @@ public class CheckIpsecConCreateUtil {
      */
     public static void checkIpsecConnIsCreated(List<SbiNeIpSec> acSbiNeIpsecList, List<SbiNeIpSec> fsSbiNeIpsecList,
             List<SbiNeIpSec> fsCreateList, List<SbiNeIpSec> acCreateList) throws ServiceException {
-        Set<String> neIdSet = new HashSet<String>();
+        Set<String> neIdSet = new HashSet<>();
         for(SbiNeIpSec sbiNeIpSec : acSbiNeIpsecList) {
             neIdSet.add(sbiNeIpSec.getNeId());
         }
@@ -105,7 +105,7 @@ public class CheckIpsecConCreateUtil {
                     continue;
                 }
 
-                if(CheckIpSecConSrcSnkSameUtil.checkSrcSnkSame(acCreateList, iter, sbiNeIpSec, dbSbiNeIpSec)) {
+                if(CheckIpSecConSrcSnkSameUtil.checkSrcSnkSame(fsCreateList, iter, sbiNeIpSec, dbSbiNeIpSec)) {
                     LOGGER.warn("this ipsec has been created");
                     break;
                 }

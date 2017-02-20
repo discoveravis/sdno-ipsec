@@ -26,7 +26,6 @@ import org.openo.sdno.exception.InnerErrorServiceException;
 import org.openo.sdno.exception.ParameterServiceException;
 import org.openo.sdno.overlayvpn.brs.invdao.NetworkElementInvDao;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
-import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiNeIpSec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,12 +49,11 @@ public class CheckNeUtil {
      * 
      * @param neIdSet set of ne ids
      * @param deviceIdToNeMap map of device id and ne
-     * @param ipsecCons list of ipsecs
      * @throws ServiceException when check failed
      * @since SDNO 0.5
      */
-    public static void checkNesResource(Set<String> neIdSet, Map<String, NetworkElementMO> deviceIdToNeMap,
-            List<NbiIpSec> ipsecCons) throws ServiceException {
+    public static void checkNesResource(Set<String> neIdSet, Map<String, NetworkElementMO> deviceIdToNeMap)
+            throws ServiceException {
         List<NetworkElementMO> queryedNeMos = new ArrayList<>();
 
         NetworkElementInvDao neDao = new NetworkElementInvDao();
@@ -72,13 +70,18 @@ public class CheckNeUtil {
                 }
             }
 
+            if(tempNe == null) {
+                LOGGER.error("checkNesResource failed.tempNe is null.");
+                throw new ParameterServiceException("checkNeBaseData failed");
+            }
+
             try {
                 checkNeBaseData(tempNeId, tempNe);
                 if(!deviceIdToNeMap.containsKey(tempNe.getNativeID())) {
                     deviceIdToNeMap.put(tempNe.getNativeID(), tempNe);
                 }
             } catch(ServiceException e) {
-                LOGGER.error("checkNeBaseData failed! ne:", tempNeId);
+                LOGGER.error("checkNeBaseData failed! ne:" + tempNeId, e);
                 throw new ParameterServiceException("checkNeBaseData failed!");
             }
         }
@@ -105,7 +108,6 @@ public class CheckNeUtil {
      * @throws ServiceException when operate failed
      * @since SDNO 0.5
      */
-    @SuppressWarnings("null")
     public static void checkNesResourceAndFillSbi(Set<String> neIds, List<SbiNeIpSec> sbiNeIpsecs)
             throws ServiceException {
         List<NetworkElementMO> queryedNeMos = new ArrayList<>();
@@ -113,7 +115,7 @@ public class CheckNeUtil {
         try {
             allNeMos.addAll(new NetworkElementInvDao().getAllMO());
         } catch(ServiceException e) {
-            LOGGER.error("batch query NeMO exception. ids: ", neIds);
+            LOGGER.error("batch query NeMO exception.", e);
             throw new InnerErrorServiceException("query ne failed!");
         }
 
@@ -130,11 +132,16 @@ public class CheckNeUtil {
                     tmpNe = tempNeMo;
                     break;
                 }
-                checkNeBaseData(tempNeId, tempNeMo);
-                for(SbiNeIpSec sbiNeIpSec : sbiNeIpsecs) {
-                    if(sbiNeIpSec.getNeId().equals(tmpNe.getId())) {
-                        sbiNeIpSec.setDeviceId(tmpNe.getNativeID());
-                    }
+            }
+
+            if(tmpNe == null) {
+                LOGGER.error("checkNesResourceAndFillSbi failed.tmpNe is null.");
+                throw new ParameterServiceException("checkNesResourceAndFillSbi failed");
+            }
+            checkNeBaseData(tempNeId, tmpNe);
+            for(SbiNeIpSec sbiNeIpSec : sbiNeIpsecs) {
+                if(sbiNeIpSec.getNeId().equals(tmpNe.getId())) {
+                    sbiNeIpSec.setDeviceId(tmpNe.getNativeID());
                 }
             }
         }

@@ -118,10 +118,10 @@ public class ThrowException {
         LOGGER.error("Uuids do not match, [obj1 = " + obj1 + ", uuid = " + uuid1 + "], [obj2 = " + obj2 + ", uuid = "
                 + uuid2 + "]");
 
-        String message = "Uuids do not match, [obj1 = " + obj1 + ", uuid = " + uuid1 + "], [obj2 = " + obj2
-                + ", uuid = " + uuid2 + "]";
-        String advice = "Uuids do not match, [obj1 = " + obj1 + ", uuid = " + uuid1 + "], [obj2 = " + obj2 + ", uuid = "
-                + uuid2 + "], please modify data and try again";
+        String message = "Uuids do not match,  [obj1 = " + obj1 + ",  uuid = " + uuid1 + "],  [obj2 = " + obj2
+                + ", uuid  = " + uuid2 + "]";
+        String advice = "Uuids do not match,  [obj1 = " + obj1 + ",  uuid = " + uuid1 + "],  [obj2 = " + obj2
+                + ", uuid  = " + uuid2 + "], please modify data and try again";
         SvcExcptUtil.throwBadReqSvcExptionWithInfo(ErrorCode.OVERLAYVPN_PARAMETER_INVALID, message, message, message,
                 advice);
     }

@@ -50,9 +50,7 @@ public class CheckControllerUtil {
     public static Map<String, String> testCtrlConnection(List<NetworkElementMO> neMoList) {
         Map<String, List<NetworkElementMO>> ctrlIdToNeMosMap = buildCtrlIdToNeMosMap(neMoList);
 
-        List<String> ctrlIds = new ArrayList<>(ctrlIdToNeMosMap.keySet());
-
-        return buildNeIdToControllerMoMap(ctrlIdToNeMosMap, ctrlIds);
+        return buildNeIdToControllerMoMap(ctrlIdToNeMosMap);
     }
 
     private static Map<String, List<NetworkElementMO>> buildCtrlIdToNeMosMap(List<NetworkElementMO> neMoList) {
@@ -73,8 +71,8 @@ public class CheckControllerUtil {
         return ctrlIdToNeMosMap;
     }
 
-    private static Map<String, String> buildNeIdToControllerMoMap(Map<String, List<NetworkElementMO>> ctrlIdToNeMosMap,
-            List<String> ctrlIds) {
+    private static Map<String, String>
+            buildNeIdToControllerMoMap(Map<String, List<NetworkElementMO>> ctrlIdToNeMosMap) {
         Map<String, String> neIdToCtrlMoMap = new HashMap<>();
         for(Entry<String, List<NetworkElementMO>> tempEntry : ctrlIdToNeMosMap.entrySet()) {
 

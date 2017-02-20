@@ -91,13 +91,13 @@ public class CreateIpsecConnectionUtil {
         Map<String, String> deviceIdToCtrollMap = new ConcurrentHashMap<>();
         Map<String, String> neIdToRulePortNameMap = new ConcurrentHashMap<>();
 
-        Set<String> neIdSet = checkData(nbiIpsecs, neIdPortNameToPortNameMap, deviceIdToNeMap, neIdToRulePortNameMap);
+        checkData(nbiIpsecs, neIdPortNameToPortNameMap, deviceIdToNeMap, neIdToRulePortNameMap);
 
         LOGGER.info("Create Ipsec tunnel. CheckData finished. cost time = " + (System.currentTimeMillis() - beginTime));
 
         // Check controller and query port IP
         Map<String, SbiIp> deviceIdPortNameToIpMap = checkController(neIdPortNameToPortNameMap,
-                deviceIdPortNameToPortNameMap, deviceIdToNeMap, deviceIdToCtrollMap, neIdSet, nbiIpsecs);
+                deviceIdPortNameToPortNameMap, deviceIdToNeMap, deviceIdToCtrollMap, nbiIpsecs);
 
         // S2DC does not need to fill ruleIp. Fill Ip data here
         fillTunnelData(nbiIpsecs, deviceIdToNeMap, deviceIdPortNameToIpMap);
@@ -152,7 +152,7 @@ public class CreateIpsecConnectionUtil {
             }
         }
 
-        CheckNeUtil.checkNesResource(neIdSet, deviceIdToNeMap, ipsecCons);
+        CheckNeUtil.checkNesResource(neIdSet, deviceIdToNeMap);
         return neIdSet;
 
     }
@@ -166,19 +166,19 @@ public class CreateIpsecConnectionUtil {
             }
         } catch(ServiceException e) {
             LOGGER.error("param error!", e);
-            throw new ParameterServiceException("Check NbiIpSec basic data fail, param error!");
+            throw new ParameterServiceException("NbiIpSec validateModel fail, param error!");
         }
 
         if(ipsecCon.getSrcNeId().equals(ipsecCon.getDestNeId())) {
             LOGGER.error("param error! SrcNeId equal with DestNeId.");
-            throw new ParameterServiceException("Check NbiIpSec basic data fail, param error!");
+            throw new ParameterServiceException("Check NbiIpSec ne id data fail, param error!");
         }
 
         if((NeRoleType.VPC.getName().equals(ipsecCon.getSrcNeRole())
                 || NeRoleType.VPC.getName().equals(ipsecCon.getDestNeRole()))
                 && (!StringUtils.hasLength(ipsecCon.getRegionId()))) {
             LOGGER.error("param error! S2DC region id is empty.");
-            throw new ParameterServiceException("Check NbiIpSec basic data fail, param error!");
+            throw new ParameterServiceException("Check NbiIpSec Ne Role and Region id fail, param error!");
         }
         return false;
 
@@ -186,8 +186,7 @@ public class CreateIpsecConnectionUtil {
 
     private static Map<String, SbiIp> checkController(Map<String, String> neIdPortNameToPortNameMap,
             Map<String, String> deviceIdPortNameToPortNameMap, Map<String, NetworkElementMO> deviceIdToNeMap,
-            Map<String, String> deviceIdToCtrollMap, Set<String> neIdSet, List<NbiIpSec> nbiIpsecs)
-            throws ServiceException {
+            Map<String, String> deviceIdToCtrollMap, List<NbiIpSec> nbiIpsecs) throws ServiceException {
         Map<String, String> neIdToControllerMapRs =
                 CheckControllerUtil.testCtrlConnection(new ArrayList<NetworkElementMO>(deviceIdToNeMap.values()));
 
@@ -229,9 +228,8 @@ public class CreateIpsecConnectionUtil {
 
     private static ResultRsp<NbiIpSec> createInDbAndAc(@Context HttpServletRequest req, List<NbiIpSec> nbiIpsecs,
             Map<String, String> deviceIdToCtrollMap) throws ServiceException {
-        List<NbiIpSec> insertDataList = nbiIpsecs;
 
-        insertDataList = getIdAndInsertDb(nbiIpsecs);
+        List<NbiIpSec> insertDataList = getIdAndInsertDb(nbiIpsecs);
 
         LOGGER.info("ipsec insertDb complete. ");
 

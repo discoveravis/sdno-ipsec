@@ -61,7 +61,7 @@ public class NeIpSecConnSbiServiceImpl implements NeIpSecConnSbiService {
 
         RestfulResponse response = RestfulProxy.post(url, restfulParametes);
         if(response.getStatus() == HttpCode.NOT_FOUND) {
-            return new ResultRsp<List<NeIpSecConnection>>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
+            return new ResultRsp<>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
                     "connect to controller failed", "connect to controller failed, please check");
         }
 
@@ -88,7 +88,7 @@ public class NeIpSecConnSbiServiceImpl implements NeIpSecConnSbiService {
 
         RestfulResponse response = RestfulProxy.delete(deleteUrl, RestfulParametesUtil.getRestfulParametes(ctrlUuid));
         if(HttpCode.NOT_FOUND == response.getStatus()) {
-            return new ResultRsp<String>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
+            return new ResultRsp<>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
                     "connect to ac controller failed", "connect to ac controller failed, please check");
         }
 

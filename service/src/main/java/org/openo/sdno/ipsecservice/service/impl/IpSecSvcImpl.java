@@ -144,7 +144,7 @@ public class IpSecSvcImpl implements IpSecService {
         ResultRsp<Map<String, WanSubInterface>> wanInterfaceRsp = queryNeWanSubInterface(deviceIdToCtrlMapInAc);
         if(!wanInterfaceRsp.isValid()) {
             LOGGER.error("query wan-sub-interface failed.");
-            return new ResultRsp<OverlayVpn>(wanInterfaceRsp);
+            return new ResultRsp<>(wanInterfaceRsp);
         }
 
         Map<String, WanSubInterface> deviceIdToWansubInfMap = wanInterfaceRsp.getData();
@@ -170,7 +170,7 @@ public class IpSecSvcImpl implements IpSecService {
         // create IpSec connection in DC Gateway
         createDcGwIpSecConnection(dcGwIpSecConnectionList);
 
-        return new ResultRsp<OverlayVpn>(ErrorCode.OVERLAYVPN_SUCCESS, overlayVpn);
+        return new ResultRsp<>(ErrorCode.OVERLAYVPN_SUCCESS, overlayVpn);
     }
 
     @Override
@@ -183,7 +183,7 @@ public class IpSecSvcImpl implements IpSecService {
             ThrowException.throwResNotExist("connectionId (" + connectionId + ") is not existed");
         }
 
-        return new ResultRsp<OverlayVpn>(ErrorCode.OVERLAYVPN_SUCCESS, overlayVpn);
+        return new ResultRsp<>(ErrorCode.OVERLAYVPN_SUCCESS, overlayVpn);
     }
 
     @Override
@@ -196,7 +196,7 @@ public class IpSecSvcImpl implements IpSecService {
         // delete IpSec connection in DC Gateway
         deleteDcGwIpSecConnection(connectionId);
 
-        return new ResultRsp<String>(ErrorCode.OVERLAYVPN_SUCCESS);
+        return new ResultRsp<>(ErrorCode.OVERLAYVPN_SUCCESS);
     }
 
     private Map<String, ControllerMO> queryControllerMo(NetworkElementMO neMo) throws ServiceException {
@@ -226,14 +226,14 @@ public class IpSecSvcImpl implements IpSecService {
                     deviceId, WanInterfaceUsedType.IPSEC.getName());
             if(!queryResult.isValid()) {
                 LOGGER.error("failed to query wan sub interface for deviceid: " + deviceId);
-                return new ResultRsp<Map<String, WanSubInterface>>(queryResult);
+                return new ResultRsp<>(queryResult);
             }
 
             // throw exception when failed to get ip address
             WanSubInterface tempWanSubInterface = queryResult.getData().get(0);
             if(StringUtils.isEmpty(tempWanSubInterface.getIpAddress())) {
                 LOGGER.error("failed to get ip, deviceid: " + deviceId);
-                return new ResultRsp<Map<String, WanSubInterface>>(ErrorCode.OVERLAYVPN_FAILED, null, null,
+                return new ResultRsp<>(ErrorCode.OVERLAYVPN_FAILED, null, null,
                         "query wan sub interface failed", "query wan sub interface, please check");
             }
 

@@ -62,16 +62,16 @@ public class DeleteIpsecUtil {
             throw new ParameterServiceException("delete ipsec failed!");
         }
 
-        List<String> uuids = new ArrayList<String>();
+        List<String> uuids = new ArrayList<>();
         uuids.add(ipsecId);
-        List<NbiIpSec> NbiIpsecs =
+        List<NbiIpSec> nbiIpsecs =
                 new InventoryDaoUtil<NbiIpSec>().getInventoryDao().batchQuery(NbiIpSec.class, uuids).getData();
 
-        if(CollectionUtils.isEmpty(NbiIpsecs)) {
+        if(CollectionUtils.isEmpty(nbiIpsecs)) {
             return null;
         }
 
-        return NbiIpsecs.get(0);
+        return nbiIpsecs.get(0);
     }
 
     /**
@@ -83,7 +83,7 @@ public class DeleteIpsecUtil {
      * @since SDNO 0.5
      */
     public static List<SbiNeIpSec> getSbiData(NbiIpSec nbiIpSec) throws ServiceException {
-        List<String> uuids = new ArrayList<String>();
+        List<String> uuids = new ArrayList<>();
         uuids.add(nbiIpSec.getUuid());
         Map<String, List<String>> filterMap = new HashMap<>();
         filterMap.put("connectionServiceId", uuids);

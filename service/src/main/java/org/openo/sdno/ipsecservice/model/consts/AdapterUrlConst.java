@@ -35,4 +35,8 @@ public class AdapterUrlConst {
     public static final String CREATE_IPSECS_FS = "/dc-gateway/ipsec-connections";
 
     public static final String UNDEPLOY_IPSECS_FS = "/dc-gateway/ipsec-connections/batch-delete";
+
+    private AdapterUrlConst() {
+
+    }
 }

@@ -180,7 +180,7 @@ public class IpSecSite2DcRoaResource extends IResource {
     public List<NbiIpSec> queryIpsecTunnel(@Context HttpServletRequest req, List<String> ids) throws ServiceException {
         long beginTime = System.currentTimeMillis();
         if(CollectionUtils.isEmpty(ids)) {
-            return new ArrayList<NbiIpSec>();
+            return new ArrayList<>();
         }
 
         Iterator<String> iter = ids.iterator();
@@ -190,12 +190,13 @@ public class IpSecSite2DcRoaResource extends IResource {
             try {
                 UuidUtils.checkUuid(ipsecId);
             } catch(ServiceException e) {
+                LOGGER.warn("Invalid ipsec uuid:" + ipsecId, e);
                 iter.remove();
             }
         }
 
         if(CollectionUtils.isEmpty(ids)) {
-            return new ArrayList<NbiIpSec>();
+            return new ArrayList<>();
         }
 
         ResultRsp<List<NbiIpSec>> result = QueryIpSecService.queryIpsecConnection(ids);
@@ -220,7 +221,7 @@ public class IpSecSite2DcRoaResource extends IResource {
         LOGGER.info("ipsec start update! ");
         if(CollectionUtils.isEmpty(nbiIpsecs)) {
             LOGGER.info("ipsec update complete! Input is empty.");
-            return new ArrayList<NbiIpSec>();
+            return new ArrayList<>();
         }
 
         UpdateService.doUpdate(nbiIpsecs);

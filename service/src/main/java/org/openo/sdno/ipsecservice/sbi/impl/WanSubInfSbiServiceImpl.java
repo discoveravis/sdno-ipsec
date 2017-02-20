@@ -60,7 +60,7 @@ public class WanSubInfSbiServiceImpl implements WanSubInfSbiService {
 
         RestfulResponse response = RestfulProxy.get(queryUrl, restfulParametes);
         if(response.getStatus() == HttpCode.NOT_FOUND) {
-            return new ResultRsp<List<WanSubInterface>>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
+            return new ResultRsp<>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
                     "connect to controller failed", "connect to controller failed, please check");
         }
         String content = ResponseUtils.transferResponse(response);

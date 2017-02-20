@@ -108,8 +108,7 @@ public class PortUtil {
                         LOGGER.error("ipAddress is empty! Port name: ", tempPortName);
                         throw new InnerErrorServiceException("ipAddress is empty! Port name:" + tempPortName);
                     } else {
-                        getPortIpAc(deviceIdToCtrollMap, tempNeMo.getId(), deviceIdPortNameToIpMap, nbiIpsecs, tempNeMo,
-                                tempPortName);
+                        getPortIpAc(deviceIdToCtrollMap, deviceIdPortNameToIpMap, nbiIpsecs, tempNeMo, tempPortName);
                     }
                 } else {
                     String ipMaskStr = tempLtpMo.getIpMask();
@@ -127,8 +126,7 @@ public class PortUtil {
                     LOGGER.error("ipAddress is empty! Port name: ", tempPortName);
                     throw new InnerErrorServiceException("ipAddress is empty! Port name:" + tempPortName);
                 } else {
-                    getPortIpAc(deviceIdToCtrollMap, tempNeMo.getId(), deviceIdPortNameToIpMap, nbiIpsecs, tempNeMo,
-                            tempPortName);
+                    getPortIpAc(deviceIdToCtrollMap, deviceIdPortNameToIpMap, nbiIpsecs, tempNeMo, tempPortName);
                 }
             }
         }
@@ -136,7 +134,7 @@ public class PortUtil {
         return deviceIdPortNameToIpMap;
     }
 
-    private static SbiIp getPortIpAc(Map<String, String> deviceIdToCtrollMap, String neId,
+    private static SbiIp getPortIpAc(Map<String, String> deviceIdToCtrollMap,
             Map<String, SbiIp> deviceIdPortNameToIpMap, List<NbiIpSec> nbiIpsecs, NetworkElementMO neMo,
             String portName) throws ServiceException {
         String deviceId = neMo.getNativeID();

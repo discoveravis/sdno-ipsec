@@ -96,7 +96,7 @@ public class DeployIpsecUtil {
             CreateUtil.createByFs(fsInactiveNeIpsecs, fsDeployRsp);
             if(!CollectionUtils.isEmpty(fsDeployRsp.getFail())) {
                 LOGGER.error("deploy fs failed. fail num = ", fsDeployRsp.getFail().size());
-                throw new InnerErrorServiceException("deploy failed!");
+                throw new InnerErrorServiceException("deploy in fs failed!");
             }
         }
 
@@ -109,7 +109,7 @@ public class DeployIpsecUtil {
             CreateUtil.createByAc(acInactiveNeIpsecs, acDeployRsp);
             if(!CollectionUtils.isEmpty(acDeployRsp.getFail())) {
                 LOGGER.error("deploy ac failed. fail num = ", acDeployRsp.getFail().size());
-                throw new InnerErrorServiceException("deploy failed!");
+                throw new InnerErrorServiceException("deploy in ac failed!");
             }
         }
 

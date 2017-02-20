@@ -34,6 +34,10 @@ import org.openo.sdno.overlayvpn.security.authentication.HttpContext;
  */
 public class RestParameterUtil {
 
+    private static final String X_DRIVER_PARAMETER = "X-Driver-Parameter";
+
+    private static final String EXTSYSID = "extSysID=";
+
     private RestParameterUtil() {
     }
 
@@ -48,7 +52,7 @@ public class RestParameterUtil {
     public static RestfulParametes getQueryPortIpParam(String portName, String ctrlId) {
         RestfulParametes para = new RestfulParametes();
         para.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
-        para.putHttpContextHeader("X-Driver-Parameter", "extSysID=" + ctrlId);
+        para.putHttpContextHeader(X_DRIVER_PARAMETER, EXTSYSID + ctrlId);
         Map<String, String> queryMap = new ConcurrentHashMap<>();
         queryMap.put("portName", portName);
         para.setParamMap(queryMap);
@@ -70,7 +74,7 @@ public class RestParameterUtil {
         String strJsonReq = RestTransferUtil.transferRequest(sbiNeIpsecList);
         String ctrlId = sbiNeIpsecList.get(0).getControllerId();
         para.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
-        para.putHttpContextHeader("X-Driver-Parameter", "extSysID=" + ctrlId);
+        para.putHttpContextHeader(X_DRIVER_PARAMETER, EXTSYSID + ctrlId);
         para.setRawData(strJsonReq);
 
         return para;
@@ -88,7 +92,7 @@ public class RestParameterUtil {
         RestfulParametes para = new RestfulParametes();
         String ctrlId = sbiNeIpsec.getControllerId();
         para.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
-        para.putHttpContextHeader("X-Driver-Parameter", "extSysID=" + ctrlId);
+        para.putHttpContextHeader(X_DRIVER_PARAMETER, EXTSYSID + ctrlId);
         String strJsonReq = RestTransferUtil.transferRequest(sbiNeIpsec);
         para.setRawData(strJsonReq);
 

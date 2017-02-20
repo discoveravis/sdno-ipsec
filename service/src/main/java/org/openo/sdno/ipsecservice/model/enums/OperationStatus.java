@@ -61,51 +61,37 @@ public enum OperationStatus {
      */
     public String getName() {
         switch(value) {
-            case 0: {
+            case 0:
                 return "none";
-            }
-            case 1: {
+            case 1:
                 return "normal";
-            }
-            case 2: {
+            case 2:
                 return "creating";
-            }
-            case 3: {
+            case 3:
                 return "create_exception";
-            }
-            case 4: {
+            case 4:
                 return "deleting";
-            }
-            case 5: {
+            case 5:
                 return "delete_exception";
-            }
-            case 6: {
+            case 6:
                 return "updating";
-            }
-            case 7: {
+            case 7:
                 return "update_exception";
-            }
-            case 8: {
+            case 8:
                 return "deploying";
-            }
-            case 9: {
+            case 9:
                 return "deploy_exception";
-            }
-            case 10: {
+            case 10:
                 return "checking";
-            }
-            case 11: {
+            case 11:
                 return "check_exception";
-            }
-            case 12: {
+            case 12:
                 return "undeploying";
-            }
-            case 13: {
+            case 13:
                 return "undeploy_exception";
-            }
-            default: {
+            default:
                 return "";
-            }
+
         }
 
     }

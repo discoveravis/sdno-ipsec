@@ -203,18 +203,18 @@ public class CreateUtil {
      * Create ipsec in Ac.<br/>
      * 
      * @param sbiNeIpsecList List of Sbi ipsec objects
-     * @param AcCreateResult Result object of creation
+     * @param acCreateResult Result object of creation
      * @throws ServiceException when create failed
      * @since SDNO 0.5
      */
-    public static void createByAc(List<SbiNeIpSec> sbiNeIpsecList, ResultRsp<SbiNeIpSec> AcCreateResult)
+    public static void createByAc(List<SbiNeIpSec> sbiNeIpsecList, ResultRsp<SbiNeIpSec> acCreateResult)
             throws ServiceException {
         ResultRsp<SbiNeIpSec> createRst = createSbiNeIpsecToAc(sbiNeIpsecList);
         if(!CollectionUtils.isEmpty(createRst.getSuccessed())) {
-            AcCreateResult.getSuccessed().addAll(createRst.getSuccessed());
+            acCreateResult.getSuccessed().addAll(createRst.getSuccessed());
         }
         if(!CollectionUtils.isEmpty(createRst.getFail())) {
-            AcCreateResult.getFail().addAll(createRst.getFail());
+            acCreateResult.getFail().addAll(createRst.getFail());
         }
     }
 

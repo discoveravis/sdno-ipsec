@@ -120,7 +120,7 @@ public class AllocateResUtil {
     }
 
     private static List<Integer> allocateSeqNum(String neIdPortName) throws ServiceException {
-        List<Long> seqNumList = ResourcesUtil.requestGloabelValue(neIdPortName + "-ipsec", "ipsec", 1, 1l, 1000l);
+        List<Long> seqNumList = ResourcesUtil.requestGloabelValue(neIdPortName + "-ipsec", "ipsec", 1, 1L, 1000L);
 
         if(CollectionUtils.isEmpty(seqNumList)) {
             LOGGER.error("allocateSeqNum failed. neIdPortName: ", neIdPortName);

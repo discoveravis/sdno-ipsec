@@ -60,7 +60,7 @@ public class DcGwIpSecConnSbiServiceImpl implements DcGwIpSecConnSbiService {
 
         RestfulResponse response = RestfulProxy.post(url, restfulParametes);
         if(response.getStatus() == HttpCode.NOT_FOUND) {
-            return new ResultRsp<List<DcGwIpSecConnection>>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
+            return new ResultRsp<>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
                     "connect to controller failed", "connect to controller failed, please check");
         }
 
@@ -86,7 +86,7 @@ public class DcGwIpSecConnSbiServiceImpl implements DcGwIpSecConnSbiService {
 
         RestfulResponse response = RestfulProxy.delete(url, RestfulParametesUtil.getRestfulParametes(ctrlUuid));
         if(response.getStatus() == HttpCode.NOT_FOUND) {
-            return new ResultRsp<String>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
+            return new ResultRsp<>(ErrorCode.RESTFUL_COMMUNICATION_FAILED, null, null,
                     "connect to os controller failed", "connect to os controller failed, please check");
         }
 

@@ -130,7 +130,7 @@ public class IpSecReqDbOper {
     public static OverlayVpn query(String connectionId) throws ServiceException {
         ResultRsp<List<IpSecReqModelInfo>> queryDbRsp = queryByFilter(connectionId, null);
         if(CollectionUtils.isEmpty(queryDbRsp.getData())) {
-            LOGGER.warn("query error, connectionId (" + connectionId + ") is not found");
+            LOGGER.warn("query error, connectionId (" + connectionId + ") is not found.");
             return null;
         }
 
@@ -149,7 +149,7 @@ public class IpSecReqDbOper {
     public static void delete(String connectionId) throws ServiceException {
         ResultRsp<List<IpSecReqModelInfo>> queryDbRsp = queryByFilter(connectionId, UUID);
         if(CollectionUtils.isEmpty(queryDbRsp.getData())) {
-            LOGGER.warn("delete error, connectionId (" + connectionId + ") is not found");
+            LOGGER.warn("delete error, connectionId (" + connectionId + ") is not found!");
             return;
         }
 
