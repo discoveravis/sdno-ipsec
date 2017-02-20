@@ -69,7 +69,7 @@ public class UpdateService {
 
         List<NbiIpSec> nbiDbData = getDbNbiData(uuids, nbiIpsecs);
 
-        List<SbiNeIpSec> updateSbiData = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> updateSbiData = new ArrayList<>();
 
         getAndFillDbSbiData(nbiDbData, uuids, updateSbiData);
 
@@ -119,7 +119,7 @@ public class UpdateService {
     private static Set<String> checkData(List<NbiIpSec> nbiIpsecs) throws ServiceException {
         ValidationUtil.validateModel(nbiIpsecs);
 
-        Set<String> uuids = new HashSet<String>();
+        Set<String> uuids = new HashSet<>();
         for(NbiIpSec nbiIpsec : nbiIpsecs) {
             if(StringUtils.isEmpty(nbiIpsec.getUuid())) {
                 LOGGER.error("Update failed. uuid is empty.");

@@ -77,7 +77,7 @@ public class WanSubInfSbiServiceImpl implements WanSubInfSbiService {
         restfulParametes.putHttpContextHeader("X-Driver-Parameter", "extSysID=" + ctrlUuid);
         TokenDataHolder.addToken2HttpRequest(restfulParametes);
 
-        Map<String, String> queryParamMap = new ConcurrentHashMap<String, String>();
+        Map<String, String> queryParamMap = new ConcurrentHashMap<>();
         queryParamMap.put(CommConst.DEVICE_WAN_SUB_INTERFACE_TYPE_PARAMETER, subInterUsedType);
         restfulParametes.setParamMap(queryParamMap);
 

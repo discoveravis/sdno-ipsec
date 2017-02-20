@@ -73,12 +73,12 @@ public class UndeployIpsecUtil {
      * @since SDNO 0.5
      */
     public static List<String> doUndeploy(List<String> ipsecIds) throws ServiceException {
-        List<NbiIpSec> nbiIpsecs = new ArrayList<NbiIpSec>();
+        List<NbiIpSec> nbiIpsecs = new ArrayList<>();
         List<SbiNeIpSec> sbiNeIpsecs = ActionUtil.checkDataAndQueryIpsecInDb(ipsecIds, nbiIpsecs);
 
-        List<SbiNeIpSec> acActiveNeIpsecs = new ArrayList<SbiNeIpSec>();
-        List<SbiNeIpSec> fsActiveNeIpsecs = new ArrayList<SbiNeIpSec>();
-        List<SbiNeIpSec> inactiveNeIpsecs = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> acActiveNeIpsecs = new ArrayList<>();
+        List<SbiNeIpSec> fsActiveNeIpsecs = new ArrayList<>();
+        List<SbiNeIpSec> inactiveNeIpsecs = new ArrayList<>();
         checkSbiStatus(fsActiveNeIpsecs, acActiveNeIpsecs, inactiveNeIpsecs, sbiNeIpsecs);
         if(CollectionUtils.isEmpty(acActiveNeIpsecs) && CollectionUtils.isEmpty(fsActiveNeIpsecs)) {
             return ipsecIds;
@@ -91,10 +91,10 @@ public class UndeployIpsecUtil {
             sbiNeIpsec.setOperationStatus(OperationStatus.UNDEPLOYING.getName());
         }
 
-        ResultRsp<SbiNeIpSec> acUndeployRsp = new ResultRsp<SbiNeIpSec>();
+        ResultRsp<SbiNeIpSec> acUndeployRsp = new ResultRsp<>();
         acUndeployRsp.setSuccessed(new ArrayList<SbiNeIpSec>());
         acUndeployRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
-        ResultRsp<SbiNeIpSec> fsUndeployRsp = new ResultRsp<SbiNeIpSec>();
+        ResultRsp<SbiNeIpSec> fsUndeployRsp = new ResultRsp<>();
         fsUndeployRsp.setSuccessed(new ArrayList<SbiNeIpSec>());
         fsUndeployRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
 
@@ -122,7 +122,7 @@ public class UndeployIpsecUtil {
             return;
         }
 
-        List<SbiNeIpSec> delSbiData = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> delSbiData = new ArrayList<>();
         for(SbiNeIpSec sbiNeIpsec : fsActiveNeIpsecs) {
             String filer = FilterDataUtil.getFilterData("sbiServiceId", Arrays.asList(sbiNeIpsec.getUuid()));
             List<SbiIkePolicy> ikePolicys = new InventoryDaoUtil<SbiIkePolicy>().getInventoryDao()

@@ -68,7 +68,7 @@ public class CheckIpsecConCreateUtil {
             neIdSet.add(sbiNeIpSec.getNeId());
         }
 
-        Map<String, List<String>> filter = new HashMap<String, List<String>>();
+        Map<String, List<String>> filter = new HashMap<>();
 
         filter.put("neId", new ArrayList<String>(neIdSet));
         filter.put("deployStatus", Arrays.asList("deploy"));

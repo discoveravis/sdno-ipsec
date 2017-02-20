@@ -130,7 +130,7 @@ public class CreateUtil {
     public static void fillDataByFsRsp(List<SbiNeIpSec> acSbiNeIpsecList, ResultRsp<SbiNeIpSec> fsCreateResult)
             throws ServiceException {
 
-        List<SbiNeIpSec> updateSbiNeIpSecList = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> updateSbiNeIpSecList = new ArrayList<>();
         List<SbiNeIpSec> updateSbiNeIpSecByFsList = fsCreateResult.getSuccessed();
 
         for(SbiNeIpSec fsSbiNeIpSec : fsCreateResult.getSuccessed()) {
@@ -157,8 +157,8 @@ public class CreateUtil {
             return;
         }
 
-        List<NbiIpSec> updateSrcLanCidr = new ArrayList<NbiIpSec>();
-        List<NbiIpSec> updateDestLanCidr = new ArrayList<NbiIpSec>();
+        List<NbiIpSec> updateSrcLanCidr = new ArrayList<>();
+        List<NbiIpSec> updateDestLanCidr = new ArrayList<>();
         for(NbiIpSec nbiIpsec : nbiIpsecs) {
             for(SbiNeIpSec sbiNeIpSec : fsCreateResult.getSuccessed()) {
                 if(nbiIpsec.getUuid().equals(sbiNeIpSec.getConnectionServiceId())) {

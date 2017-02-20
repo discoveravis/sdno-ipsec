@@ -74,7 +74,7 @@ public class PortUtil {
     public static Map<String, SbiIp> getPortIpMap(Map<String, NetworkElementMO> deviceIdToNeMap,
             Map<String, String> deviceIdPortNameToPortNameMap, List<NbiIpSec> nbiIpsecs,
             Map<String, String> deviceIdToCtrollMap) throws ServiceException {
-        Map<String, SbiIp> deviceIdPortNameToIpMap = new ConcurrentHashMap<String, SbiIp>();
+        Map<String, SbiIp> deviceIdPortNameToIpMap = new ConcurrentHashMap<>();
         LogicalTernminationPointInvDao ltpInvDao = new LogicalTernminationPointInvDao();
 
         for(Entry<String, String> tempEntry : deviceIdPortNameToPortNameMap.entrySet()) {
@@ -88,7 +88,7 @@ public class PortUtil {
 
             }
 
-            Map<String, String> filter = new HashMap<String, String>();
+            Map<String, String> filter = new HashMap<>();
             filter.put("meID", tempNeMo.getId());
             filter.put("name", tempPortName);
             List<LogicalTernminationPointMO> tempLtpMos = ltpInvDao.query(filter);

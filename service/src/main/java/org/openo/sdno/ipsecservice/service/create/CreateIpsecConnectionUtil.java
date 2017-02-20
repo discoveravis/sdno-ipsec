@@ -85,11 +85,11 @@ public class CreateIpsecConnectionUtil {
             throws ServiceException {
         long beginTime = System.currentTimeMillis();
 
-        Map<String, String> neIdPortNameToPortNameMap = new ConcurrentHashMap<String, String>();
-        Map<String, String> deviceIdPortNameToPortNameMap = new ConcurrentHashMap<String, String>();
-        Map<String, NetworkElementMO> deviceIdToNeMap = new ConcurrentHashMap<String, NetworkElementMO>();
-        Map<String, String> deviceIdToCtrollMap = new ConcurrentHashMap<String, String>();
-        Map<String, String> neIdToRulePortNameMap = new ConcurrentHashMap<String, String>();
+        Map<String, String> neIdPortNameToPortNameMap = new ConcurrentHashMap<>();
+        Map<String, String> deviceIdPortNameToPortNameMap = new ConcurrentHashMap<>();
+        Map<String, NetworkElementMO> deviceIdToNeMap = new ConcurrentHashMap<>();
+        Map<String, String> deviceIdToCtrollMap = new ConcurrentHashMap<>();
+        Map<String, String> neIdToRulePortNameMap = new ConcurrentHashMap<>();
 
         Set<String> neIdSet = checkData(nbiIpsecs, neIdPortNameToPortNameMap, deviceIdToNeMap, neIdToRulePortNameMap);
 
@@ -136,7 +136,7 @@ public class CreateIpsecConnectionUtil {
             Map<String, NetworkElementMO> deviceIdToNeMap, Map<String, String> neIdToRulePortNameMap)
             throws ServiceException {
 
-        Set<String> neIdSet = new HashSet<String>();
+        Set<String> neIdSet = new HashSet<>();
         for(NbiIpSec temGreTunnel : ipsecCons) {
             nbiIpSecBasicCheck(temGreTunnel);
 
@@ -235,17 +235,17 @@ public class CreateIpsecConnectionUtil {
 
         LOGGER.info("ipsec insertDb complete. ");
 
-        List<SbiNeIpSec> acSbiNeIpsecList = new ArrayList<SbiNeIpSec>();
-        List<SbiNeIpSec> vpcSbiNeIpsecList = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> acSbiNeIpsecList = new ArrayList<>();
+        List<SbiNeIpSec> vpcSbiNeIpsecList = new ArrayList<>();
         List<SbiNeIpSec> sbiNeIpsecList =
                 nbiMdelToSbiModel(insertDataList, acSbiNeIpsecList, vpcSbiNeIpsecList, deviceIdToCtrollMap);
         LOGGER.info("ipsec nbiMdelToSbiModel complete. ");
 
-        ResultRsp<SbiNeIpSec> fsCreateRsp = new ResultRsp<SbiNeIpSec>();
+        ResultRsp<SbiNeIpSec> fsCreateRsp = new ResultRsp<>();
         fsCreateRsp.setSuccessed(new ArrayList<SbiNeIpSec>());
         fsCreateRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
 
-        ResultRsp<SbiNeIpSec> acCreateRsp = new ResultRsp<SbiNeIpSec>();
+        ResultRsp<SbiNeIpSec> acCreateRsp = new ResultRsp<>();
         acCreateRsp.setSuccessed(new ArrayList<SbiNeIpSec>());
         acCreateRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
 
@@ -285,7 +285,7 @@ public class CreateIpsecConnectionUtil {
         InventoryDao<NbiIpSec> greTunnelDao = new InventoryDaoUtil<NbiIpSec>().getInventoryDao();
 
         if(CollectionUtils.isNotEmpty(inputUuidList)) {
-            Map<String, List<String>> filterMap = new HashMap<String, List<String>>();
+            Map<String, List<String>> filterMap = new HashMap<>();
             filterMap.put("uuid", inputUuidList);
 
             List<NbiIpSec> dbTunnelList =
@@ -303,7 +303,7 @@ public class CreateIpsecConnectionUtil {
             }
         }
 
-        List<NbiIpSec> insertDataList = new ArrayList<NbiIpSec>();
+        List<NbiIpSec> insertDataList = new ArrayList<>();
         for(NbiIpSec nbiIpsec : nbiIpsecs) {
             insertDataList.add(nbiIpsec);
         }

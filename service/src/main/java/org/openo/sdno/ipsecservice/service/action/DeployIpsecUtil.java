@@ -71,12 +71,12 @@ public class DeployIpsecUtil {
      * @since SDNO 0.5
      */
     public static final List<String> doDeploy(HttpServletRequest req, List<String> ipsecIds) throws ServiceException {
-        List<NbiIpSec> nbiIpsecs = new ArrayList<NbiIpSec>();
+        List<NbiIpSec> nbiIpsecs = new ArrayList<>();
         List<SbiNeIpSec> sbiNeIpsecs = checkDataAndGetSbiNeIpsec(ipsecIds, nbiIpsecs);
 
-        List<SbiNeIpSec> acInactiveNeIpsecs = new ArrayList<SbiNeIpSec>();
-        List<SbiNeIpSec> fsInactiveNeIpsecs = new ArrayList<SbiNeIpSec>();
-        List<SbiNeIpSec> activeNeIpsecs = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> acInactiveNeIpsecs = new ArrayList<>();
+        List<SbiNeIpSec> fsInactiveNeIpsecs = new ArrayList<>();
+        List<SbiNeIpSec> activeNeIpsecs = new ArrayList<>();
         checkSbiStatus(acInactiveNeIpsecs, fsInactiveNeIpsecs, activeNeIpsecs, sbiNeIpsecs);
 
         if(CollectionUtils.isEmpty(acInactiveNeIpsecs) && CollectionUtils.isEmpty(fsInactiveNeIpsecs)) {
@@ -88,7 +88,7 @@ public class DeployIpsecUtil {
 
         checkNeAndFillSbi(acInactiveNeIpsecs);
 
-        ResultRsp<SbiNeIpSec> fsDeployRsp = new ResultRsp<SbiNeIpSec>();
+        ResultRsp<SbiNeIpSec> fsDeployRsp = new ResultRsp<>();
         fsDeployRsp.setSuccessed(new ArrayList<SbiNeIpSec>());
         fsDeployRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
 
@@ -102,7 +102,7 @@ public class DeployIpsecUtil {
 
         fillLanCidrByFsRsp(activeNeIpsecs, acInactiveNeIpsecs, fsDeployRsp);
 
-        ResultRsp<SbiNeIpSec> acDeployRsp = new ResultRsp<SbiNeIpSec>();
+        ResultRsp<SbiNeIpSec> acDeployRsp = new ResultRsp<>();
         acDeployRsp.setSuccessed(activeNeIpsecs);
         acDeployRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
         if(!CollectionUtils.isEmpty(acInactiveNeIpsecs)) {
@@ -168,7 +168,7 @@ public class DeployIpsecUtil {
             return;
         }
 
-        Set<String> neIds = new HashSet<String>();
+        Set<String> neIds = new HashSet<>();
         for(SbiNeIpSec tmpSbiIpsec : acInactiveNeIpsecs) {
             neIds.add(tmpSbiIpsec.getNeId());
         }
@@ -182,7 +182,7 @@ public class DeployIpsecUtil {
 
     private static void fillLanCidrByFsRsp(List<SbiNeIpSec> activeIpsecs, List<SbiNeIpSec> acInativeIpsecs,
             ResultRsp<SbiNeIpSec> fsDeplyResult) throws ServiceException {
-        List<SbiNeIpSec> updateSbiNeIpSecList = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> updateSbiNeIpSecList = new ArrayList<>();
         List<SbiNeIpSec> updateSbiNeIpSecByFsList = fsDeplyResult.getSuccessed();
 
         for(SbiNeIpSec fsSbiNeIpSec : fsDeplyResult.getSuccessed()) {

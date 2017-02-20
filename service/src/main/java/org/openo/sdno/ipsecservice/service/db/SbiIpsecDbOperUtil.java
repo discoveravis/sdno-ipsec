@@ -66,8 +66,8 @@ public class SbiIpsecDbOperUtil {
 
         greTunnelDao.batchInsert(newSbiNeIpsecs);
 
-        List<SbiIkePolicy> ikePolicyList = new ArrayList<SbiIkePolicy>();
-        List<SbiIpSecPolicy> ipsecPolicyList = new ArrayList<SbiIpSecPolicy>();
+        List<SbiIkePolicy> ikePolicyList = new ArrayList<>();
+        List<SbiIpSecPolicy> ipsecPolicyList = new ArrayList<>();
 
         for(SbiNeIpSec sbiNeIpSec : newSbiNeIpsecs) {
             if(NeRoleType.VPC.getName().equals(sbiNeIpSec.getLocalNeRole())) {
@@ -96,7 +96,7 @@ public class SbiIpsecDbOperUtil {
             return;
         }
 
-        List<String> uuids = new ArrayList<String>();
+        List<String> uuids = new ArrayList<>();
         for(SbiNeIpSec sbiNeIpsec : sbiNeIpSecs) {
             uuids.add(sbiNeIpsec.getUuid());
         }
@@ -104,13 +104,13 @@ public class SbiIpsecDbOperUtil {
         new InventoryDaoUtil<SbiNeIpSec>().getInventoryDao().batchDelete(SbiNeIpSec.class, uuids);
         LOGGER.info("Delete SbiNeIpSec complete");
 
-        Map<String, List<String>> filterMap = new HashMap<String, List<String>>();
+        Map<String, List<String>> filterMap = new HashMap<>();
         filterMap.put("sbiServiceId", uuids);
         String filter = JsonUtil.toJson(filterMap);
         List<SbiIkePolicy> ikes =
                 new InventoryDaoUtil<SbiIkePolicy>().getInventoryDao().batchQuery(SbiIkePolicy.class, filter).getData();
         if(!CollectionUtils.isEmpty(ikes)) {
-            List<String> ids = new ArrayList<String>();
+            List<String> ids = new ArrayList<>();
             for(SbiIkePolicy ike : ikes) {
                 ids.add(ike.getUuid());
             }
@@ -121,7 +121,7 @@ public class SbiIpsecDbOperUtil {
         List<SbiIpSecPolicy> ipsecPolicys = new InventoryDaoUtil<SbiIpSecPolicy>().getInventoryDao()
                 .batchQuery(SbiIpSecPolicy.class, filter).getData();
         if(!CollectionUtils.isEmpty(ipsecPolicys)) {
-            List<String> ids = new ArrayList<String>();
+            List<String> ids = new ArrayList<>();
             for(SbiIpSecPolicy ipsecPolicy : ipsecPolicys) {
                 ids.add(ipsecPolicy.getUuid());
             }

@@ -63,7 +63,7 @@ public class MergeRspUtil {
     public static ResultRsp<NbiIpSec> mergeAllCreateRsp(List<NbiIpSec> nbiTunnels, List<SbiNeIpSec> createSbiNeTunnels,
             ResultRsp<SbiNeIpSec> acCreateRsp, ResultRsp<SbiNeIpSec> fsCreateRsp, OperationType operType)
             throws ServiceException {
-        ResultRsp<NbiIpSec> createRsp = new ResultRsp<NbiIpSec>();
+        ResultRsp<NbiIpSec> createRsp = new ResultRsp<>();
 
         List<SbiNeIpSec> sbiNeTunnelCreateSuccess = acCreateRsp.getSuccessed();
         sbiNeTunnelCreateSuccess.addAll(fsCreateRsp.getSuccessed());
@@ -84,7 +84,7 @@ public class MergeRspUtil {
 
     private static void updateUndeploySuccessTunnels(List<SbiNeIpSec> createSbiNeTunnels,
             List<SbiNeIpSec> sbiNeTunnelCreateSuccess) throws ServiceException {
-        List<SbiNeIpSec> needUpdateSbiNeIpSecs = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> needUpdateSbiNeIpSecs = new ArrayList<>();
         for(SbiNeIpSec sbiNeIpSec : createSbiNeTunnels) {
             for(SbiNeIpSec sbiNeIpSecSuccess : sbiNeTunnelCreateSuccess) {
                 if(sbiNeIpSec.getUuid().equals(sbiNeIpSecSuccess.getUuid())) {
@@ -107,9 +107,9 @@ public class MergeRspUtil {
 
     private static void updateDeploySuccessTunnels(List<SbiNeIpSec> sbiNeIpSecs, List<SbiNeIpSec> sbiNeIpSecsSuccess)
             throws ServiceException {
-        List<SbiNeIpSec> needUpdateSbiNeIpSecs = new ArrayList<SbiNeIpSec>();
-        List<SbiIkePolicy> ikePolicyList = new ArrayList<SbiIkePolicy>();
-        List<SbiIpSecPolicy> ipSecPolicyList = new ArrayList<SbiIpSecPolicy>();
+        List<SbiNeIpSec> needUpdateSbiNeIpSecs = new ArrayList<>();
+        List<SbiIkePolicy> ikePolicyList = new ArrayList<>();
+        List<SbiIpSecPolicy> ipSecPolicyList = new ArrayList<>();
 
         for(SbiNeIpSec sbiNeIpSec : sbiNeIpSecs) {
             for(SbiNeIpSec sbiNeIpSecSuccess : sbiNeIpSecsSuccess) {

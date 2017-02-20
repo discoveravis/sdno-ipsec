@@ -153,8 +153,8 @@ public class IpSecSvcImpl implements IpSecService {
         Security.getSecurity(connection);
 
         // build SBI datas
-        List<NeIpSecConnection> neIpSecNeConnectionList = new ArrayList<NeIpSecConnection>();
-        List<DcGwIpSecConnection> dcGwIpSecConnectionList = new ArrayList<DcGwIpSecConnection>();
+        List<NeIpSecConnection> neIpSecNeConnectionList = new ArrayList<>();
+        List<DcGwIpSecConnection> dcGwIpSecConnectionList = new ArrayList<>();
         buildNeIpSecConnection(connection, vpcEndpointGroup, acEndpointGroup, deviceIdToWansubInfMap,
                 deviceIdToCtrlMapInAc, neIpSecNeConnectionList);
         buildDcGwIpSecConnection(connection, vpcEndpointGroup, acEndpointGroup, deviceIdToWansubInfMap,
@@ -200,9 +200,9 @@ public class IpSecSvcImpl implements IpSecService {
     }
 
     private Map<String, ControllerMO> queryControllerMo(NetworkElementMO neMo) throws ServiceException {
-        Map<String, ControllerMO> deviceIdToCtrlMap = new HashMap<String, ControllerMO>();
+        Map<String, ControllerMO> deviceIdToCtrlMap = new HashMap<>();
         // get neId list
-        List<String> neUuidList = new ArrayList<String>();
+        List<String> neUuidList = new ArrayList<>();
         neUuidList.add(neMo.getId());
 
         // test the controller is reachable
@@ -216,7 +216,7 @@ public class IpSecSvcImpl implements IpSecService {
 
     private ResultRsp<Map<String, WanSubInterface>> queryNeWanSubInterface(Map<String, ControllerMO> deviceIdToCtrlMap)
             throws ServiceException {
-        Map<String, WanSubInterface> deviceIdToWanSubInfMap = new HashMap<String, WanSubInterface>();
+        Map<String, WanSubInterface> deviceIdToWanSubInfMap = new HashMap<>();
         for(Entry<String, ControllerMO> entry : deviceIdToCtrlMap.entrySet()) {
             String ctrlUuid = entry.getValue().getObjectId();
             String deviceId = entry.getKey();

@@ -85,7 +85,7 @@ public class DeleteIpsecUtil {
     public static List<SbiNeIpSec> getSbiData(NbiIpSec nbiIpSec) throws ServiceException {
         List<String> uuids = new ArrayList<String>();
         uuids.add(nbiIpSec.getUuid());
-        Map<String, List<String>> filterMap = new HashMap<String, List<String>>();
+        Map<String, List<String>> filterMap = new HashMap<>();
         filterMap.put("connectionServiceId", uuids);
         return new InventoryDaoUtil<SbiNeIpSec>().getInventoryDao()
                 .batchQuery(SbiNeIpSec.class, JsonUtil.toJson(filterMap)).getData();

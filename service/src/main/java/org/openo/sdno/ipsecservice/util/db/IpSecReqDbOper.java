@@ -160,7 +160,7 @@ public class IpSecReqDbOper {
 
     private static ResultRsp<List<IpSecReqModelInfo>> queryByFilter(String connectionId, String queryResultFields)
             throws ServiceException {
-        Map<String, Object> filterMap = new HashMap<String, Object>();
+        Map<String, Object> filterMap = new HashMap<>();
         if(StringUtils.hasLength(connectionId)) {
             filterMap.put(CONNECTION_ID, Arrays.asList(connectionId));
         }

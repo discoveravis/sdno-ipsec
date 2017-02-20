@@ -46,7 +46,7 @@ public class IpSecIdUtil {
      * @since SDNO 0.5
      */
     public static List<String> allocTunnelListUuid(List<NbiIpSec> ipsecCons) {
-        List<String> inputUuidList = new ArrayList<String>();
+        List<String> inputUuidList = new ArrayList<>();
         if(CollectionUtils.isEmpty(ipsecCons)) {
             return inputUuidList;
         }
@@ -74,7 +74,7 @@ public class IpSecIdUtil {
             return;
         }
 
-        Set<String> dbUuidSet = new HashSet<String>();
+        Set<String> dbUuidSet = new HashSet<>();
         for(NbiIpSec tmpDbTunnel : dbTunnels) {
             dbUuidSet.add(tmpDbTunnel.getUuid());
         }

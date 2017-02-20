@@ -50,13 +50,13 @@ public class CheckControllerUtil {
     public static Map<String, String> testCtrlConnection(List<NetworkElementMO> neMoList) {
         Map<String, List<NetworkElementMO>> ctrlIdToNeMosMap = buildCtrlIdToNeMosMap(neMoList);
 
-        List<String> ctrlIds = new ArrayList<String>(ctrlIdToNeMosMap.keySet());
+        List<String> ctrlIds = new ArrayList<>(ctrlIdToNeMosMap.keySet());
 
         return buildNeIdToControllerMoMap(ctrlIdToNeMosMap, ctrlIds);
     }
 
     private static Map<String, List<NetworkElementMO>> buildCtrlIdToNeMosMap(List<NetworkElementMO> neMoList) {
-        Map<String, List<NetworkElementMO>> ctrlIdToNeMosMap = new HashMap<String, List<NetworkElementMO>>();
+        Map<String, List<NetworkElementMO>> ctrlIdToNeMosMap = new HashMap<>();
         for(NetworkElementMO tempNeMo : neMoList) {
             if(CollectionUtils.isEmpty(tempNeMo.getControllerID())) {
                 LOGGER.warn("ControllerID is empty. ne id: " + tempNeMo.getId());
@@ -75,7 +75,7 @@ public class CheckControllerUtil {
 
     private static Map<String, String> buildNeIdToControllerMoMap(Map<String, List<NetworkElementMO>> ctrlIdToNeMosMap,
             List<String> ctrlIds) {
-        Map<String, String> neIdToCtrlMoMap = new HashMap<String, String>();
+        Map<String, String> neIdToCtrlMoMap = new HashMap<>();
         for(Entry<String, List<NetworkElementMO>> tempEntry : ctrlIdToNeMosMap.entrySet()) {
 
             List<NetworkElementMO> tempNeMOs = tempEntry.getValue();

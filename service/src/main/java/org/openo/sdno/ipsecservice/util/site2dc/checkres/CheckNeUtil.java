@@ -56,7 +56,7 @@ public class CheckNeUtil {
      */
     public static void checkNesResource(Set<String> neIdSet, Map<String, NetworkElementMO> deviceIdToNeMap,
             List<NbiIpSec> ipsecCons) throws ServiceException {
-        List<NetworkElementMO> queryedNeMos = new ArrayList<NetworkElementMO>();
+        List<NetworkElementMO> queryedNeMos = new ArrayList<>();
 
         NetworkElementInvDao neDao = new NetworkElementInvDao();
         for(String neId : neIdSet) {
@@ -108,8 +108,8 @@ public class CheckNeUtil {
     @SuppressWarnings("null")
     public static void checkNesResourceAndFillSbi(Set<String> neIds, List<SbiNeIpSec> sbiNeIpsecs)
             throws ServiceException {
-        List<NetworkElementMO> queryedNeMos = new ArrayList<NetworkElementMO>();
-        List<NetworkElementMO> allNeMos = new ArrayList<NetworkElementMO>();
+        List<NetworkElementMO> queryedNeMos = new ArrayList<>();
+        List<NetworkElementMO> allNeMos = new ArrayList<>();
         try {
             allNeMos.addAll(new NetworkElementInvDao().getAllMO());
         } catch(ServiceException e) {

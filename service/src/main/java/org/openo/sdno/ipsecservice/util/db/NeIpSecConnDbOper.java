@@ -114,7 +114,7 @@ public class NeIpSecConnDbOper {
 
     private static ResultRsp<List<NeIpSecConnection>> queryByFilter(String connectionId, String queryResultFields)
             throws ServiceException {
-        Map<String, Object> filterMap = new HashMap<String, Object>();
+        Map<String, Object> filterMap = new HashMap<>();
         if(StringUtils.hasLength(connectionId)) {
             filterMap.put(CONNECTION_SERVICE_ID, Arrays.asList(connectionId));
         }

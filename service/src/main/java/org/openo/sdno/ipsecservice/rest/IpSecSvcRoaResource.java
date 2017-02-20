@@ -95,7 +95,7 @@ public class IpSecSvcRoaResource {
         }
 
         // check parameters and get mapping from NEID and NE Information
-        Map<String, NetworkElementMO> neIdToNeMap = new ConcurrentHashMap<String, NetworkElementMO>();
+        Map<String, NetworkElementMO> neIdToNeMap = new ConcurrentHashMap<>();
         CheckOverlayVpn.check(overlayVpn, neIdToNeMap);
 
         // save the request data

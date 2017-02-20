@@ -47,7 +47,7 @@ public class NbiModelToSbiModel {
      */
     public static List<SbiNeIpSec> convertToNeIpsec(List<NbiIpSec> ipsecConnections,
             Map<String, String> deviceIdToCtrollMap) {
-        List<SbiNeIpSec> sbiNeIpSecs = new ArrayList<SbiNeIpSec>();
+        List<SbiNeIpSec> sbiNeIpSecs = new ArrayList<>();
 
         if(CollectionUtils.isEmpty(ipsecConnections)) {
             return sbiNeIpSecs;

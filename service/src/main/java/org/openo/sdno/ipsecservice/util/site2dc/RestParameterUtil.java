@@ -49,7 +49,7 @@ public class RestParameterUtil {
         RestfulParametes para = new RestfulParametes();
         para.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
         para.putHttpContextHeader("X-Driver-Parameter", "extSysID=" + ctrlId);
-        Map<String, String> queryMap = new ConcurrentHashMap<String, String>();
+        Map<String, String> queryMap = new ConcurrentHashMap<>();
         queryMap.put("portName", portName);
         para.setParamMap(queryMap);
 

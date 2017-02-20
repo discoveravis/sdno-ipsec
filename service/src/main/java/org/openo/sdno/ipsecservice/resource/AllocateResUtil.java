@@ -55,8 +55,8 @@ public class AllocateResUtil {
      * @since SDNO 0.5
      */
     public static void allocateExternalId(List<SbiNeIpSec> sbiNeIpsecList) throws ServiceException {
-        Map<String, String> neIdToSecIdMap = new HashMap<String, String>();
-        Map<String, String> templateIdToSeqNum = new HashMap<String, String>();
+        Map<String, String> neIdToSecIdMap = new HashMap<>();
+        Map<String, String> templateIdToSeqNum = new HashMap<>();
 
         for(SbiNeIpSec sbiNeIpSec : sbiNeIpsecList) {
             if(NeRoleType.VPC.getName().equals(sbiNeIpSec.getLocalNeRole())) {
@@ -76,7 +76,7 @@ public class AllocateResUtil {
                 continue;
             }
 
-            Map<String, List<String>> filterMap = new HashMap<String, List<String>>();
+            Map<String, List<String>> filterMap = new HashMap<>();
             filterMap.put("neId", Arrays.asList(neId));
             filterMap.put("soureIfName", Arrays.asList(sbiNeIpSec.getSoureIfName()));
 
@@ -127,7 +127,7 @@ public class AllocateResUtil {
             throw new InnerErrorServiceException("allocate seq num failed!");
         }
 
-        List<Integer> rst = new ArrayList<Integer>();
+        List<Integer> rst = new ArrayList<>();
         for(Long seq : seqNumList) {
             rst.add(Integer.valueOf(seq.toString()));
         }
