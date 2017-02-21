@@ -72,12 +72,12 @@ public class UpdateStatusUtil {
                     tmpDestNeTunnel = tmpSbiNeTunnel;
                 }
 
-                if((null != tmpSrcNeTunnel) && (null != tmpDestNeTunnel)) {
+                if(srcAndDestDataIsFound(tmpSrcNeTunnel, tmpDestNeTunnel)) {
                     break;
                 }
             }
 
-            if(null == tmpSrcNeTunnel || null == tmpDestNeTunnel) {
+            if(!srcAndDestDataIsFound(tmpSrcNeTunnel, tmpDestNeTunnel)) {
                 LOGGER.error("updateNbiIpsecs: tmpSrcNeTunnel or tmpDestNeTunnel is null ");
                 throw new InnerErrorServiceException("updateNbiIpsecs failed!");
             }
@@ -89,6 +89,10 @@ public class UpdateStatusUtil {
 
         InventoryDao<NbiIpSec> nbiTunnelDao = new InventoryDaoUtil<NbiIpSec>().getInventoryDao();
         nbiTunnelDao.update(NbiIpSec.class, nbiIpsecs, "deployStatus,operationStatus");
+    }
+
+    private static boolean srcAndDestDataIsFound(SbiNeIpSec tmpSrcNeTunnel, SbiNeIpSec tmpDestNeTunnel) {
+        return (null != tmpSrcNeTunnel) && (null != tmpDestNeTunnel);
     }
 
     private static void updateDeployStatus(NbiIpSec tmpNbiTunnel, SbiNeIpSec tmpSrcNeTunnel,

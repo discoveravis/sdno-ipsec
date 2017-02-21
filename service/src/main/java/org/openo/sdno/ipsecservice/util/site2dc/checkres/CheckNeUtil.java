@@ -112,18 +112,7 @@ public class CheckNeUtil {
             throws ServiceException {
         List<NetworkElementMO> queryedNeMos = new ArrayList<>();
         List<NetworkElementMO> allNeMos = new ArrayList<>();
-        try {
-            allNeMos.addAll(new NetworkElementInvDao().getAllMO());
-        } catch(ServiceException e) {
-            LOGGER.error("batch query NeMO exception.", e);
-            throw new InnerErrorServiceException("query ne failed!");
-        }
-
-        for(NetworkElementMO tmpNe : allNeMos) {
-            if(neIds.contains(tmpNe.getId())) {
-                queryedNeMos.add(tmpNe);
-            }
-        }
+        queryNesInDb(queryedNeMos, allNeMos, neIds);
 
         for(String tempNeId : neIds) {
             NetworkElementMO tmpNe = null;
@@ -147,4 +136,20 @@ public class CheckNeUtil {
         }
     }
 
+    private static void queryNesInDb(List<NetworkElementMO> queryedNeMos, List<NetworkElementMO> allNeMos,
+            Set<String> neIds) throws ServiceException {
+
+        try {
+            allNeMos.addAll(new NetworkElementInvDao().getAllMO());
+        } catch(ServiceException e) {
+            LOGGER.error("batch query NeMO exception.", e);
+            throw new InnerErrorServiceException("query ne failed!");
+        }
+
+        for(NetworkElementMO tmpNe : allNeMos) {
+            if(neIds.contains(tmpNe.getId())) {
+                queryedNeMos.add(tmpNe);
+            }
+        }
+    }
 }

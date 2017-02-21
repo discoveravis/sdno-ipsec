@@ -112,23 +112,7 @@ public class MergeRspUtil {
         List<SbiIpSecPolicy> ipSecPolicyList = new ArrayList<>();
 
         for(SbiNeIpSec sbiNeIpSec : sbiNeIpSecs) {
-            for(SbiNeIpSec sbiNeIpSecSuccess : sbiNeIpSecsSuccess) {
-                if(sbiNeIpSec.getUuid().equals(sbiNeIpSecSuccess.getUuid())) {
-                    sbiNeIpSec.setOperationStatus(OperationStatus.NORMAL.getName());
-                    sbiNeIpSec.setDeployStatus(DeployStatus.DEPLOY.getName());
-                    sbiNeIpSec.setExternalId(sbiNeIpSecSuccess.getExternalId());
-                    sbiNeIpSec.setExternalIpSecId(sbiNeIpSecSuccess.getExternalIpSecId());
-
-                    if(NeRoleType.VPC.getName().equals(sbiNeIpSecSuccess.getLocalNeRole())) {
-                        ikePolicyList.add(sbiNeIpSecSuccess.getIkePolicy());
-                        ipSecPolicyList.add(sbiNeIpSecSuccess.getIpSecPolicy());
-                    }
-                    needUpdateSbiNeIpSecs.add(sbiNeIpSec);
-
-                    break;
-                }
-            }
-
+            updateSbiData(sbiNeIpSec, sbiNeIpSecsSuccess, ikePolicyList, ipSecPolicyList, needUpdateSbiNeIpSecs);
         }
 
         if(CollectionUtils.isNotEmpty(needUpdateSbiNeIpSecs)) {
@@ -140,5 +124,26 @@ public class MergeRspUtil {
             LOGGER.info("update SbiNeIpSec's status and IkePolicy,IpSecPolicy complete. ");
         }
 
+    }
+
+    private static void updateSbiData(SbiNeIpSec sbiNeIpSec, List<SbiNeIpSec> sbiNeIpSecsSuccess,
+            List<SbiIkePolicy> ikePolicyList, List<SbiIpSecPolicy> ipSecPolicyList,
+            List<SbiNeIpSec> needUpdateSbiNeIpSecs) {
+        for(SbiNeIpSec sbiNeIpSecSuccess : sbiNeIpSecsSuccess) {
+            if(sbiNeIpSec.getUuid().equals(sbiNeIpSecSuccess.getUuid())) {
+                sbiNeIpSec.setOperationStatus(OperationStatus.NORMAL.getName());
+                sbiNeIpSec.setDeployStatus(DeployStatus.DEPLOY.getName());
+                sbiNeIpSec.setExternalId(sbiNeIpSecSuccess.getExternalId());
+                sbiNeIpSec.setExternalIpSecId(sbiNeIpSecSuccess.getExternalIpSecId());
+
+                if(NeRoleType.VPC.getName().equals(sbiNeIpSecSuccess.getLocalNeRole())) {
+                    ikePolicyList.add(sbiNeIpSecSuccess.getIkePolicy());
+                    ipSecPolicyList.add(sbiNeIpSecSuccess.getIpSecPolicy());
+                }
+                needUpdateSbiNeIpSecs.add(sbiNeIpSec);
+
+                break;
+            }
+        }
     }
 }

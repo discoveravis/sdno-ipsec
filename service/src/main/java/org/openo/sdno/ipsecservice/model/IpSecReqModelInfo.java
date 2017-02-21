@@ -16,6 +16,8 @@
 
 package org.openo.sdno.ipsecservice.model;
 
+import java.util.Objects;
+
 import org.openo.sdno.overlayvpn.inventory.sdk.model.annotation.MOResType;
 import org.openo.sdno.overlayvpn.model.common.enums.ActionStatus;
 import org.openo.sdno.overlayvpn.model.uuid.AbstUuidModel;
@@ -60,5 +62,34 @@ public class IpSecReqModelInfo extends AbstUuidModel {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) {
+            return true;
+        }
+        if(obj == null) {
+            return false;
+        }
+        if(this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        IpSecReqModelInfo other = (IpSecReqModelInfo)obj;
+        if(!Objects.equals(uuid, other.uuid)) {
+            return false;
+        }
+        if(!Objects.equals(connectionId, other.connectionId)) {
+            return false;
+        }
+        if(!Objects.equals(actionState, other.actionState)) {
+            return false;
+        }
+        if(!Objects.equals(data, other.data)) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -21,8 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.exception.InnerErrorServiceException;
@@ -70,7 +68,7 @@ public class DeployIpsecUtil {
      * @throws ServiceException when deploy failed
      * @since SDNO 0.5
      */
-    public static final List<String> doDeploy(HttpServletRequest req, List<String> ipsecIds) throws ServiceException {
+    public static final List<String> doDeploy(List<String> ipsecIds) throws ServiceException {
         List<NbiIpSec> nbiIpsecs = new ArrayList<>();
         List<SbiNeIpSec> sbiNeIpsecs = checkDataAndGetSbiNeIpsec(ipsecIds, nbiIpsecs);
 
@@ -79,7 +77,7 @@ public class DeployIpsecUtil {
         List<SbiNeIpSec> activeNeIpsecs = new ArrayList<>();
         checkSbiStatus(acInactiveNeIpsecs, fsInactiveNeIpsecs, activeNeIpsecs, sbiNeIpsecs);
 
-        if(CollectionUtils.isEmpty(acInactiveNeIpsecs) && CollectionUtils.isEmpty(fsInactiveNeIpsecs)) {
+        if(hasNoActiveIpsecs(acInactiveNeIpsecs, fsInactiveNeIpsecs)) {
             return ipsecIds;
         }
 
@@ -92,26 +90,14 @@ public class DeployIpsecUtil {
         fsDeployRsp.setSuccessed(new ArrayList<SbiNeIpSec>());
         fsDeployRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
 
-        if(!CollectionUtils.isEmpty(fsInactiveNeIpsecs)) {
-            CreateUtil.createByFs(fsInactiveNeIpsecs, fsDeployRsp);
-            if(!CollectionUtils.isEmpty(fsDeployRsp.getFail())) {
-                LOGGER.error("deploy fs failed. fail num = ", fsDeployRsp.getFail().size());
-                throw new InnerErrorServiceException("deploy in fs failed!");
-            }
-        }
+        deployInFs(fsInactiveNeIpsecs, fsDeployRsp);
 
         fillLanCidrByFsRsp(activeNeIpsecs, acInactiveNeIpsecs, fsDeployRsp);
 
         ResultRsp<SbiNeIpSec> acDeployRsp = new ResultRsp<>();
         acDeployRsp.setSuccessed(activeNeIpsecs);
         acDeployRsp.setFail(new ArrayList<FailData<SbiNeIpSec>>());
-        if(!CollectionUtils.isEmpty(acInactiveNeIpsecs)) {
-            CreateUtil.createByAc(acInactiveNeIpsecs, acDeployRsp);
-            if(!CollectionUtils.isEmpty(acDeployRsp.getFail())) {
-                LOGGER.error("deploy ac failed. fail num = ", acDeployRsp.getFail().size());
-                throw new InnerErrorServiceException("deploy in ac failed!");
-            }
-        }
+        deployInAc(acInactiveNeIpsecs, acDeployRsp);
 
         ResultRsp<NbiIpSec> deployRsp =
                 MergeRspUtil.mergeAllCreateRsp(nbiIpsecs, sbiNeIpsecs, acDeployRsp, fsDeployRsp, OperationType.DEPLOY);
@@ -123,6 +109,32 @@ public class DeployIpsecUtil {
 
         LOGGER.error("deploy failed. success num = ", deployRsp.getSuccessed().size());
         throw new InnerErrorServiceException("deploy failed!");
+    }
+
+    private static boolean hasNoActiveIpsecs(List<SbiNeIpSec> acInactiveNeIpsecs, List<SbiNeIpSec> fsInactiveNeIpsecs) {
+        return CollectionUtils.isEmpty(acInactiveNeIpsecs) && CollectionUtils.isEmpty(fsInactiveNeIpsecs);
+    }
+
+    private static void deployInFs(List<SbiNeIpSec> fsInactiveNeIpsecs, ResultRsp<SbiNeIpSec> fsDeployRsp)
+            throws ServiceException {
+        if(!CollectionUtils.isEmpty(fsInactiveNeIpsecs)) {
+            CreateUtil.createByFs(fsInactiveNeIpsecs, fsDeployRsp);
+            if(!CollectionUtils.isEmpty(fsDeployRsp.getFail())) {
+                LOGGER.error("deploy fs failed. fail num = ", fsDeployRsp.getFail().size());
+                throw new InnerErrorServiceException("deploy in fs failed!");
+            }
+        }
+    }
+
+    private static void deployInAc(List<SbiNeIpSec> acInactiveNeIpsecs, ResultRsp<SbiNeIpSec> acDeployRsp)
+            throws ServiceException {
+        if(!CollectionUtils.isEmpty(acInactiveNeIpsecs)) {
+            CreateUtil.createByAc(acInactiveNeIpsecs, acDeployRsp);
+            if(!CollectionUtils.isEmpty(acDeployRsp.getFail())) {
+                LOGGER.error("deploy ac failed. fail num = ", acDeployRsp.getFail().size());
+                throw new InnerErrorServiceException("deploy in ac failed!");
+            }
+        }
     }
 
     private static void checkSbiStatus(List<SbiNeIpSec> acInactiveNeIpsecs, List<SbiNeIpSec> fsInactiveNeIpsecs,

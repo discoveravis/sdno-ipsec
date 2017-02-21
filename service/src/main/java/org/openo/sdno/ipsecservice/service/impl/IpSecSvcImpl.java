@@ -36,7 +36,7 @@ import org.openo.sdno.ipsecservice.service.inf.IpSecService;
 import org.openo.sdno.ipsecservice.util.db.DcGwIpSecConnDbOper;
 import org.openo.sdno.ipsecservice.util.db.IpSecReqDbOper;
 import org.openo.sdno.ipsecservice.util.db.NeIpSecConnDbOper;
-import org.openo.sdno.ipsecservice.util.exception.ThrowException;
+import org.openo.sdno.ipsecservice.util.exception.ExceptionUtil;
 import org.openo.sdno.ipsecservice.util.operation.CommonUtil;
 import org.openo.sdno.ipsecservice.util.operation.VpcInfo;
 import org.openo.sdno.ipsecservice.util.security.Security;
@@ -128,7 +128,7 @@ public class IpSecSvcImpl implements IpSecService {
         }
 
         if(vpcEndpointGroup == null || acEndpointGroup == null) {
-            ThrowException.throwParameterInvalid("epgs in connection are invalid, it need a VPC epg and an other epg");
+            ExceptionUtil.throwParameterInvalid("epgs in connection are invalid, it need a VPC epg and an other epg");
 
             // It's never be implemented as return in ThrowException.throwParameterInvalid, and here
             // just used to resolve code static checking.
@@ -180,7 +180,7 @@ public class IpSecSvcImpl implements IpSecService {
         // query data
         OverlayVpn overlayVpn = IpSecReqDbOper.query(connectionId);
         if(null == overlayVpn) {
-            ThrowException.throwResNotExist("connectionId (" + connectionId + ") is not existed");
+            ExceptionUtil.throwResNotExist("connectionId (" + connectionId + ") is not existed");
         }
 
         return new ResultRsp<>(ErrorCode.OVERLAYVPN_SUCCESS, overlayVpn);
@@ -350,7 +350,7 @@ public class IpSecSvcImpl implements IpSecService {
                 neIpSecConnSbiService.createIpSecNeConnection(neIpSecNeConnectionList);
 
         // check the response for error code and throw an exception in case of failure
-        ThrowException.checkRspThrowException(resultRsp);
+        ExceptionUtil.checkRspThrowException(resultRsp);
 
         // update actionState to normal and update operStatus that get from response
         for(NeIpSecConnection neIpSecConnection : resultRsp.getData()) {
@@ -374,7 +374,7 @@ public class IpSecSvcImpl implements IpSecService {
                 dcGwIpSecConnSbiService.createIpSecNeConnection(dcGwIpSecConnectionList);
 
         // check the response for error code and throw an exception in case of failure
-        ThrowException.checkRspThrowException(resultRsp);
+        ExceptionUtil.checkRspThrowException(resultRsp);
 
         // update actionState to normal and update operStatus that get from response
         for(DcGwIpSecConnection dcGwIpSecConnection : resultRsp.getData()) {
@@ -403,7 +403,7 @@ public class IpSecSvcImpl implements IpSecService {
         ResultRsp<String> resultRsp = neIpSecConnSbiService.deleteIpSecConnection(ipSecConnectionList.getData());
 
         // check the response for error code and throw an exception in case of failure
-        ThrowException.checkRspThrowException(resultRsp);
+        ExceptionUtil.checkRspThrowException(resultRsp);
 
         // delete data
         NeIpSecConnDbOper.delete(connectionId);
@@ -428,7 +428,7 @@ public class IpSecSvcImpl implements IpSecService {
         ResultRsp<String> resultRsp = dcGwIpSecConnSbiService.deleteIpSecConnection(ipSecConnectionList.getData());
 
         // check the response for error code and throw an exception in case of failure
-        ThrowException.checkRspThrowException(resultRsp);
+        ExceptionUtil.checkRspThrowException(resultRsp);
 
         // delete data
         DcGwIpSecConnDbOper.delete(connectionId);

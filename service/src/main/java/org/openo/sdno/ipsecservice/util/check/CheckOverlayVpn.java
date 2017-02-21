@@ -25,7 +25,7 @@ import org.apache.commons.collections.Predicate;
 import org.codehaus.jackson.type.TypeReference;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.framework.container.util.JsonUtil;
-import org.openo.sdno.ipsecservice.util.exception.ThrowException;
+import org.openo.sdno.ipsecservice.util.exception.ExceptionUtil;
 import org.openo.sdno.ipsecservice.util.operation.CommonUtil;
 import org.openo.sdno.overlayvpn.brs.invdao.NetworkElementInvDao;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
@@ -101,16 +101,16 @@ public class CheckOverlayVpn {
     private static void checkModelUuidConsistency(String overlayVpnUuid, Connection connection)
             throws ServiceException {
         if(!overlayVpnUuid.equals(connection.getCompositeVpnId())) {
-            ThrowException.throwUuidNotConsistency("Connection", connection.getUuid(), "OverlayVpn", overlayVpnUuid);
+            ExceptionUtil.throwUuidNotConsistency("Connection", connection.getUuid(), "OverlayVpn", overlayVpnUuid);
         }
 
         if(CollectionUtils.isEmpty(connection.getEndpointGroups())) {
-            ThrowException.throwParameterInvalid("Miss end point groups in ipsec connection");
+            ExceptionUtil.throwParameterInvalid("Miss end point groups in ipsec connection");
         }
 
         for(EndpointGroup tempEndpointGroup : connection.getEndpointGroups()) {
             if(!connection.getUuid().equals(tempEndpointGroup.getConnectionId())) {
-                ThrowException.throwUuidNotConsistency("EndpointGroup", tempEndpointGroup.getUuid(), "Connection",
+                ExceptionUtil.throwUuidNotConsistency("EndpointGroup", tempEndpointGroup.getUuid(), "Connection",
                         connection.getUuid());
             }
         }
@@ -121,16 +121,16 @@ public class CheckOverlayVpn {
         int epgVpcNum = 0;
 
         if(!(TechnologyType.IPSEC.getName().equals(connection.getTechnology()))) {
-            ThrowException.throwParameterInvalid("Technology is not ipsec");
+            ExceptionUtil.throwParameterInvalid("Technology is not ipsec");
         }
 
         if(!CommonUtil.checkStringEqual(tenantId, connection.getTenantId())) {
-            ThrowException.throwTenantIdInvalid(connection.getTenantId(), tenantId);
+            ExceptionUtil.throwTenantIdInvalid(connection.getTenantId(), tenantId);
         }
 
         List<EndpointGroup> tempEndpointGroups = connection.getEndpointGroups();
         if(CollectionUtils.isEmpty(tempEndpointGroups)) {
-            ThrowException.throwParameterInvalid("EndpointGroups is null");
+            ExceptionUtil.throwParameterInvalid("EndpointGroups is null");
         }
 
         for(EndpointGroup tempEndpointGroup : tempEndpointGroups) {
@@ -142,19 +142,19 @@ public class CheckOverlayVpn {
         }
 
         if(epgVpcNum == 0) {
-            ThrowException.throwParameterInvalid("EndpointGroup of vpc is not existed");
+            ExceptionUtil.throwParameterInvalid("EndpointGroup of vpc is not existed");
         }
 
         if(epgVpcNum > 1) {
-            ThrowException.throwParameterInvalid("EndpointGroup of vpc is over 1");
+            ExceptionUtil.throwParameterInvalid("EndpointGroup of vpc is over 1");
         }
 
         if(epgAcNum == 0) {
-            ThrowException.throwParameterInvalid("EndpointGroup beside vpc is not existed");
+            ExceptionUtil.throwParameterInvalid("EndpointGroup beside vpc is not existed");
         }
 
         if(epgAcNum > 1) {
-            ThrowException.throwParameterInvalid("EndpointGroup beside vpc is over 1");
+            ExceptionUtil.throwParameterInvalid("EndpointGroup beside vpc is over 1");
         }
 
         return tempEndpointGroups;
@@ -164,11 +164,11 @@ public class CheckOverlayVpn {
             Map<String, NetworkElementMO> neIdToNeMap) throws ServiceException {
         for(EndpointGroup epg : epgList) {
             if(!CommonUtil.checkStringEqual(tenantId, epg.getTenantId())) {
-                ThrowException.throwTenantIdInvalid(epg.getTenantId(), tenantId);
+                ExceptionUtil.throwTenantIdInvalid(epg.getTenantId(), tenantId);
             }
 
             if(null != epg.getGateway()) {
-                ThrowException.throwParameterInvalid("Gateway is not Null");
+                ExceptionUtil.throwParameterInvalid("Gateway is not Null");
             }
             checkEndpoints(epg);
             checkResourceInEpg(epg, neIdToNeMap);
@@ -180,13 +180,13 @@ public class CheckOverlayVpn {
 
         List<String> endpointList = JsonUtil.fromJson(endpoints, new TypeReference<List<String>>() {});
         if(CollectionUtils.isEmpty(endpointList)) {
-            ThrowException.throwParameterInvalid("Endpoints is null");
+            ExceptionUtil.throwParameterInvalid("Endpoints is null");
         }
 
         if(EndpointType.CIDR.getName().equals(epg.getType())) {
             for(String endpoint : endpointList) {
                 if(!endpoint.matches(ValidationConsts.IP_MASK_REGEX)) {
-                    ThrowException.throwParameterInvalid("Endpoints is invalid");
+                    ExceptionUtil.throwParameterInvalid("Endpoints is invalid");
                 }
             }
         }
@@ -202,7 +202,7 @@ public class CheckOverlayVpn {
         NetworkElementMO tempNe = neDao.query(epgNeId);
 
         if(null == tempNe) {
-            ThrowException.throwResNotExist("Ne (" + epgNeId + ") is not existed");
+            ExceptionUtil.throwResNotExist("Ne (" + epgNeId + ") is not existed");
 
             // It's never be implemented as return in ThrowException.throwResNotExist, and here
             // just used to resolve code static checking.
@@ -211,7 +211,7 @@ public class CheckOverlayVpn {
 
         String deviceId = tempNe.getNativeID();
         if(!StringUtils.hasLength(deviceId)) {
-            ThrowException.throwParameterInvalid("device id (" + deviceId + ") is not existed");
+            ExceptionUtil.throwParameterInvalid("device id (" + deviceId + ") is not existed");
         }
 
         epg.setDeviceId(deviceId);
@@ -247,15 +247,15 @@ public class CheckOverlayVpn {
                 }));
 
         if(CollectionUtils.isEmpty(hubEpgs)) {
-            ThrowException.throwParameterInvalid("connection topology type no hub");
+            ExceptionUtil.throwParameterInvalid("connection topology type no hub");
         }
 
         if(hubEpgs.size() > 1) {
-            ThrowException.throwParameterInvalid("connection topology type hub epg more than one");
+            ExceptionUtil.throwParameterInvalid("connection topology type hub epg more than one");
         }
 
         if(CollectionUtils.isEmpty(spokeEpgs)) {
-            ThrowException.throwParameterInvalid("connection topology type no spoke");
+            ExceptionUtil.throwParameterInvalid("connection topology type no spoke");
         }
     }
 }

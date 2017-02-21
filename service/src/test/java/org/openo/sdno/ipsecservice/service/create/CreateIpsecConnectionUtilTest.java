@@ -66,7 +66,7 @@ public class CreateIpsecConnectionUtilTest {
         ipsec.setSrcNeId("ne1");
         ipsec.setDestNeId("ne1");
         nbiIpsecs.add(ipsec);
-        CreateIpsecConnectionUtil.doCreate(null, nbiIpsecs);
+        CreateIpsecConnectionUtil.doCreate(nbiIpsecs);
     }
 
     @Test(expected = ParameterServiceException.class)
@@ -87,6 +87,6 @@ public class CreateIpsecConnectionUtilTest {
         ipsec.setDestNeId("ne2");
         ipsec.setSrcNeRole("vpc");
         nbiIpsecs.add(ipsec);
-        CreateIpsecConnectionUtil.doCreate(null, nbiIpsecs);
+        CreateIpsecConnectionUtil.doCreate(nbiIpsecs);
     }
 }

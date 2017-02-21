@@ -17,7 +17,7 @@
 package org.openo.sdno.ipsecservice.util.operation;
 
 import org.openo.baseservice.remoteservice.exception.ServiceException;
-import org.openo.sdno.ipsecservice.util.exception.ThrowException;
+import org.openo.sdno.ipsecservice.util.exception.ExceptionUtil;
 import org.openo.sdno.overlayvpn.model.common.enums.TechnologyType;
 import org.openo.sdno.overlayvpn.model.servicemodel.Connection;
 import org.openo.sdno.overlayvpn.model.servicemodel.OverlayVpn;
@@ -51,7 +51,7 @@ public class CommonUtil {
         Connection retConnection = null;
 
         if(CollectionUtils.isEmpty(overlayVpn.getVpnConnections())) {
-            ThrowException.throwParameterInvalid("Miss connection in overlayvpn");
+            ExceptionUtil.throwParameterInvalid("Miss connection in overlayvpn");
         }
 
         for(Connection tempConnection : overlayVpn.getVpnConnections()) {
@@ -62,7 +62,7 @@ public class CommonUtil {
         }
 
         if(null == retConnection) {
-            ThrowException.throwParameterInvalid("Miss ipsec connection in overlayvpn");
+            ExceptionUtil.throwParameterInvalid("Miss ipsec connection in overlayvpn");
         }
 
         return retConnection;

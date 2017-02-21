@@ -160,24 +160,29 @@ public class CreateUtil {
         List<NbiIpSec> updateSrcLanCidr = new ArrayList<>();
         List<NbiIpSec> updateDestLanCidr = new ArrayList<>();
         for(NbiIpSec nbiIpsec : nbiIpsecs) {
-            for(SbiNeIpSec sbiNeIpSec : fsCreateResult.getSuccessed()) {
-                if(nbiIpsec.getUuid().equals(sbiNeIpSec.getConnectionServiceId())) {
-                    if(nbiIpsec.getSrcNeId().equals(sbiNeIpSec.getNeId())
-                            && nbiIpsec.getDestNeId().equals(sbiNeIpSec.getPeerNeId())) {
-                        nbiIpsec.setSourceLanCidrs(sbiNeIpSec.getSourceLanCidrs());
-                        updateSrcLanCidr.add(nbiIpsec);
-                    } else {
-                        nbiIpsec.setDestLanCidrs(sbiNeIpSec.getSourceLanCidrs());
-                        updateDestLanCidr.add(nbiIpsec);
-                    }
-                    break;
-                }
-            }
+            updateCidrs(fsCreateResult, nbiIpsec, updateSrcLanCidr, updateDestLanCidr);
         }
 
         new InventoryDaoUtil<NbiIpSec>().getInventoryDao().update(NbiIpSec.class, updateSrcLanCidr, "sourceLanCidrs");
         new InventoryDaoUtil<NbiIpSec>().getInventoryDao().update(NbiIpSec.class, updateDestLanCidr, "destLanCidrs");
 
+    }
+
+    private static void updateCidrs(ResultRsp<SbiNeIpSec> fsCreateResult, NbiIpSec nbiIpsec,
+            List<NbiIpSec> updateSrcLanCidr, List<NbiIpSec> updateDestLanCidr) {
+        for(SbiNeIpSec sbiNeIpSec : fsCreateResult.getSuccessed()) {
+            if(nbiIpsec.getUuid().equals(sbiNeIpSec.getConnectionServiceId())) {
+                if(nbiIpsec.getSrcNeId().equals(sbiNeIpSec.getNeId())
+                        && nbiIpsec.getDestNeId().equals(sbiNeIpSec.getPeerNeId())) {
+                    nbiIpsec.setSourceLanCidrs(sbiNeIpSec.getSourceLanCidrs());
+                    updateSrcLanCidr.add(nbiIpsec);
+                } else {
+                    nbiIpsec.setDestLanCidrs(sbiNeIpSec.getSourceLanCidrs());
+                    updateDestLanCidr.add(nbiIpsec);
+                }
+                break;
+            }
+        }
     }
 
     /**

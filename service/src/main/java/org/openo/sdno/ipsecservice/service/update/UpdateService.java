@@ -135,26 +135,30 @@ public class UpdateService {
                 .batchQuery(NbiIpSec.class, new ArrayList<String>(uuids)).getData();
 
         for(NbiIpSec nbiIpSec : nbiIpsecs) {
-            boolean isFind = false;
-            for(NbiIpSec dbNbiIpsec : dbNbiIpsecs) {
-                if(nbiIpSec.getUuid().equals(dbNbiIpsec.getUuid())) {
-                    isFind = true;
-                    if(!NeRoleType.VPC.getName().equals(dbNbiIpsec.getSrcNeRole())) {
-                        dbNbiIpsec.setSourceLanCidrs(nbiIpSec.getSourceLanCidrs());
-                    }
-                    if(!NeRoleType.VPC.getName().equals(dbNbiIpsec.getDestNeRole())) {
-                        dbNbiIpsec.setDestLanCidrs(nbiIpSec.getDestLanCidrs());
-                    }
-                    break;
-                }
-            }
-            if(!isFind) {
-                LOGGER.error("update fail.nbi data not found. id: ", nbiIpSec.getUuid());
-                throw new InnerErrorServiceException("update fail.nbi data not found!");
-            }
+            updateCidrs(nbiIpSec, dbNbiIpsecs);
         }
 
         return dbNbiIpsecs;
+    }
+
+    private static void updateCidrs(NbiIpSec nbiIpSec, List<NbiIpSec> dbNbiIpsecs) throws ServiceException {
+        boolean isFind = false;
+        for(NbiIpSec dbNbiIpsec : dbNbiIpsecs) {
+            if(nbiIpSec.getUuid().equals(dbNbiIpsec.getUuid())) {
+                isFind = true;
+                if(!NeRoleType.VPC.getName().equals(dbNbiIpsec.getSrcNeRole())) {
+                    dbNbiIpsec.setSourceLanCidrs(nbiIpSec.getSourceLanCidrs());
+                }
+                if(!NeRoleType.VPC.getName().equals(dbNbiIpsec.getDestNeRole())) {
+                    dbNbiIpsec.setDestLanCidrs(nbiIpSec.getDestLanCidrs());
+                }
+                break;
+            }
+        }
+        if(!isFind) {
+            LOGGER.error("update fail.nbi data not found. id: ", nbiIpSec.getUuid());
+            throw new InnerErrorServiceException("update fail.nbi data not found!");
+        }
     }
 
     private static List<SbiNeIpSec> getAndFillDbSbiData(List<NbiIpSec> nbiDbData, Set<String> uuids,

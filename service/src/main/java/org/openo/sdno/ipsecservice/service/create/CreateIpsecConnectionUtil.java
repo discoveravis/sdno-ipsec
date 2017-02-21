@@ -25,9 +25,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.core.Context;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.exception.InnerErrorServiceException;
@@ -81,8 +78,7 @@ public class CreateIpsecConnectionUtil {
      * @throws ServiceException when create failed
      * @since SDNO 0.5
      */
-    public static ResultRsp<NbiIpSec> doCreate(@Context HttpServletRequest req, List<NbiIpSec> nbiIpsecs)
-            throws ServiceException {
+    public static ResultRsp<NbiIpSec> doCreate(List<NbiIpSec> nbiIpsecs) throws ServiceException {
         long beginTime = System.currentTimeMillis();
 
         Map<String, String> neIdPortNameToPortNameMap = new ConcurrentHashMap<>();
@@ -102,7 +98,7 @@ public class CreateIpsecConnectionUtil {
         // S2DC does not need to fill ruleIp. Fill Ip data here
         fillTunnelData(nbiIpsecs, deviceIdToNeMap, deviceIdPortNameToIpMap);
 
-        return createInDbAndAc(req, nbiIpsecs, deviceIdToCtrollMap);
+        return createInDbAndAc(nbiIpsecs, deviceIdToCtrollMap);
 
     }
 
@@ -226,7 +222,7 @@ public class CreateIpsecConnectionUtil {
         }
     }
 
-    private static ResultRsp<NbiIpSec> createInDbAndAc(@Context HttpServletRequest req, List<NbiIpSec> nbiIpsecs,
+    private static ResultRsp<NbiIpSec> createInDbAndAc(List<NbiIpSec> nbiIpsecs,
             Map<String, String> deviceIdToCtrollMap) throws ServiceException {
 
         List<NbiIpSec> insertDataList = getIdAndInsertDb(nbiIpsecs);
@@ -290,14 +286,7 @@ public class CreateIpsecConnectionUtil {
                     greTunnelDao.queryByFilter(NbiIpSec.class, JsonUtil.toJson(filterMap), null).getData();
 
             if(CollectionUtils.isNotEmpty(dbTunnelList)) {
-                for(NbiIpSec tmpIpsec : dbTunnelList) {
-                    if(inputUuidList.contains(tmpIpsec.getUuid())) {
-                        LOGGER.error("Input Ipsec uuid exist in db. id: ", tmpIpsec.getUuid());
-                        throw new ParameterServiceException("Ipsec uuid exist in db! id:" + tmpIpsec.getUuid());
-                    }
-                }
-                // re create uuids for these conflict uuids which are created in this service
-                IpSecIdUtil.reAllocTunnelListId(nbiIpsecs, dbTunnelList);
+                checkAndReAllocNbiIpsecsUuids(dbTunnelList, inputUuidList, nbiIpsecs);
             }
         }
 
@@ -308,6 +297,18 @@ public class CreateIpsecConnectionUtil {
 
         greTunnelDao.batchInsert(insertDataList);
         return insertDataList;
+    }
+
+    private static void checkAndReAllocNbiIpsecsUuids(List<NbiIpSec> dbTunnelList, List<String> inputUuidList,
+            List<NbiIpSec> nbiIpsecs) throws ServiceException {
+        for(NbiIpSec tmpIpsec : dbTunnelList) {
+            if(inputUuidList.contains(tmpIpsec.getUuid())) {
+                LOGGER.error("Input Ipsec uuid exist in db. id: ", tmpIpsec.getUuid());
+                throw new ParameterServiceException("Ipsec uuid exist in db! id:" + tmpIpsec.getUuid());
+            }
+        }
+        // re create uuids for these conflict uuids which are created in this service
+        IpSecIdUtil.reAllocTunnelListId(nbiIpsecs, dbTunnelList);
     }
 
     private static List<SbiNeIpSec> nbiMdelToSbiModel(List<NbiIpSec> nbiTunnels, List<SbiNeIpSec> acSbiNeIpsecs,

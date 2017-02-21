@@ -25,7 +25,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.framework.container.util.JsonUtil;
 import org.openo.sdno.ipsecservice.model.IpSecReqModelInfo;
-import org.openo.sdno.ipsecservice.util.exception.ThrowException;
+import org.openo.sdno.ipsecservice.util.exception.ExceptionUtil;
 import org.openo.sdno.ipsecservice.util.operation.CommonUtil;
 import org.openo.sdno.overlayvpn.inventory.sdk.util.InventoryDaoUtil;
 import org.openo.sdno.overlayvpn.model.common.enums.ActionStatus;
@@ -110,7 +110,7 @@ public class IpSecReqDbOper {
         if(CollectionUtils.isEmpty(queryDbRsp.getData())) {
             String errMsg = "update error, connectionId (" + connectionId + ") is not found";
             LOGGER.error(errMsg);
-            ThrowException.throwResNotExist(errMsg);
+            ExceptionUtil.throwResNotExist(errMsg);
         }
 
         IpSecReqModelInfo ipSecReqModelInfo = queryDbRsp.getData().get(0);

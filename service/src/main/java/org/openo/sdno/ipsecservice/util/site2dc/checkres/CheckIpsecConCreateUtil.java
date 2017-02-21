@@ -75,6 +75,13 @@ public class CheckIpsecConCreateUtil {
         List<SbiNeIpSec> dbSbiNeIpSecList = new InventoryDaoUtil<SbiNeIpSec>().getInventoryDao()
                 .batchQuery(SbiNeIpSec.class, JsonUtil.toJson(filter)).getData();
 
+        checkAcCreated(acSbiNeIpsecList, dbSbiNeIpSecList, acCreateList);
+
+        checkFsCreated(fsSbiNeIpsecList, dbSbiNeIpSecList, fsCreateList);
+    }
+
+    private static void checkAcCreated(List<SbiNeIpSec> acSbiNeIpsecList, List<SbiNeIpSec> dbSbiNeIpSecList,
+            List<SbiNeIpSec> acCreateList) throws ServiceException {
         Iterator<SbiNeIpSec> iter = acSbiNeIpsecList.iterator();
         while(iter.hasNext()) {
             SbiNeIpSec sbiNeIpSec = iter.next();
@@ -95,8 +102,11 @@ public class CheckIpsecConCreateUtil {
             }
 
         }
+    }
 
-        iter = fsSbiNeIpsecList.iterator();
+    private static void checkFsCreated(List<SbiNeIpSec> fsSbiNeIpsecList, List<SbiNeIpSec> dbSbiNeIpSecList,
+            List<SbiNeIpSec> fsCreateList) throws ServiceException {
+        Iterator<SbiNeIpSec> iter = fsSbiNeIpsecList.iterator();
         while(iter.hasNext()) {
             SbiNeIpSec sbiNeIpSec = iter.next();
             for(SbiNeIpSec dbSbiNeIpSec : dbSbiNeIpSecList) {

@@ -117,7 +117,7 @@ public class IpSecSite2DcRoaResourceTest {
                 NbiIpSec.class);
         List<NbiIpSec> ipsecs = new ArrayList<NbiIpSec>();
         ipsecs.add(ipsec);
-        List<NbiIpSec> resultRsp = ipSecSvc.create(request, response, ipsecs);
+        List<NbiIpSec> resultRsp = ipSecSvc.create(response, ipsecs);
         assertEquals(resultRsp.size(), 1);
     }
 
@@ -129,7 +129,7 @@ public class IpSecSite2DcRoaResourceTest {
 
         List<String> ids = new ArrayList<String>();
         ids.add("id1");
-        List<NbiIpSec> resultRsp = ipSecSvc.queryIpsecTunnel(request, ids);
+        List<NbiIpSec> resultRsp = ipSecSvc.queryIpsecTunnel(ids);
         assertNull(resultRsp);
     }
 
@@ -151,7 +151,7 @@ public class IpSecSite2DcRoaResourceTest {
         new MockNeDao();
         new MockLtpDao();
 
-        NbiIpSec resultRsp = ipSecSvc.queryIpsecTunnel(request, "id1");
+        NbiIpSec resultRsp = ipSecSvc.queryIpsecTunnel("id1");
         assertEquals(resultRsp.getName(), "test");
     }
 
@@ -196,7 +196,7 @@ public class IpSecSite2DcRoaResourceTest {
                 NbiIpSec.class);
         List<NbiIpSec> ipsecs = new ArrayList<NbiIpSec>();
         ipsecs.add(ipsec);
-        List<NbiIpSec> resultRsp = ipSecSvc.update(request, ipsecs);
+        List<NbiIpSec> resultRsp = ipSecSvc.update(ipsecs);
         assertEquals(resultRsp.size(), 1);
     }
 
@@ -253,7 +253,7 @@ public class IpSecSite2DcRoaResourceTest {
         List<String> ids = new ArrayList<String>();
         ids.add("ipsecconnection1id");
         nbi.setDeploy(ids);
-        List<String> resultRsp = ipSecSvc.action(request, nbi);
+        List<String> resultRsp = ipSecSvc.action(nbi);
         assertEquals(resultRsp.size(), 1);
     }
 
@@ -328,7 +328,7 @@ public class IpSecSite2DcRoaResourceTest {
         List<String> ids = new ArrayList<String>();
         ids.add("ipsecconnection1id");
         nbi.setUndeploy(ids);
-        List<String> resultRsp = ipSecSvc.action(request, nbi);
+        List<String> resultRsp = ipSecSvc.action(nbi);
         assertEquals(resultRsp.size(), 1);
     }
 
@@ -350,7 +350,7 @@ public class IpSecSite2DcRoaResourceTest {
             }
 
         };
-        String resultRsp = ipSecSvc.delete(request, "id1");
+        String resultRsp = ipSecSvc.delete("id1");
         assertEquals(resultRsp, "id1");
     }
 

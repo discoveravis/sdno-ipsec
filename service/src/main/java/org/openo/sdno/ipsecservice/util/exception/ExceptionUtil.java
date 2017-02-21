@@ -30,16 +30,16 @@ import org.slf4j.LoggerFactory;
  * @author
  * @version SDNO 0.5 June 20, 2016
  */
-public class ThrowException {
+public class ExceptionUtil {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ThrowException.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExceptionUtil.class);
 
     /**
      * Constructor<br>
      * 
      * @since SDNO 0.5
      */
-    private ThrowException() {
+    private ExceptionUtil() {
     }
 
     /**

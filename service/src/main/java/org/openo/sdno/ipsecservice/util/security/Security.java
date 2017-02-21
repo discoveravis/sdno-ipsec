@@ -25,7 +25,7 @@ import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
-import org.openo.sdno.ipsecservice.util.exception.ThrowException;
+import org.openo.sdno.ipsecservice.util.exception.ExceptionUtil;
 import org.openo.sdno.overlayvpn.model.ipsec.IkePolicy;
 import org.openo.sdno.overlayvpn.model.ipsec.IpSecPolicy;
 import org.openo.sdno.overlayvpn.model.servicemodel.Connection;
@@ -125,9 +125,9 @@ public class Security {
             return mapper.readValue(bytes, List.class);
         } catch(IOException e) {
             LOGGER.warn("Get json file failed!", e);
-            ThrowException.throwReadSecurityFileFailed();
+            ExceptionUtil.throwReadSecurityFileFailed();
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
 }

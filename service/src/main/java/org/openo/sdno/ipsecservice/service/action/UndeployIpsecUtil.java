@@ -123,22 +123,7 @@ public class UndeployIpsecUtil {
         }
 
         List<SbiNeIpSec> delSbiData = new ArrayList<>();
-        for(SbiNeIpSec sbiNeIpsec : fsActiveNeIpsecs) {
-            String filer = FilterDataUtil.getFilterData("sbiServiceId", Arrays.asList(sbiNeIpsec.getUuid()));
-            List<SbiIkePolicy> ikePolicys = new InventoryDaoUtil<SbiIkePolicy>().getInventoryDao()
-                    .batchQuery(SbiIkePolicy.class, filer).getData();
-            List<SbiIpSecPolicy> ipSecPolicys = new InventoryDaoUtil<SbiIpSecPolicy>().getInventoryDao()
-                    .batchQuery(SbiIpSecPolicy.class, filer).getData();
-
-            if(CollectionUtils.isEmpty(ikePolicys) || CollectionUtils.isEmpty(ipSecPolicys)) {
-                LOGGER.error("undeployByFs failed. ikePoicys or ipSecPoicys is empty!");
-                throw new InnerErrorServiceException("undeployByFs failed!");
-            }
-            sbiNeIpsec.setIkePolicy(ikePolicys.get(0));
-            sbiNeIpsec.setIpSecPolicy(ipSecPolicys.get(0));
-
-            delSbiData.add(sbiNeIpsec);
-        }
+        setSbiRawDataOfFs(delSbiData, fsActiveNeIpsecs);
 
         RestfulParametes restPara = new RestfulParametes();
         restPara.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
@@ -165,6 +150,26 @@ public class UndeployIpsecUtil {
         } else {
             LOGGER.error("undeployByFs fail.  response is: " + JsonUtil.toJson(rsp));
             throw new InnerErrorServiceException("undeployByFs failed!Rsp status is not success.");
+        }
+    }
+
+    private static void setSbiRawDataOfFs(List<SbiNeIpSec> delSbiData, List<SbiNeIpSec> fsActiveNeIpsecs)
+            throws ServiceException {
+        for(SbiNeIpSec sbiNeIpsec : fsActiveNeIpsecs) {
+            String filter = FilterDataUtil.getFilterData("sbiServiceId", Arrays.asList(sbiNeIpsec.getUuid()));
+            List<SbiIkePolicy> ikePolicys = new InventoryDaoUtil<SbiIkePolicy>().getInventoryDao()
+                    .batchQuery(SbiIkePolicy.class, filter).getData();
+            List<SbiIpSecPolicy> ipSecPolicys = new InventoryDaoUtil<SbiIpSecPolicy>().getInventoryDao()
+                    .batchQuery(SbiIpSecPolicy.class, filter).getData();
+
+            if(CollectionUtils.isEmpty(ikePolicys) || CollectionUtils.isEmpty(ipSecPolicys)) {
+                LOGGER.error("undeployByFs failed. ikePoicys or ipSecPoicys is empty!");
+                throw new InnerErrorServiceException("undeployByFs failed!");
+            }
+            sbiNeIpsec.setIkePolicy(ikePolicys.get(0));
+            sbiNeIpsec.setIpSecPolicy(ipSecPolicys.get(0));
+
+            delSbiData.add(sbiNeIpsec);
         }
     }
 

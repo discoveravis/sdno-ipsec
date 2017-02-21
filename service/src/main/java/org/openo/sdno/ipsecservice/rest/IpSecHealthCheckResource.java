@@ -16,7 +16,6 @@
 
 package org.openo.sdno.ipsecservice.rest;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -56,8 +55,7 @@ public class IpSecHealthCheckResource extends IResource {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void healthCheck(@Context HttpServletRequest req, @Context HttpServletResponse resp)
-            throws ServiceException {
+    public void healthCheck(@Context HttpServletResponse resp) throws ServiceException {
         resp.setStatus(HttpStatus.SC_OK);
     }
 

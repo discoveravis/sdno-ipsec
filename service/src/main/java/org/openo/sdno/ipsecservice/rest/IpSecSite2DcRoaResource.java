@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -86,8 +85,7 @@ public class IpSecSite2DcRoaResource extends IResource {
     @Path("/{ipsecConnectionId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public NbiIpSec queryIpsecTunnel(@Context HttpServletRequest req,
-            @PathParam("ipsecConnectionId") String ipsecConnectionId) throws ServiceException {
+    public NbiIpSec queryIpsecTunnel(@PathParam("ipsecConnectionId") String ipsecConnectionId) throws ServiceException {
 
         long beginTime = System.currentTimeMillis();
 
@@ -111,15 +109,14 @@ public class IpSecSite2DcRoaResource extends IResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NbiIpSec> create(@Context HttpServletRequest req, @Context HttpServletResponse resp,
-            List<NbiIpSec> ipsecs) throws ServiceException {
+    public List<NbiIpSec> create(@Context HttpServletResponse resp, List<NbiIpSec> ipsecs) throws ServiceException {
 
         long beginTime = System.currentTimeMillis();
         LOGGER.info("Start ipsec create method. Time = " + beginTime);
         // get create data from input
         List<NbiIpSec> nbiIpsecs = CreateIpsecConnectionUtil.getGreTunnelList(ipsecs);
 
-        ResultRsp<NbiIpSec> nbiRsp = CreateIpsecConnectionUtil.doCreate(req, nbiIpsecs);
+        ResultRsp<NbiIpSec> nbiRsp = CreateIpsecConnectionUtil.doCreate(nbiIpsecs);
 
         LOGGER.info("Exit create method. cost time = " + (System.currentTimeMillis() - beginTime));
         if(nbiRsp.getSuccessed().size() == nbiIpsecs.size()) {
@@ -143,8 +140,7 @@ public class IpSecSite2DcRoaResource extends IResource {
     @Path("/{ipsecConnectionId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String delete(@Context HttpServletRequest req, @PathParam("ipsecConnectionId") String ipsecId)
-            throws ServiceException {
+    public String delete(@PathParam("ipsecConnectionId") String ipsecId) throws ServiceException {
         long beginTime = System.currentTimeMillis();
         LOGGER.info("Start ipsec delete method. Time = " + beginTime);
         NbiIpSec nbiIpsec = DeleteIpsecUtil.getNbiData(ipsecId);
@@ -177,7 +173,7 @@ public class IpSecSite2DcRoaResource extends IResource {
     @Path("/batch-query")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NbiIpSec> queryIpsecTunnel(@Context HttpServletRequest req, List<String> ids) throws ServiceException {
+    public List<NbiIpSec> queryIpsecTunnel(List<String> ids) throws ServiceException {
         long beginTime = System.currentTimeMillis();
         if(CollectionUtils.isEmpty(ids)) {
             return new ArrayList<>();
@@ -217,7 +213,7 @@ public class IpSecSite2DcRoaResource extends IResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<NbiIpSec> update(@Context HttpServletRequest req, List<NbiIpSec> nbiIpsecs) throws ServiceException {
+    public List<NbiIpSec> update(List<NbiIpSec> nbiIpsecs) throws ServiceException {
         LOGGER.info("ipsec start update! ");
         if(CollectionUtils.isEmpty(nbiIpsecs)) {
             LOGGER.info("ipsec update complete! Input is empty.");
@@ -242,10 +238,10 @@ public class IpSecSite2DcRoaResource extends IResource {
     @Path("/action")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> action(@Context HttpServletRequest req, NbiActionModel actionModel) throws ServiceException {
+    public List<String> action(NbiActionModel actionModel) throws ServiceException {
         if(CollectionUtils.isNotEmpty(actionModel.getDeploy())) {
             LOGGER.info("ipsec start deploy! ");
-            return DeployIpsecUtil.doDeploy(req, actionModel.getDeploy());
+            return DeployIpsecUtil.doDeploy(actionModel.getDeploy());
         } else if(CollectionUtils.isNotEmpty(actionModel.getUndeploy())) {
             LOGGER.info("ipsec start undeploy! ");
             return UndeployIpsecUtil.doUndeploy(actionModel.getUndeploy());

@@ -104,15 +104,11 @@ public class PortUtil {
                     LOGGER.warn("ipAddress of port:{0} is empty, neName:{1}: from brs", tempPortName,
                             tempNeMo.getName());
 
-                    if(tempPortName.contains(LOOP_BACK_PORT)) {
-                        LOGGER.error("ipAddress is empty! Port name: ", tempPortName);
-                        throw new InnerErrorServiceException("ipAddress is empty! Port name:" + tempPortName);
-                    } else {
-                        getPortIpAc(deviceIdToCtrollMap, deviceIdPortNameToIpMap, nbiIpsecs, tempNeMo, tempPortName);
-                    }
+                    getPortIpAc(deviceIdToCtrollMap, deviceIdPortNameToIpMap, tempNeMo, tempPortName);
+
                 } else {
                     String ipMaskStr = tempLtpMo.getIpMask();
-                    int ipMask = (!StringUtils.isEmpty(ipMaskStr)) ? IpUtils.maskToPrefix(ipMaskStr) : (32);
+                    int ipMask = transferMaskToPrefix(ipMaskStr);
                     deviceIdPortNameToIpMap.put(tempDeviceId + tempPortName,
                             new SbiIp(ipAddress, String.valueOf(ipMask)));
                 }
@@ -121,22 +117,25 @@ public class PortUtil {
             }
             if(!isFindLtp) {
                 LOGGER.warn("did not find Ltp.  port:{0} , neName:{1}: from brs", tempPortName, tempNeMo.getName());
-
-                if(tempPortName.contains(LOOP_BACK_PORT)) {
-                    LOGGER.error("ipAddress is empty! Port name: ", tempPortName);
-                    throw new InnerErrorServiceException("ipAddress is empty! Port name:" + tempPortName);
-                } else {
-                    getPortIpAc(deviceIdToCtrollMap, deviceIdPortNameToIpMap, nbiIpsecs, tempNeMo, tempPortName);
-                }
+                getPortIpAc(deviceIdToCtrollMap, deviceIdPortNameToIpMap, tempNeMo, tempPortName);
             }
         }
 
         return deviceIdPortNameToIpMap;
     }
 
+    private static int transferMaskToPrefix(String ipMask) {
+        return (!StringUtils.isEmpty(ipMask)) ? IpUtils.maskToPrefix(ipMask) : 32;
+    }
+
     private static SbiIp getPortIpAc(Map<String, String> deviceIdToCtrollMap,
-            Map<String, SbiIp> deviceIdPortNameToIpMap, List<NbiIpSec> nbiIpsecs, NetworkElementMO neMo,
-            String portName) throws ServiceException {
+            Map<String, SbiIp> deviceIdPortNameToIpMap, NetworkElementMO neMo, String portName)
+            throws ServiceException {
+        if(portName.contains(LOOP_BACK_PORT)) {
+            LOGGER.error("ipAddress is empty! Port name: ", portName);
+            throw new InnerErrorServiceException("ipAddress is empty! Port name:" + portName);
+        }
+
         String deviceId = neMo.getNativeID();
 
         String ctrlId = deviceIdToCtrollMap.get(deviceId);

@@ -48,7 +48,7 @@ public class DeployIpsecUtilTest {
     public void testDoDeployInputInvalidId() throws ServiceException {
         List<String> ipsecIds = new ArrayList<String>();
         ipsecIds.add("");
-        DeployIpsecUtil.doDeploy(null, ipsecIds);
+        DeployIpsecUtil.doDeploy(ipsecIds);
     }
 
 }

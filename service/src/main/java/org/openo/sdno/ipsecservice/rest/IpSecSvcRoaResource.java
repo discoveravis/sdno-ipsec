@@ -36,7 +36,7 @@ import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.ipsecservice.service.inf.IpSecService;
 import org.openo.sdno.ipsecservice.util.check.CheckOverlayVpn;
 import org.openo.sdno.ipsecservice.util.db.IpSecReqDbOper;
-import org.openo.sdno.ipsecservice.util.exception.ThrowException;
+import org.openo.sdno.ipsecservice.util.exception.ExceptionUtil;
 import org.openo.sdno.ipsecservice.util.operation.CommonUtil;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
 import org.openo.sdno.overlayvpn.consts.HttpCode;
@@ -91,7 +91,7 @@ public class IpSecSvcRoaResource {
         // check the connection id is existed or not, and forbid to create if the data is existed
         String connectionId = CommonUtil.getIpSecConnection(overlayVpn).getUuid();
         if(IpSecReqDbOper.checkRecordIsExisted(connectionId)) {
-            ThrowException.throwConnectionIdIsExisted(connectionId);
+            ExceptionUtil.throwConnectionIdIsExisted(connectionId);
         }
 
         // check parameters and get mapping from NEID and NE Information
@@ -108,7 +108,7 @@ public class IpSecSvcRoaResource {
         ResultRsp<OverlayVpn> resultRsp = ipSecService.create(req, resp, overlayVpn, neIdToNeMap);
 
         // check the response for error code and throw an exception in case of failure
-        ThrowException.checkRspThrowException(resultRsp);
+        ExceptionUtil.checkRspThrowException(resultRsp);
 
         // update actionState to normal
         IpSecReqDbOper.update(connectionId, ActionStatus.NORMAL.getName());
@@ -173,7 +173,7 @@ public class IpSecSvcRoaResource {
         ResultRsp<String> resultRsp = ipSecService.delete(req, resp, connectionId);
 
         // check the response for error code and throw an exception in case of failure
-        ThrowException.checkRspThrowException(resultRsp);
+        ExceptionUtil.checkRspThrowException(resultRsp);
 
         // delete data
         IpSecReqDbOper.delete(connectionId);
