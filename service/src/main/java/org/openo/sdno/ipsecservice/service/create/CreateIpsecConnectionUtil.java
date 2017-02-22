@@ -93,7 +93,7 @@ public class CreateIpsecConnectionUtil {
 
         // Check controller and query port IP
         Map<String, SbiIp> deviceIdPortNameToIpMap = checkController(neIdPortNameToPortNameMap,
-                deviceIdPortNameToPortNameMap, deviceIdToNeMap, deviceIdToCtrollMap, nbiIpsecs);
+                deviceIdPortNameToPortNameMap, deviceIdToNeMap, deviceIdToCtrollMap);
 
         // S2DC does not need to fill ruleIp. Fill Ip data here
         fillTunnelData(nbiIpsecs, deviceIdToNeMap, deviceIdPortNameToIpMap);
@@ -182,14 +182,14 @@ public class CreateIpsecConnectionUtil {
 
     private static Map<String, SbiIp> checkController(Map<String, String> neIdPortNameToPortNameMap,
             Map<String, String> deviceIdPortNameToPortNameMap, Map<String, NetworkElementMO> deviceIdToNeMap,
-            Map<String, String> deviceIdToCtrollMap, List<NbiIpSec> nbiIpsecs) throws ServiceException {
+            Map<String, String> deviceIdToCtrollMap) throws ServiceException {
         Map<String, String> neIdToControllerMapRs =
                 CheckControllerUtil.testCtrlConnection(new ArrayList<NetworkElementMO>(deviceIdToNeMap.values()));
 
         CreateUtil.fillDeviceIdToCtrlMap(deviceIdToNeMap, deviceIdToCtrollMap, neIdToControllerMapRs);
         CreateUtil.fillDeviceIdToPortMap(neIdPortNameToPortNameMap, deviceIdPortNameToPortNameMap, deviceIdToNeMap);
 
-        return PortUtil.getPortIpMap(deviceIdToNeMap, deviceIdPortNameToPortNameMap, nbiIpsecs, deviceIdToCtrollMap);
+        return PortUtil.getPortIpMap(deviceIdToNeMap, deviceIdPortNameToPortNameMap, deviceIdToCtrollMap);
     }
 
     private static void fillTunnelData(List<NbiIpSec> ipsecTunnls, Map<String, NetworkElementMO> deviceIdToNeMap,

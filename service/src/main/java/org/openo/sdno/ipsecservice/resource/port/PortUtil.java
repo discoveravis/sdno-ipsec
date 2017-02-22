@@ -35,7 +35,6 @@ import org.openo.sdno.ipsecservice.util.site2dc.RestParameterUtil;
 import org.openo.sdno.overlayvpn.brs.invdao.LogicalTernminationPointInvDao;
 import org.openo.sdno.overlayvpn.brs.model.LogicalTernminationPointMO;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
-import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiIp;
 import org.openo.sdno.overlayvpn.model.v2.result.ResultRsp;
 import org.openo.sdno.rest.ResponseUtils;
@@ -72,8 +71,8 @@ public class PortUtil {
      * @since SDNO 0.5
      */
     public static Map<String, SbiIp> getPortIpMap(Map<String, NetworkElementMO> deviceIdToNeMap,
-            Map<String, String> deviceIdPortNameToPortNameMap, List<NbiIpSec> nbiIpsecs,
-            Map<String, String> deviceIdToCtrollMap) throws ServiceException {
+            Map<String, String> deviceIdPortNameToPortNameMap, Map<String, String> deviceIdToCtrollMap)
+            throws ServiceException {
         Map<String, SbiIp> deviceIdPortNameToIpMap = new ConcurrentHashMap<>();
         LogicalTernminationPointInvDao ltpInvDao = new LogicalTernminationPointInvDao();
 

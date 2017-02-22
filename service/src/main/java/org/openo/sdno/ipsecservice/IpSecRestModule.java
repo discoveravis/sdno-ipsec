@@ -33,7 +33,7 @@ public class IpSecRestModule extends IRoaModule {
 
     @Override
     protected void destroy() {
-
+        // unimplemented
     }
 
     @Override
