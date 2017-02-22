@@ -77,9 +77,7 @@ public class IpSecReqModelInfo extends AbstUuidModel {
         }
 
         IpSecReqModelInfo other = (IpSecReqModelInfo)obj;
-        if(!Objects.equals(uuid, other.uuid)) {
-            return false;
-        }
+
         if(!Objects.equals(connectionId, other.connectionId)) {
             return false;
         }
@@ -91,5 +89,15 @@ public class IpSecReqModelInfo extends AbstUuidModel {
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((connectionId == null) ? 0 : connectionId.hashCode());
+        result = prime * result + ((actionState == null) ? 0 : actionState.hashCode());
+        result = prime * result + ((data == null) ? 0 : data.hashCode());
+        return result;
     }
 }
