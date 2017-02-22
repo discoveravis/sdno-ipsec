@@ -151,7 +151,7 @@ public class CreateUtil {
      * @throws ServiceException when fill data failed
      * @since SDNO 0.5
      */
-    public static void fillVpcLanCidrToNbi(List<NbiIpSec> nbiIpsecs, ResultRsp<SbiNeIpSec> fsCreateResult)
+    public static void fillVpcLanCidrAndPortIpToNbi(List<NbiIpSec> nbiIpsecs, ResultRsp<SbiNeIpSec> fsCreateResult)
             throws ServiceException {
         if(CollectionUtils.isEmpty(fsCreateResult.getSuccessed()) || CollectionUtils.isEmpty(nbiIpsecs)) {
             return;
@@ -160,7 +160,7 @@ public class CreateUtil {
         List<NbiIpSec> updateSrcLanCidr = new ArrayList<>();
         List<NbiIpSec> updateDestLanCidr = new ArrayList<>();
         for(NbiIpSec nbiIpsec : nbiIpsecs) {
-            updateCidrs(fsCreateResult, nbiIpsec, updateSrcLanCidr, updateDestLanCidr);
+            updateCidrsAndPortIp(fsCreateResult, nbiIpsec, updateSrcLanCidr, updateDestLanCidr);
         }
 
         new InventoryDaoUtil<NbiIpSec>().getInventoryDao().update(NbiIpSec.class, updateSrcLanCidr, "sourceLanCidrs");
@@ -168,16 +168,18 @@ public class CreateUtil {
 
     }
 
-    private static void updateCidrs(ResultRsp<SbiNeIpSec> fsCreateResult, NbiIpSec nbiIpsec,
+    private static void updateCidrsAndPortIp(ResultRsp<SbiNeIpSec> fsCreateResult, NbiIpSec nbiIpsec,
             List<NbiIpSec> updateSrcLanCidr, List<NbiIpSec> updateDestLanCidr) {
         for(SbiNeIpSec sbiNeIpSec : fsCreateResult.getSuccessed()) {
             if(nbiIpsec.getUuid().equals(sbiNeIpSec.getConnectionServiceId())) {
                 if(nbiIpsec.getSrcNeId().equals(sbiNeIpSec.getNeId())
                         && nbiIpsec.getDestNeId().equals(sbiNeIpSec.getPeerNeId())) {
                     nbiIpsec.setSourceLanCidrs(sbiNeIpSec.getSourceLanCidrs());
+                    nbiIpsec.setSrcPortIp(sbiNeIpSec.getSourceAddress());
                     updateSrcLanCidr.add(nbiIpsec);
                 } else {
                     nbiIpsec.setDestLanCidrs(sbiNeIpSec.getSourceLanCidrs());
+                    nbiIpsec.setDestPortIp(sbiNeIpSec.getSourceAddress());
                     updateDestLanCidr.add(nbiIpsec);
                 }
                 break;

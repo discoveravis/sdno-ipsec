@@ -256,7 +256,7 @@ public class CreateIpsecConnectionUtil {
 
         CreateUtil.fillDataByFsRsp(acSbiNeIpsecList, fsCreateRsp);
 
-        CreateUtil.fillVpcLanCidrToNbi(insertDataList, fsCreateRsp);
+        CreateUtil.fillVpcLanCidrAndPortIpToNbi(insertDataList, fsCreateRsp);
 
         CreateUtil.setAcSbiIpSecOperStatus(acSbiNeIpsecList);
 
