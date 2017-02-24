@@ -25,7 +25,7 @@ package org.openo.sdno.ipsecservice.model.enums;
  * @version SDNO 0.5 Jan 9, 2017
  */
 public enum NeRoleType {
-    LOCALCPE(0), CLOUDCPE(1), VPC(2);
+    LOCALCPE(0), CLOUDCPE(1), VPC(2), DC_R(3);
 
     private int value;
 
@@ -48,6 +48,8 @@ public enum NeRoleType {
                 return "cloudcpe";
             case 2:
                 return "vpc";
+            case 3:
+                return "dc-r";
             default:
                 return "";
         }
