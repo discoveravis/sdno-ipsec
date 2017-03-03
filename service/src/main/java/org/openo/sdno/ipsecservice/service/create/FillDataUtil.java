@@ -23,6 +23,7 @@ import java.util.Set;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.exception.ParameterServiceException;
 import org.openo.sdno.framework.container.util.JsonUtil;
+import org.openo.sdno.ipsecservice.model.enums.NeRoleType;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiIkePolicy;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiIp;
@@ -87,12 +88,14 @@ public class FillDataUtil {
      */
     public static String fillSrcNeData(Map<String, String> neIdPortNameToPortNameMap, Set<String> neIdSet,
             NbiIpSec temGreTunnel) {
-
+        String srcNeRole = temGreTunnel.getSrcNeRole();
         String srcNeId = temGreTunnel.getSrcNeId();
         String srcPortName = temGreTunnel.getSrcPortName();
 
-        neIdPortNameToPortNameMap.put(srcNeId + srcPortName, srcPortName);
-        neIdSet.add(srcNeId);
+        if(!NeRoleType.VPC.getName().equals(srcNeRole)) {
+            neIdPortNameToPortNameMap.put(srcNeId + srcPortName, srcPortName);
+            neIdSet.add(srcNeId);
+        }
 
         return srcNeId;
     }
@@ -108,12 +111,14 @@ public class FillDataUtil {
      */
     public static String fillDestNeData(Map<String, String> neIdPortNameToPortNameMap, Set<String> neIdSet,
             NbiIpSec temGreTunnel) {
-
+        String destNeRole = temGreTunnel.getDestNeRole();
         String destNeId = temGreTunnel.getDestNeId();
         String destPortName = temGreTunnel.getDestPortName();
 
-        neIdPortNameToPortNameMap.put(destNeId + destPortName, destPortName);
-        neIdSet.add(destNeId);
+        if(!NeRoleType.VPC.getName().equals(destNeRole)) {
+            neIdPortNameToPortNameMap.put(destNeId + destPortName, destPortName);
+            neIdSet.add(destNeId);
+        }
 
         return destNeId;
     }
