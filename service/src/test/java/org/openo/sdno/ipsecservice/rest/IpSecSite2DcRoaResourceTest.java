@@ -40,12 +40,14 @@ import org.openo.sdno.framework.container.resthelper.RestfulProxy;
 import org.openo.sdno.framework.container.util.JsonUtil;
 import org.openo.sdno.ipsecservice.model.enums.DeployStatus;
 import org.openo.sdno.ipsecservice.model.enums.NeRoleType;
+import org.openo.sdno.ipsecservice.resource.VpcUtil;
 import org.openo.sdno.overlayvpn.brs.invdao.LogicalTernminationPointInvDao;
 import org.openo.sdno.overlayvpn.brs.invdao.NetworkElementInvDao;
 import org.openo.sdno.overlayvpn.brs.model.LogicalTernminationPointMO;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
 import org.openo.sdno.overlayvpn.dao.common.InventoryDao;
 import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
+import org.openo.sdno.overlayvpn.model.netmodel.vpc.Vpc;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiActionModel;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiIkePolicy;
@@ -112,6 +114,16 @@ public class IpSecSite2DcRoaResourceTest {
 
         new MockNeDao();
         new MockLtpDao();
+        new MockUp<VpcUtil>() {
+
+            @Mock
+            public Vpc queryById(String vpcId) throws ServiceException {
+                Vpc vpc = new Vpc();
+                vpc.setOsControllerId("osControllerId");
+                return vpc;
+            }
+
+        };
         NbiIpSec ipsec = JsonUtil.fromJson(
                 "{\"id\":\"ipsecconnection1id\",\"tenantId\":\"tenantid\",\"name\":\"nbiipsec1\",\"description\":\"test ipsec\",\"operStatus\":\"none\",\"deployStatus\":\"deploy\",\"srcNeId\":\"Ne01\",\"connectionId\":\"connectionId\",\"srcNeRole\":\"vpc\",\"destNeRole\":\"cloudcpe\",\"type\":\"ipsec\",\"destNeId\":\"Ne02\",\"srcPortName\":\"Port01\",\"destPortName\":\"Port02\",\"workType\":\"work\",\"protectionPolicy\":\"nqa\",\"nqa\":null,\"ikePolicy\":\"{\\\"authAlgorithm\\\":\\\"md5\\\",\\\"psk\\\":\\\"0123456789\\\",\\\"ikeVersion\\\":\\\"v2\\\",\\\"encryptionAlgorithm\\\":\\\"3des\\\"}\",\"ipsecPolicy\":\"{\\\"transformProtocol\\\":\\\"esp\\\",\\\"authAlgorithm\\\":\\\"md5\\\",\\\"encryptionAlgorithm\\\":\\\"3des\\\"}\",\"srcIsTemplateType\":\"false\",\"destIsTemplateType\":\"false\",\"ruleSrcPortName\":\"LoopBack1\",\"ruleDestPortName\":\"LoopBack1\",\"sourceLanCidrs\":\"[{\\\"ipv4\\\":\\\"1.1.1.1\\\",\\\"ipMask\\\":\\\"24\\\"}]\",\"destLanCidrs\":\"[{\\\"ipv4\\\":\\\"1.1.1.2\\\",\\\"ipMask\\\":\\\"24\\\"}]\",\"qosPreClassify\":\"false\",\"regionId\":\"regionId01\"}",
                 NbiIpSec.class);

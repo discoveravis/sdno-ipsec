@@ -22,7 +22,11 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.framework.container.util.JsonUtil;
+import org.openo.sdno.ipsecservice.model.enums.NeRoleType;
+import org.openo.sdno.ipsecservice.resource.VpcUtil;
+import org.openo.sdno.overlayvpn.model.netmodel.vpc.Vpc;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiNeIpSec;
 
@@ -43,10 +47,11 @@ public class NbiModelToSbiModel {
      * @param ipsecConnections list of nbi ipsecs
      * @param deviceIdToCtrollMap map of device id and controller id
      * @return list of sbi ipsecs
+     * @throws ServiceException when transfer failed
      * @since SDNO 0.5
      */
     public static List<SbiNeIpSec> convertToNeIpsec(List<NbiIpSec> ipsecConnections,
-            Map<String, String> deviceIdToCtrollMap) {
+            Map<String, String> deviceIdToCtrollMap) throws ServiceException {
         List<SbiNeIpSec> sbiNeIpSecs = new ArrayList<>();
 
         if(CollectionUtils.isEmpty(ipsecConnections)) {
@@ -90,7 +95,7 @@ public class NbiModelToSbiModel {
     }
 
     private static void setSrcSbiNeTunnel(NbiIpSec nbiIpsec, SbiNeIpSec srcSbiNeIpsec,
-            Map<String, String> deviceIdToCtrollMap) {
+            Map<String, String> deviceIdToCtrollMap) throws ServiceException {
         srcSbiNeIpsec.setDeviceId(nbiIpsec.getSrcDeviceId());
         srcSbiNeIpsec.setPeerDeviceId(nbiIpsec.getDestDeviceId());
         srcSbiNeIpsec.setNeId(nbiIpsec.getSrcNeId());
@@ -110,9 +115,12 @@ public class NbiModelToSbiModel {
         srcSbiNeIpsec.setIsTemplateType(nbiIpsec.getSrcIsTemplateType());
 
         if(!StringUtils.isEmpty(nbiIpsec.getSrcDeviceId())) {
-
             srcSbiNeIpsec.setControllerId(deviceIdToCtrollMap.get(nbiIpsec.getSrcDeviceId()));
+        }
 
+        if(NeRoleType.VPC.getName().equals(nbiIpsec.getSrcNeRole())) {
+            Vpc vpc = VpcUtil.queryById(srcSbiNeIpsec.getNeId());
+            srcSbiNeIpsec.setControllerId(vpc.getOsControllerId());
         }
 
         srcSbiNeIpsec.setSoureIfName(nbiIpsec.getSrcPortName());
@@ -121,7 +129,7 @@ public class NbiModelToSbiModel {
     }
 
     private static void setDestSbiNeTunnel(NbiIpSec nbiIpsec, SbiNeIpSec destSbiNeIpsec,
-            Map<String, String> deviceIdToCtrollMap) {
+            Map<String, String> deviceIdToCtrollMap) throws ServiceException {
         destSbiNeIpsec.setDeviceId(nbiIpsec.getDestDeviceId());
         destSbiNeIpsec.setPeerDeviceId(nbiIpsec.getSrcDeviceId());
         destSbiNeIpsec.setNeId(nbiIpsec.getDestNeId());
@@ -140,9 +148,12 @@ public class NbiModelToSbiModel {
         destSbiNeIpsec.setIsTemplateType(nbiIpsec.getDestIsTemplateType());
 
         if(!StringUtils.isEmpty(nbiIpsec.getDestDeviceId())) {
-
             destSbiNeIpsec.setControllerId(deviceIdToCtrollMap.get(nbiIpsec.getDestDeviceId()));
+        }
 
+        if(NeRoleType.VPC.getName().equals(nbiIpsec.getSrcNeRole())) {
+            Vpc vpc = VpcUtil.queryById(destSbiNeIpsec.getNeId());
+            destSbiNeIpsec.setControllerId(vpc.getOsControllerId());
         }
 
         destSbiNeIpsec.setSoureIfName(nbiIpsec.getDestPortName());

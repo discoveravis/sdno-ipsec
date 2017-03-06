@@ -24,11 +24,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.jackson.type.TypeReference;
 import org.junit.Before;
 import org.junit.Test;
+import org.openo.baseservice.remoteservice.exception.ServiceException;
+import org.openo.sdno.framework.container.util.JsonUtil;
 import org.openo.sdno.ipsecservice.util.site2dc.NbiModelToSbiModel;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiNeIpSec;
+import org.openo.sdno.overlayvpn.model.v2.result.ResultRsp;
 
 /**
  * <br/>
@@ -51,7 +55,7 @@ public class NbiModelToSbiModelTest {
     }
 
     @Test
-    public void testConvertToNeIpsec() {
+    public void testConvertToNeIpsec() throws ServiceException {
         List<NbiIpSec> ipsecConnections = new ArrayList<NbiIpSec>();
         NbiIpSec nbiIpsec = new NbiIpSec();
         nbiIpsec.setUuid("1");
@@ -65,7 +69,7 @@ public class NbiModelToSbiModelTest {
     }
 
     @Test
-    public void testConvertToNeIpsecWithEmptyInput() {
+    public void testConvertToNeIpsecWithEmptyInput() throws ServiceException {
         List<NbiIpSec> ipsecConnections = new ArrayList<NbiIpSec>();
         Map<String, String> deviceIdToCtrollMap = new HashMap<String, String>();
         List<SbiNeIpSec> rst = NbiModelToSbiModel.convertToNeIpsec(ipsecConnections, deviceIdToCtrollMap);

@@ -312,8 +312,7 @@ public class CreateIpsecConnectionUtil {
     }
 
     private static List<SbiNeIpSec> nbiMdelToSbiModel(List<NbiIpSec> nbiTunnels, List<SbiNeIpSec> acSbiNeIpsecs,
-            List<SbiNeIpSec> vpcSbiNeIpsecs, Map<String, String> deviceIdToCtrollMap)
-            throws InnerErrorServiceException {
+            List<SbiNeIpSec> vpcSbiNeIpsecs, Map<String, String> deviceIdToCtrollMap) throws ServiceException {
         List<SbiNeIpSec> sbiNeTunnels = NbiModelToSbiModel.convertToNeIpsec(nbiTunnels, deviceIdToCtrollMap);
 
         for(SbiNeIpSec tmpSbiNeTunnel : sbiNeTunnels) {
