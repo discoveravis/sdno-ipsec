@@ -151,7 +151,7 @@ public class NbiModelToSbiModel {
             destSbiNeIpsec.setControllerId(deviceIdToCtrollMap.get(nbiIpsec.getDestDeviceId()));
         }
 
-        if(NeRoleType.VPC.getName().equals(nbiIpsec.getSrcNeRole())) {
+        if(NeRoleType.VPC.getName().equals(nbiIpsec.getDestNeRole())) {
             Vpc vpc = VpcUtil.queryById(destSbiNeIpsec.getNeId());
             destSbiNeIpsec.setControllerId(vpc.getOsControllerId());
         }
