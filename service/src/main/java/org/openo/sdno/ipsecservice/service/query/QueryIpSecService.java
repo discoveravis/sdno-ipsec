@@ -55,7 +55,7 @@ public class QueryIpSecService {
         NbiIpSec ipsecCon = new InventoryDaoUtil<NbiIpSec>().getInventoryDao()
                 .query(NbiIpSec.class, ipSecConnectionId, null).getData();
         if(null == ipsecCon) {
-            LOGGER.error("IpsecConnection not found. id: ", ipSecConnectionId);
+            LOGGER.error("IpsecConnection not found. id: " + ipSecConnectionId);
             throw new InnerErrorServiceException("query IpsecConnection.IpsecConnection not found!");
         }
 

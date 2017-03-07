@@ -257,7 +257,7 @@ public class CreateUtil {
     }
 
     private static ResultRsp<SbiNeIpSec> createSbiNeIpsecToAc(List<SbiNeIpSec> sbiNeIpsecList) throws ServiceException {
-        LOGGER.info("begin create by fs.");
+        LOGGER.info("begin create by ac.");
         String ctrlId = sbiNeIpsecList.get(0).getControllerId();
         RestfulParametes restPara = new RestfulParametes();
         String strJsonReq = JsonUtil.toJson(sbiNeIpsecList);

@@ -88,7 +88,7 @@ public class IpSecSite2DcRoaResource extends IResource {
     public NbiIpSec queryIpsecTunnel(@PathParam("ipsecConnectionId") String ipsecConnectionId) throws ServiceException {
 
         long beginTime = System.currentTimeMillis();
-
+        LOGGER.info("Start query method.");
         // call the service method to perform query operation
         ResultRsp<NbiIpSec> result = QueryIpSecService.queryIpsecConnection(ipsecConnectionId);
         LOGGER.info("Exit query method. cost time = " + (System.currentTimeMillis() - beginTime));
@@ -175,7 +175,10 @@ public class IpSecSite2DcRoaResource extends IResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<NbiIpSec> queryIpsecTunnel(List<String> ids) throws ServiceException {
         long beginTime = System.currentTimeMillis();
+        LOGGER.info("Start batch query method.");
+
         if(CollectionUtils.isEmpty(ids)) {
+            LOGGER.info("Exit batch query method. cost time = " + (System.currentTimeMillis() - beginTime));
             return new ArrayList<>();
         }
 
@@ -192,11 +195,12 @@ public class IpSecSite2DcRoaResource extends IResource {
         }
 
         if(CollectionUtils.isEmpty(ids)) {
+            LOGGER.info("Exit batch query method. cost time = " + (System.currentTimeMillis() - beginTime));
             return new ArrayList<>();
         }
 
         ResultRsp<List<NbiIpSec>> result = QueryIpSecService.queryIpsecConnection(ids);
-        LOGGER.info("Exit query method. cost time = " + (System.currentTimeMillis() - beginTime));
+        LOGGER.info("Exit batch query method. cost time = " + (System.currentTimeMillis() - beginTime));
 
         return result.getData();
     }
