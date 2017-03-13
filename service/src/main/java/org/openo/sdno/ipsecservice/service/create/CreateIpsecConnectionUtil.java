@@ -153,7 +153,7 @@ public class CreateIpsecConnectionUtil {
 
     }
 
-    private static boolean nbiIpSecBasicCheck(NbiIpSec ipsecCon) throws ServiceException {
+    private static void nbiIpSecBasicCheck(NbiIpSec ipsecCon) throws ServiceException {
 
         try {
             ValidationUtil.validateModel(ipsecCon);
@@ -169,14 +169,6 @@ public class CreateIpsecConnectionUtil {
             LOGGER.error("param error! SrcNeId equal with DestNeId.");
             throw new ParameterServiceException("Check NbiIpSec ne id data fail, param error!");
         }
-
-        if((NeRoleType.VPC.getName().equals(ipsecCon.getSrcNeRole())
-                || NeRoleType.VPC.getName().equals(ipsecCon.getDestNeRole()))
-                && (!StringUtils.hasLength(ipsecCon.getRegionId()))) {
-            LOGGER.error("param error! S2DC region id is empty.");
-            throw new ParameterServiceException("Check NbiIpSec Ne Role and Region id fail, param error!");
-        }
-        return false;
 
     }
 

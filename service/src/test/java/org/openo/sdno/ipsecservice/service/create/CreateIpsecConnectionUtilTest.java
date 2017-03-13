@@ -69,24 +69,4 @@ public class CreateIpsecConnectionUtilTest {
         CreateIpsecConnectionUtil.doCreate(nbiIpsecs);
     }
 
-    @Test(expected = ParameterServiceException.class)
-    public void testDoCreateWithInvalidInput2() throws ServiceException {
-        MockUp<ValidationUtil> mock = new MockUp<ValidationUtil>() {
-
-            @Mock
-            private void validateModel(Object obj) throws ServiceException {
-
-                return;
-            }
-        };
-
-        List<NbiIpSec> nbiIpsecs = new ArrayList<NbiIpSec>();
-        NbiIpSec ipsec = new NbiIpSec();
-        ipsec.setUuid("123456");
-        ipsec.setSrcNeId("ne1");
-        ipsec.setDestNeId("ne2");
-        ipsec.setSrcNeRole("vpc");
-        nbiIpsecs.add(ipsec);
-        CreateIpsecConnectionUtil.doCreate(nbiIpsecs);
-    }
 }
