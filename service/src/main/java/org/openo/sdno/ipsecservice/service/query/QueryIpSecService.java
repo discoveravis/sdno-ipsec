@@ -19,7 +19,7 @@ package org.openo.sdno.ipsecservice.service.query;
 import java.util.List;
 
 import org.openo.baseservice.remoteservice.exception.ServiceException;
-import org.openo.sdno.exception.InnerErrorServiceException;
+import org.openo.sdno.exception.ParameterServiceException;
 import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
 import org.openo.sdno.overlayvpn.inventory.sdk.util.InventoryDaoUtil;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
@@ -56,7 +56,7 @@ public class QueryIpSecService {
                 .query(NbiIpSec.class, ipSecConnectionId, null).getData();
         if(null == ipsecCon) {
             LOGGER.error("IpsecConnection not found. id: " + ipSecConnectionId);
-            throw new InnerErrorServiceException("query IpsecConnection.IpsecConnection not found!");
+            throw new ParameterServiceException("query IpsecConnection.IpsecConnection not found!");
         }
 
         return new ResultRsp<>(ErrorCode.OVERLAYVPN_SUCCESS, ipsecCon);
