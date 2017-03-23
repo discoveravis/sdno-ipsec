@@ -64,15 +64,6 @@ import mockit.Mock;
 import mockit.MockUp;
 import mockit.Mocked;
 
-/**
- * <br/>
- * <p>
- * </p>
- * 
- * @author
- * @version SDNO 0.5 Feb 9, 2017
- */
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:/spring/applicationContext.xml",
                 "classpath*:META-INF/spring/service.xml", "classpath*:spring/service.xml"})

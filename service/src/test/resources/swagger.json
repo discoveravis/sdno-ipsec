@@ -1,0 +1,405 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Northbound Interface for Ipsec",
+    "version" : "1.0.0",
+    "title" : "Ipsec Service NBI",
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host" : "nbi-ipsec.open-o.org",
+  "basePath" : "/openoapi/sdnoipsec/v1",
+  "schemes" : [ "http" ],
+  "consumes" : [ "application/json;charset=UTF-8" ],
+  "produces" : [ "application/json;charset=UTF-8" ],
+  "paths" : {
+    "/ipsec-connections" : {
+      "post" : {
+        "summary" : "create Ipsec.",
+        "description" : "create Ipsec.",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Ipsec object to be created.",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/NbiIpSec"
+            }
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "create Ipsec success.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/NbiIpSec"
+              }
+            }
+          },
+          "400" : {
+            "description" : "create Ipsec failure as parameters invalid."
+          },
+          "401" : {
+            "description" : "unauthorized."
+          },
+          "404" : {
+            "description" : "create Ipsec failure as can't reach server."
+          },
+          "500" : {
+            "description" : "create Ipsec failure as inner error."
+          }
+        }
+      },
+      "put" : {
+        "summary" : "update Ipsec.",
+        "description" : "update Ipsec.",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Ipsec object to be created.",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/NbiIpSec"
+            }
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "update Ipsec success.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/NbiIpSec"
+              }
+            }
+          },
+          "400" : {
+            "description" : "update Ipsec failure as parameters invalid."
+          },
+          "401" : {
+            "description" : "unauthorized."
+          },
+          "404" : {
+            "description" : "update Ipsec failure as can't reach server."
+          },
+          "500" : {
+            "description" : "update Ipsec failure as inner error."
+          }
+        }
+      }
+    },
+    "/ipsec-connections/{ipsecConnectionId}" : {
+      "get" : {
+        "summary" : "query Ipsec.",
+        "description" : "query Ipsec info.",
+        "parameters" : [ {
+          "name" : "ipsecConnectionId",
+          "in" : "path",
+          "description" : "Ipsec connection ID.",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "query Ipsec success.",
+            "schema" : {
+              "$ref" : "#/definitions/NbiIpSec"
+            }
+          },
+          "400" : {
+            "description" : "query Ipsec failure as parameters invalid."
+          },
+          "401" : {
+            "description" : "unauthorized."
+          },
+          "404" : {
+            "description" : "query Ipsec failure as can't reach server."
+          },
+          "500" : {
+            "description" : "query Ipsec failure as inner error."
+          }
+        }
+      },
+      "delete" : {
+        "summary" : "delete Ipsec.",
+        "description" : "delete Ipsec.",
+        "parameters" : [ {
+          "name" : "ipsecConnectionId",
+          "in" : "path",
+          "description" : "Ipsec connection ID.",
+          "required" : true,
+          "type" : "string",
+          "format" : "uuid"
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "delete Ipsec success.",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "400" : {
+            "description" : "delete Ipsec failure as parameters invalid."
+          },
+          "401" : {
+            "description" : "unauthorized."
+          },
+          "404" : {
+            "description" : "delete Ipsec failure as can't reach server."
+          },
+          "500" : {
+            "description" : "delete Ipsec failure as inner error."
+          }
+        }
+      }
+    },
+    "/ipsec-connections/action" : {
+      "post" : {
+        "summary" : "deploy or undeploy Ipsec.",
+        "description" : "deploy or undeploy Ipsec.",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "List of UUIDs.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/NbiActionModel"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "deploy or undeploy Ipsec success.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "400" : {
+            "description" : "deploy or undeploy Ipsec failure as parameters invalid."
+          },
+          "401" : {
+            "description" : "unauthorized."
+          },
+          "404" : {
+            "description" : "deploy or undeploy Ipsec failure as can't reach server."
+          },
+          "500" : {
+            "description" : "deploy or undeploy Ipsec failure as inner error."
+          }
+        }
+      }
+    },
+    "/ipsec-connections/batch-query" : {
+      "post" : {
+        "summary" : "batch query Ipsec.",
+        "description" : "batch query Ipsec.",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Ipsec UUIDs to be queried.",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "query Ipsec success.",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/NbiIpSec"
+              }
+            }
+          },
+          "400" : {
+            "description" : "query Ipsec failure as parameters invalid."
+          },
+          "401" : {
+            "description" : "unauthorized."
+          },
+          "404" : {
+            "description" : "query Ipsec failure as can't reach server."
+          },
+          "500" : {
+            "description" : "query Ipsec failure as inner error."
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "NbiIpSec" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/BaseModel"
+      }, {
+        "type" : "object",
+        "required" : [ "connectionId", "destIsTemplateType", "destNeId", "destNeRole", "ikePolicy", "ipsecPolicy", "protectionPolicy", "srcIsTemplateType", "srcNeId", "srcNeRole", "type", "workType" ],
+        "properties" : {
+          "srcNeId" : {
+            "type" : "string"
+          },
+          "connectionId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "srcNeRole" : {
+            "type" : "string",
+            "description" : "localcpe,cloudcpe,vpc,dc-r"
+          },
+          "destNeRole" : {
+            "type" : "string",
+            "description" : "localcpe,cloudcpe,vpc,dc-r"
+          },
+          "type" : {
+            "type" : "string",
+            "description" : "ipsec,ipv6_over_ipv4,ipv4_over_ipv6"
+          },
+          "destNeId" : {
+            "type" : "string"
+          },
+          "srcPortName" : {
+            "type" : "string"
+          },
+          "destPortName" : {
+            "type" : "string"
+          },
+          "workType" : {
+            "type" : "string",
+            "description" : "work,protect"
+          },
+          "protectionPolicy" : {
+            "type" : "string",
+            "description" : "nqa,none"
+          },
+          "nqa" : {
+            "type" : "string"
+          },
+          "ikePolicy" : {
+            "type" : "string"
+          },
+          "ipsecPolicy" : {
+            "type" : "string"
+          },
+          "srcIsTemplateType" : {
+            "type" : "string",
+            "description" : "boolean(true,false)"
+          },
+          "destIsTemplateType" : {
+            "type" : "string",
+            "description" : "boolean(true,false)"
+          },
+          "ruleSrcPortName" : {
+            "type" : "string"
+          },
+          "ruleDestPortName" : {
+            "type" : "string"
+          },
+          "sourceLanCidrs" : {
+            "type" : "string"
+          },
+          "destLanCidrs" : {
+            "type" : "string"
+          },
+          "qosPreClassify" : {
+            "type" : "string",
+            "description" : "boolean(true,false)"
+          },
+          "regionId" : {
+            "type" : "string"
+          },
+          "srcPortIp" : {
+            "type" : "string"
+          },
+          "destPortIp" : {
+            "type" : "string"
+          }
+        }
+      } ],
+      "description" : "NBI IpSec model"
+    },
+    "NbiActionModel" : {
+      "type" : "object",
+      "properties" : {
+        "deploy" : {
+          "type" : "array",
+          "description" : "list of UUIDs",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "undeploy" : {
+          "type" : "array",
+          "description" : "list of UUIDs",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "description" : "action model"
+    },
+    "UuidModel" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "format" : "uuid"
+        }
+      },
+      "description" : "uuid"
+    },
+    "BaseModel" : {
+      "allOf" : [ {
+        "$ref" : "#/definitions/UuidModel"
+      }, {
+        "type" : "object",
+        "required" : [ "deployStatus" ],
+        "properties" : {
+          "tenantId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "additionalInfo" : {
+            "type" : "string"
+          },
+          "deployStatus" : {
+            "type" : "string",
+            "description" : "deploy status(deploy,undeploy)"
+          },
+          "actionState" : {
+            "type" : "string",
+            "description" : "action state(none,normal,creating,create_exception,deleting,delete_exception,updating,update_exception,deploying,deploy_exception)"
+          },
+          "activeStatus" : {
+            "type" : "string",
+            "description" : "active status(none,active,inactive,partially_inactive)"
+          },
+          "runningStatus" : {
+            "type" : "string",
+            "description" : "running status(none,up,down,partially_down)"
+          }
+        }
+      } ],
+      "description" : "base model"
+    }
+  }
+}

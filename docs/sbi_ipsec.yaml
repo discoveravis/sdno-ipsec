@@ -1,0 +1,609 @@
+#
+# Copyright 2017 Huawei Technologies Co., Ltd.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+swagger: '2.0'
+info:
+  title: Ipsec Service SBI
+  description: Southbound Interface for Ipsec
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: sbi-ipsec.open-o.org
+schemes:
+- http
+basePath: /openoapi/sbi-ipsec/v1
+produces:
+- application/json
+paths:
+  /device/{deviceid}/ports:
+    get:
+      summary: Query Ip by port.
+      description: Query Ip address of port.
+      parameters:
+      - name: X-Driver-parameter
+        in: header
+        description: additional driver-related parameters, current format is "extSysId={ctrlUuid}",and drivermgr will find out driver instance by controller.
+        required: true
+        type: string
+        format: uuid
+      - name: deviceid
+        in: path
+        description: device ID.
+        required: true
+        type: string
+        format: uuid
+      - name: portName
+        in: query
+        description: port name.
+        required: true
+        type: string
+      responses:
+        201:
+          description: query Ip success.
+          schema:
+            $ref: '#/definitions/SbiIpResultRsp'
+        400:
+          description: query Ip failure as parameters invalid.
+        401:
+          description: unauthorized.
+        404:
+          description: query Ip failure as can't reach server.
+        500:
+          description: query Ip failure as inner error.
+  /device/batch-create-ipsecs:
+    post:
+      summary: Batch Create Ipsec in AC.
+      description: It will create Ipsec connection specified in requests.
+      parameters:
+      - name: X-Driver-parameter
+        in: header
+        description: additional driver-related parameters, current format is "extSysId={ctrlUuid}",and drivermgr will find out driver instance by controller.
+        required: true
+        type: string
+        format: uuid
+      - name: body
+        in: body
+        description: a list of Ipsec connection objects to be created.
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/SbiNeIpSec'
+      responses:
+        201:
+          description: create Ipsec connection success.
+          schema:
+            $ref: '#/definitions/SbiNeIpSecResultRsp'
+        400:
+          description: create Ipsec connection failure as parameters invalid.
+        401:
+          description: unauthorized.
+        404:
+          description: create Ipsec connection failure as can't reach server.
+        500:
+          description: create Ipsec connection failure as inner error.
+  /device/batch-query-ipsecs:
+    post:
+      summary: Batch query Ipsec in AC.
+      description: It will query Ipsec connections specified in requests.
+      parameters:
+      - name: X-Driver-parameter
+        in: header
+        description: additional driver-related parameters, current format is "extSysId={ctrlUuid}",and drivermgr will find out driver instance by controller.
+        required: true
+        type: string
+        format: uuid
+      - name: body
+        in: body
+        description: a list of Ipsec connection objects to be queried.
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/SbiNeIpSec'
+      responses:
+        201:
+          description: query Ipsec connection success.
+          schema:
+            $ref: '#/definitions/SbiNeIpSecResultRsp'
+        400:
+          description: query Ipsec connection failure as parameters invalid.
+        401:
+          description: unauthorized.
+        404:
+          description: query Ipsec connection failure as can't reach server.
+        500:
+          description: query Ipsec connection failure as inner error.
+  /device/batch-update-ipsecs:
+    put:
+      summary: Batch update Ipsec in AC.
+      description: It will update Ipsec connections specified in requests.
+      parameters:
+      - name: X-Driver-parameter
+        in: header
+        description: additional driver-related parameters, current format is "extSysId={ctrlUuid}",and drivermgr will find out driver instance by controller.
+        required: true
+        type: string
+        format: uuid
+      - name: body
+        in: body
+        description: a list of Ipsec connection objects to be updated.
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/SbiNeIpSec'
+      responses:
+        201:
+          description: update Ipsec connection success.
+          schema:
+            $ref: '#/definitions/SbiNeIpSecResultRsp'
+        400:
+          description: update Ipsec connection failure as parameters invalid.
+        401:
+          description: unauthorized.
+        404:
+          description: update Ipsec connection failure as can't reach server.
+        500:
+          description: update Ipsec connection failure as inner error.
+  /device/{deviceid}/ipsecs/{extipsecid}/batch-delete-ipsec:
+    post:
+      summary: Batch delete Ipsec in AC.
+      description: It will delete Ipsec connections specified in requests.
+      parameters:
+      - name: X-Driver-parameter
+        in: header
+        description: additional driver-related parameters, current format is "extSysId={ctrlUuid}",and drivermgr will find out driver instance by controller.
+        required: true
+        type: string
+        format: uuid
+      - name: deviceid
+        in: path
+        description: device ID.
+        required: true
+        type: string
+        format: uuid
+      - name: extipsecid
+        in: path
+        description: external Ipsec ID.
+        required: true
+        type: string
+        format: uuid
+      - name: body
+        in: body
+        description: a list of Ipsec connection objects to be deleted.
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/SbiNeIpSec'
+      responses:
+        201:
+          description: delete Ipsec connection success.
+          schema:
+            $ref: '#/definitions/SbiNeIpSecResultRsp'
+        400:
+          description: delete Ipsec connection failure as parameters invalid.
+        401:
+          description: unauthorized.
+        404:
+          description: delete Ipsec connection failure as can't reach server.
+        500:
+          description: delete Ipsec connection failure as inner error.
+  /dc-gateway/ipsec-connections:
+    post:
+      summary: Batch create Ipsec in FS.
+      description: It will create Ipsec connection specified in requests.
+      parameters:
+      - name: X-Driver-parameter
+        in: header
+        description: additional driver-related parameters, current format is "extSysId={ctrlUuid}",and drivermgr will find out driver instance by controller.
+        required: true
+        type: string
+        format: uuid
+      - name: body
+        in: body
+        description: a list of Ipsec connection objects to be created.
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/SbiNeIpSec'
+      responses:
+        201:
+          description: create Ipsec connection success.
+          schema:
+            $ref: '#/definitions/SbiNeIpSecResultRsp'
+        400:
+          description: create Ipsec connection failure as parameters invalid.
+        401:
+          description: unauthorized.
+        404:
+          description: create Ipsec connection failure as can't reach server.
+        500:
+          description: create Ipsec connection failure as inner error.
+   
+  /dc-gateway/ipsec-connections/{externalipsecid}:
+    put:
+      summary: Batch update Ipsec in FS.
+      description: It will update Ipsec connection specified in requests.
+      parameters:
+      - name: X-Driver-parameter
+        in: header
+        description: additional driver-related parameters, current format is "extSysId={ctrlUuid}",and drivermgr will find out driver instance by controller.
+        required: true
+        type: string
+        format: uuid
+      - name: externalipsecid
+        in: path
+        description: external Ipsec ID.
+        required: true
+        type: string
+        format: uuid
+      - name: body
+        in: body
+        description: a list of Ipsec connection objects to be updated.
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/SbiNeIpSec'
+      responses:
+        201:
+          description: update Ipsec connection success.
+          schema:
+            $ref: '#/definitions/SbiNeIpSecResultRsp'
+        400:
+          description: update Ipsec connection failure as parameters invalid.
+        401:
+          description: unauthorized.
+        404:
+          description: update Ipsec connection failure as can't reach server.
+        500:
+          description: update Ipsec connection failure as inner error.
+  /dc-gateway/ipsec-connections/batch-delete:
+    post:
+      summary: Batch delete Ipsec in FS.
+      description: It will delete Ipsec connection specified in requests.
+      parameters:
+      - name: X-Driver-parameter
+        in: header
+        description: additional driver-related parameters, current format is "extSysId={ctrlUuid}",and drivermgr will find out driver instance by controller.
+        required: true
+        type: string
+        format: uuid
+      - name: body
+        in: body
+        description: a list of Ipsec connection objects to be created.
+        required: true
+        schema:
+          type: array
+          items:
+            $ref: '#/definitions/SbiNeIpSec'
+      responses:
+        201:
+          description: delete Ipsec connection success.
+          schema:
+            $ref: '#/definitions/SbiNeIpSecResultRsp'
+        400:
+          description: delete Ipsec connection failure as parameters invalid.
+        401:
+          description: unauthorized.
+        404:
+          description: delete Ipsec connection failure as can't reach server.
+        500:
+          description: delete Ipsec connection failure as inner error.
+definitions:
+  SbiIpResultRsp:
+    description: String result model
+    allOf:
+      - $ref: '#/definitions/ResultResponse'
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/SbiIp"
+          successed:
+            type: array
+            items:
+              $ref: "#/definitions/SbiIp"
+            description: the successed list.
+          fail:
+            type: array
+            items:
+              $ref: "#/definitions/SbiFailDataIp"
+            description: the failed list.
+  SbiNeIpSecResultRsp:
+    description: String result model
+    allOf:
+      - $ref: '#/definitions/ResultResponse'
+      - type: object
+        properties:
+          data:
+            $ref: "#/definitions/SbiNeIpSec"
+          successed:
+            type: array
+            items:
+              $ref: "#/definitions/SbiNeIpSec"
+            description: the successed list.
+          fail:
+            type: array
+            items:
+              $ref: "#/definitions/SbiFailDataSbiNeIpSec"
+            description: the failed list.
+  SbiFailDataSbiNeIpSec:
+    type: object
+    description: Fail data model
+    properties:
+      errcode:
+        type: string
+        description: result error code
+      errmsg:
+        type: string
+        description: error message
+      data:
+        $ref: "#/definitions/SbiNeIpSec"
+  SbiFailDataIp:
+    type: object
+    description: Fail data model
+    properties:
+      errcode:
+        type: string
+        description: result error code
+      errmsg:
+        type: string
+        description: error message
+      data:
+        $ref: "#/definitions/SbiIp"
+  ResultResponse:
+    type: object
+    description: Result response model
+    required:
+      - errorCode
+      - httpCode
+    properties:
+      errorCode:
+        type: string
+        description: result error code
+      descArg:
+        type: string
+        description: The description args
+      reasonArg:
+        type: string
+        description: The reason args
+      detailArg:
+        type: string
+        description: The detail args
+      adviceArg:
+        type: string
+        description: The advice args
+      httpCode:
+        type: integer
+        description: The http status code
+      message:
+        type: string
+        description: the exception message word
+      smallErrorCodeList:
+        $ref: "#/definitions/ErrorCodeInfo"
+  ErrorCodeInfo:
+    type: object
+    description: Error code information model
+    properties:
+      errorCode:
+        type: string
+        description: error code
+      description:
+        type: string
+        description: error description
+      objectId:
+        type: string
+        description: object Id
+      objectName:
+        type: string
+        description: object Name
+      object:
+        type: object
+        description: object
+      descArg:
+        type: string
+        description: The description args
+      reasonArg:
+        type: string
+        description: The reason args
+      detailArg:
+        type: string
+        description: The detail args
+  SbiIp:
+    description: Ip data model.
+    allOf:
+      - $ref: '#/definitions/UuidModel'
+      - type: object
+        required:
+          - ipv4
+          - ipMask
+        properties:
+          ipv4:
+            type: string
+            description: Ipv4 address
+          ipv6:
+            type: string
+            description: Ipv6 address
+          ipMask:
+            type: string
+            description: Ip mask length. Used in Ipv4. Example, if ip mask is "255.255.255.0", ip mask length is 24.
+          prefixLength:
+            type: string
+            description: Ipv6 prefix length. Used in Ipv6. 
+  SbiNeIpSec:
+    description: Sbi Ipsec data model.
+    allOf:
+      - $ref: '#/definitions/SbiIpSecNetModel'
+      - type: object
+        required:
+          - sourceIfId
+          - sourceAddress
+          - peerAddress
+          - workType
+          - isTemplateType
+          - localNeRole
+        properties:
+          externalIpSecId:
+            type: string
+          sourceIfId:
+            type: string
+          sourceAddress:
+            type: string
+          peerAddress:
+            type: string
+          ikePolicy:
+            $ref: '#/definitions/SbiIkePolicy'
+          ipSecPolicy:
+            $ref: '#/definitions/SbiIpSecPolicy'
+          workType:
+            type: string
+            description: work type(work,protect)
+          sourceLanCidrs:
+            type: string
+          peerLanCidrs:
+            type: string
+          isTemplateType:
+            type: string
+            description: boolean(true,false)
+          nqa:
+            type: string
+          localNeRole:
+            type: string
+            description: local ne role(localcpe,cloudcpe,vpc,dc-r)
+          tenantName:
+            type: string
+          protectionPolicy:
+            type: string
+          qosPreClassify:
+            type: string
+            description: boolean(true,false)
+          regionId:
+            type: string
+  SbiIkePolicy:
+      description: Internet Key Exchange Policy
+      allOf:
+        - $ref: '#/definitions/SbiSecurityPolicy'
+        - type: object
+          required:
+            - psk
+            - authAlgorithm
+            - encryptionAlgorithm
+          properties:
+            ikeVersion:
+              type: string
+              description: Ike version(v1,v2)
+            psk:
+              type: string
+              description: Pre-shared-key
+            authAlgorithm:
+              type: string
+              description: auth hash algorithm (md5,sha1,sha2-256,sh2-384,sh2-512,sm3)
+            encryptionAlgorithm:
+              type: string
+              description: encryption algorithm (3des,des,aes-128,aes-256,aes-192,sm1)
+  SbiIpSecPolicy:
+    description: IpSec Policy
+    allOf:
+      - $ref: '#/definitions/SbiSecurityPolicy'
+      - type: object
+        required:
+          - authAlgorithm
+        properties:
+          transformProtocol:
+            type: string
+          encapsulationMode:
+            type: string
+          authAlgorithm:
+            type: string
+          encryptionAlgorithm:
+            type: string
+  UuidModel:
+    description: uuid
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+  BaseModel:
+    description: base model
+    allOf:
+      - $ref: '#/definitions/UuidModel'
+      - type: object
+        required:
+          - deployStatus
+        properties:
+          tenantId:
+            type: string
+            format: uuid
+          name:
+            type: string
+          description:
+            type: string
+          additionalInfo:
+            type: string
+          deployStatus:
+            type: string
+            description: deploy status(deploy,undeploy)
+          actionState:
+            type: string
+            description: action state(none,normal,creating,create_exception,deleting,delete_exception,updating,update_exception,deploying,deploy_exception)
+          activeStatus:
+            type: string
+            description: active status(none,active,inactive,partially_inactive)
+          runningStatus:
+            type: string
+            description: running status(none,up,down,partially_down)
+
+  SbiIpSecNetModel:
+    description: base net model
+    allOf:
+      - $ref: '#/definitions/BaseModel'
+      - type: object
+        required:
+          - connectionServiceId
+          - neId
+          - deviceId
+        properties:
+          controllerId:
+            type: string
+          externalId:
+            type: string
+          connectionServiceId:
+            type: string
+          neId:
+            type: string
+          deviceId:
+            type: string
+          peerDeviceId:
+            type: string
+  SbiSecurityPolicy:
+    description: security policy model
+    allOf:
+      - $ref: '#/definitions/UuidModel'
+      - type: object
+        properties:
+          pfs:
+            type: string
+            description: perfect forward secrecy(Group2,Group5,Group14)
+          lifeTime:
+            type: string
+          externalId:
+            type: string
+          sbiServiceId:
+            type: string

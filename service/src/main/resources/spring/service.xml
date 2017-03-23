@@ -14,7 +14,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:osgi="http://www.springframework.org/schema/osgi" xmlns:context="http://www.springframework.org/schema/context"
     xmlns:jaxrs="http://cxf.apache.org/jaxrs"
@@ -35,7 +34,7 @@
             <ref bean="ipSecHealthCheckResource"></ref>
             <ref bean="ipSecSite2DcRoaResource"></ref>
             <ref bean="ipSecSvcRoaResource"></ref>
-            <ref bean="SwaggerRoaResource"></ref>
+            <ref bean="swaggerRoaResource"></ref>
         </jaxrs:serviceBeans>
         <!-- registering providers -->
         <jaxrs:providers>
@@ -53,15 +52,15 @@
         <property name="neIpSecConnSbiService" ref="neIpSecConnSbiService"></property>
         <property name="dcGwIpSecConnSbiService" ref="dcGwIpSecConnSbiService"></property>
     </bean>
-    <bean id="SwaggerRoaResource" class="org.openo.sdno.ipsecservice.rest.SwaggerRoa">
+    <bean id="swaggerRoaResource" class="org.openo.sdno.ipsecservice.rest.SwaggerRoa">
+        <property name="swaggerFilePath" value="docs/swagger.json"></property>
     </bean>
-
     <bean id="ipSecSvcRoaResource" class="org.openo.sdno.ipsecservice.rest.IpSecSvcRoaResource">
         <property name="ipSecService" ref="ipSecService"></property>
     </bean>
-    <bean id="ipSecSite2DcRoaResource" class="org.openo.sdno.ipsecservice.rest.IpSecSite2DcRoaResource">    
+    <bean id="ipSecSite2DcRoaResource" class="org.openo.sdno.ipsecservice.rest.IpSecSite2DcRoaResource">
     </bean>
-    <bean id="ipSecHealthCheckResource" class="org.openo.sdno.ipsecservice.rest.IpSecHealthCheckResource">    
+    <bean id="ipSecHealthCheckResource" class="org.openo.sdno.ipsecservice.rest.IpSecHealthCheckResource">
     </bean>
     <bean id="IpSecRestModule" class="org.openo.sdno.ipsecservice.IpSecRestModule" init-method="start"
         destroy-method="stop">
