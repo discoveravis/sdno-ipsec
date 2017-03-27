@@ -121,6 +121,7 @@ public class NbiModelToSbiModel {
         if(NeRoleType.VPC.getName().equals(nbiIpsec.getSrcNeRole())) {
             Vpc vpc = VpcUtil.queryById(srcSbiNeIpsec.getNeId());
             srcSbiNeIpsec.setControllerId(vpc.getOsControllerId());
+            srcSbiNeIpsec.setSourceAddress(vpc.getExternalIp());
         }
 
         srcSbiNeIpsec.setSoureIfName(nbiIpsec.getSrcPortName());
@@ -154,6 +155,7 @@ public class NbiModelToSbiModel {
         if(NeRoleType.VPC.getName().equals(nbiIpsec.getDestNeRole())) {
             Vpc vpc = VpcUtil.queryById(destSbiNeIpsec.getNeId());
             destSbiNeIpsec.setControllerId(vpc.getOsControllerId());
+            destSbiNeIpsec.setPeerAddress(vpc.getExternalIp());
         }
 
         destSbiNeIpsec.setSoureIfName(nbiIpsec.getDestPortName());
