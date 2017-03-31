@@ -28,6 +28,7 @@ import org.openo.sdno.ipsecservice.model.enums.NeRoleType;
 import org.openo.sdno.ipsecservice.resource.VpcUtil;
 import org.openo.sdno.overlayvpn.model.netmodel.vpc.Vpc;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
+import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiIp;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiNeIpSec;
 
 /**
@@ -121,7 +122,12 @@ public class NbiModelToSbiModel {
         if(NeRoleType.VPC.getName().equals(nbiIpsec.getSrcNeRole())) {
             Vpc vpc = VpcUtil.queryById(srcSbiNeIpsec.getNeId());
             srcSbiNeIpsec.setControllerId(vpc.getOsControllerId());
-            srcSbiNeIpsec.setSourceAddress(vpc.getExternalIp());
+            srcSbiNeIpsec.setSourceAddress(JsonUtil.toJson(new SbiIp(vpc.getExternalIp())));
+        }
+
+        if(NeRoleType.VPC.getName().equals(nbiIpsec.getDestNeRole())) {
+            Vpc vpc = VpcUtil.queryById(srcSbiNeIpsec.getPeerNeId());
+            srcSbiNeIpsec.setPeerAddress(JsonUtil.toJson(new SbiIp(vpc.getExternalIp())));
         }
 
         srcSbiNeIpsec.setSoureIfName(nbiIpsec.getSrcPortName());
@@ -155,7 +161,12 @@ public class NbiModelToSbiModel {
         if(NeRoleType.VPC.getName().equals(nbiIpsec.getDestNeRole())) {
             Vpc vpc = VpcUtil.queryById(destSbiNeIpsec.getNeId());
             destSbiNeIpsec.setControllerId(vpc.getOsControllerId());
-            destSbiNeIpsec.setPeerAddress(vpc.getExternalIp());
+            destSbiNeIpsec.setSourceAddress(JsonUtil.toJson(new SbiIp(vpc.getExternalIp())));
+        }
+
+        if(NeRoleType.VPC.getName().equals(nbiIpsec.getSrcNeRole())) {
+            Vpc vpc = VpcUtil.queryById(destSbiNeIpsec.getPeerNeId());
+            destSbiNeIpsec.setPeerAddress(JsonUtil.toJson(new SbiIp(vpc.getExternalIp())));
         }
 
         destSbiNeIpsec.setSoureIfName(nbiIpsec.getDestPortName());
