@@ -66,22 +66,14 @@ public class SbiIpsecDbOperUtil {
 
         greTunnelDao.batchInsert(newSbiNeIpsecs);
 
-        List<SbiIkePolicy> ikePolicyList = new ArrayList<>();
-        List<SbiIpSecPolicy> ipsecPolicyList = new ArrayList<>();
-
         for(SbiNeIpSec sbiNeIpSec : newSbiNeIpsecs) {
             if(NeRoleType.VPC.getName().equals(sbiNeIpSec.getLocalNeRole())) {
-                ikePolicyList.add(sbiNeIpSec.getIkePolicy());
-                ipsecPolicyList.add(sbiNeIpSec.getIpSecPolicy());
-
                 sbiNeIpSec.getIkePolicy().setSbiServiceId(sbiNeIpSec.getUuid());
                 sbiNeIpSec.getIpSecPolicy().setSbiServiceId(sbiNeIpSec.getUuid());
+                new InventoryDaoUtil<SbiIkePolicy>().getInventoryDao().insert(sbiNeIpSec.getIkePolicy());
+                new InventoryDaoUtil<SbiIpSecPolicy>().getInventoryDao().insert(sbiNeIpSec.getIpSecPolicy());
             }
-
         }
-
-        new InventoryDaoUtil<SbiIkePolicy>().getInventoryDao().batchInsert(ikePolicyList);
-        new InventoryDaoUtil<SbiIpSecPolicy>().getInventoryDao().batchInsert(ipsecPolicyList);
     }
 
     /**
