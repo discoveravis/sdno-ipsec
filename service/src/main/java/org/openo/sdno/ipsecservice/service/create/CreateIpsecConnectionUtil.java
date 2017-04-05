@@ -257,11 +257,11 @@ public class CreateIpsecConnectionUtil {
             LOGGER.error("create ac failed. fail num = ", acCreateRsp.getFail().size());
             throw new InnerErrorServiceException("create failed!");
         }
+
         LOGGER.info("ipsec createByAc complete. ");
 
         return MergeRspUtil.mergeAllCreateRsp(insertDataList, sbiNeIpsecList, acCreateRsp, fsCreateRsp,
                 OperationType.CREATE);
-
     }
 
     private static List<NbiIpSec> getIdAndInsertDb(List<NbiIpSec> nbiIpsecs) throws ServiceException {

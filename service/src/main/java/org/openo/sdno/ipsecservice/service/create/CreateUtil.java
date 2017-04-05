@@ -69,6 +69,11 @@ public class CreateUtil {
     public static void createByFs(List<SbiNeIpSec> sbiNeIpsecList, ResultRsp<SbiNeIpSec> fsCreateResult)
             throws ServiceException {
 
+        if(CollectionUtils.isEmpty(sbiNeIpsecList)) {
+            LOGGER.info("No fs ipsec connection need to create");
+            return;
+        }
+
         ResultRsp<SbiNeIpSec> createRst = createSbiNeIpsecToFs(sbiNeIpsecList);
         if(!CollectionUtils.isEmpty(createRst.getSuccessed())) {
             fsCreateResult.getSuccessed().addAll(createRst.getSuccessed());
@@ -216,6 +221,12 @@ public class CreateUtil {
      */
     public static void createByAc(List<SbiNeIpSec> sbiNeIpsecList, ResultRsp<SbiNeIpSec> acCreateResult)
             throws ServiceException {
+
+        if(CollectionUtils.isEmpty(sbiNeIpsecList)) {
+            LOGGER.info("No ac ipsec connection need to create");
+            return;
+        }
+
         ResultRsp<SbiNeIpSec> createRst = createSbiNeIpsecToAc(sbiNeIpsecList);
         if(!CollectionUtils.isEmpty(createRst.getSuccessed())) {
             acCreateResult.getSuccessed().addAll(createRst.getSuccessed());

@@ -47,6 +47,7 @@ import org.openo.sdno.overlayvpn.brs.model.LogicalTernminationPointMO;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
 import org.openo.sdno.overlayvpn.dao.common.InventoryDao;
 import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
+import org.openo.sdno.overlayvpn.model.netmodel.vpc.Subnet;
 import org.openo.sdno.overlayvpn.model.netmodel.vpc.Vpc;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiActionModel;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
@@ -114,6 +115,12 @@ public class IpSecSite2DcRoaResourceTest {
                 return vpc;
             }
 
+            @Mock
+            List<Subnet> querySubnetByVpcId(String vpcId) throws ServiceException {
+                Subnet subnet = new Subnet();
+                subnet.setCidr("10.21.3.0/24");
+                return Arrays.asList(subnet);
+            }
         };
         NbiIpSec ipsec = JsonUtil.fromJson(
                 "{\"id\":\"ipsecconnection1id\",\"tenantId\":\"tenantid\",\"name\":\"nbiipsec1\",\"description\":\"test ipsec\",\"operStatus\":\"none\",\"deployStatus\":\"deploy\",\"srcNeId\":\"Ne01\",\"connectionId\":\"connectionId\",\"srcNeRole\":\"vpc\",\"destNeRole\":\"cloudcpe\",\"type\":\"ipsec\",\"destNeId\":\"Ne02\",\"srcPortName\":\"Port01\",\"destPortName\":\"Port02\",\"workType\":\"work\",\"protectionPolicy\":\"nqa\",\"nqa\":null,\"ikePolicy\":\"{\\\"authAlgorithm\\\":\\\"md5\\\",\\\"psk\\\":\\\"0123456789\\\",\\\"ikeVersion\\\":\\\"v2\\\",\\\"encryptionAlgorithm\\\":\\\"3des\\\"}\",\"ipsecPolicy\":\"{\\\"transformProtocol\\\":\\\"esp\\\",\\\"authAlgorithm\\\":\\\"md5\\\",\\\"encryptionAlgorithm\\\":\\\"3des\\\"}\",\"srcIsTemplateType\":\"false\",\"destIsTemplateType\":\"false\",\"ruleSrcPortName\":\"LoopBack1\",\"ruleDestPortName\":\"LoopBack1\",\"sourceLanCidrs\":\"[{\\\"ipv4\\\":\\\"1.1.1.1\\\",\\\"ipMask\\\":\\\"24\\\"}]\",\"destLanCidrs\":\"[{\\\"ipv4\\\":\\\"1.1.1.2\\\",\\\"ipMask\\\":\\\"24\\\"}]\",\"qosPreClassify\":\"false\",\"regionId\":\"regionId01\"}",

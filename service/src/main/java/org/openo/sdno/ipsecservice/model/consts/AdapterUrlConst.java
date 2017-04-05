@@ -36,9 +36,10 @@ public class AdapterUrlConst {
 
     public static final String UNDEPLOY_IPSECS_FS = "/dc-gateway/ipsec-connections/batch-delete";
 
-    public static final String QUERY_VPC_URL = "/openoapi/sdnovpc/v1/vpcs/";
+    public static final String QUERY_VPC_URL = "/openoapi/sdnovpc/v1/vpcs/{0}";
+
+    public static final String QUERY_SUBNET_URL = "/openoapi/sdnovpc/v1/subnets";
 
     private AdapterUrlConst() {
-
     }
 }
