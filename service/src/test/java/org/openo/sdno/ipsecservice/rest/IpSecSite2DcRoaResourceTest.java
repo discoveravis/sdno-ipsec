@@ -47,7 +47,6 @@ import org.openo.sdno.overlayvpn.brs.model.LogicalTernminationPointMO;
 import org.openo.sdno.overlayvpn.brs.model.NetworkElementMO;
 import org.openo.sdno.overlayvpn.dao.common.InventoryDao;
 import org.openo.sdno.overlayvpn.errorcode.ErrorCode;
-import org.openo.sdno.overlayvpn.model.netmodel.vpc.Subnet;
 import org.openo.sdno.overlayvpn.model.netmodel.vpc.Vpc;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiActionModel;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
@@ -113,13 +112,6 @@ public class IpSecSite2DcRoaResourceTest {
                 Vpc vpc = new Vpc();
                 vpc.setOsControllerId("osControllerId");
                 return vpc;
-            }
-
-            @Mock
-            List<Subnet> querySubnetByVpcId(String vpcId) throws ServiceException {
-                Subnet subnet = new Subnet();
-                subnet.setCidr("10.21.3.0/24");
-                return Arrays.asList(subnet);
             }
         };
         NbiIpSec ipsec = JsonUtil.fromJson(

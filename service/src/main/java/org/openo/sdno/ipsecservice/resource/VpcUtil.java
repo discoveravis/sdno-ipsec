@@ -17,23 +17,19 @@
 package org.openo.sdno.ipsecservice.resource;
 
 import java.text.MessageFormat;
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jackson.type.TypeReference;
 import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.baseservice.roa.util.restclient.RestfulParametes;
 import org.openo.baseservice.roa.util.restclient.RestfulResponse;
 import org.openo.sdno.framework.container.resthelper.RestfulProxy;
 import org.openo.sdno.framework.container.util.JsonUtil;
 import org.openo.sdno.ipsecservice.model.consts.AdapterUrlConst;
-import org.openo.sdno.overlayvpn.model.netmodel.vpc.Subnet;
 import org.openo.sdno.overlayvpn.model.netmodel.vpc.Vpc;
 import org.openo.sdno.overlayvpn.security.authentication.HttpContext;
 import org.openo.sdno.rest.ResponseUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.util.CollectionUtils;
 
 /**
  * Vpc util class.<br/>
@@ -68,34 +64,5 @@ public class VpcUtil {
         Vpc resultVpc = JsonUtil.fromJson(rspContent, Vpc.class);
 
         return resultVpc;
-    }
-
-    /**
-     * Query subnets by vpc id.<br>
-     * 
-     * @param vpcId Vpc Id
-     * @return List of subnets queried out
-     * @throws ServiceException when query failed
-     * @since SDNO 0.5
-     */
-    public static List<Subnet> querySubnetByVpcId(String vpcId) throws ServiceException {
-        if(StringUtils.isEmpty(vpcId)) {
-            LOGGER.error("Query subnet fail, vpcId is invalid");
-            throw new ServiceException("Query subnet fail, vpcId is invalid");
-        }
-
-        RestfulParametes parameter = new RestfulParametes();
-        parameter.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
-        parameter.put("vpcId", vpcId);
-
-        RestfulResponse response = RestfulProxy.get(AdapterUrlConst.QUERY_SUBNET_URL, parameter);
-        String rspContent = ResponseUtils.transferResponse(response);
-        List<Subnet> subnetList = JsonUtil.fromJson(rspContent, new TypeReference<List<Subnet>>() {});
-        if(CollectionUtils.isEmpty(subnetList)) {
-            LOGGER.error("No subnets queried out in this vpc");
-            throw new ServiceException("No subnets queried out in this vpc");
-        }
-
-        return subnetList;
     }
 }

@@ -26,12 +26,10 @@ import org.openo.baseservice.remoteservice.exception.ServiceException;
 import org.openo.sdno.framework.container.util.JsonUtil;
 import org.openo.sdno.ipsecservice.model.enums.NeRoleType;
 import org.openo.sdno.ipsecservice.resource.VpcUtil;
-import org.openo.sdno.overlayvpn.model.netmodel.vpc.Subnet;
 import org.openo.sdno.overlayvpn.model.netmodel.vpc.Vpc;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.NbiIpSec;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiIp;
 import org.openo.sdno.overlayvpn.model.v2.ipsec.SbiNeIpSec;
-import org.openo.sdno.util.ip.IpUtils;
 
 /**
  * Class of model transfer util.<br/>
@@ -126,16 +124,12 @@ public class NbiModelToSbiModel {
             Vpc vpc = VpcUtil.queryById(srcVpcId);
             srcSbiNeIpsec.setControllerId(vpc.getOsControllerId());
             srcSbiNeIpsec.setSourceAddress(JsonUtil.toJson(new SbiIp(vpc.getExternalIp())));
-            List<Subnet> subnetList = VpcUtil.querySubnetByVpcId(srcVpcId);
-            srcSbiNeIpsec.setSourceLanCidrs(JsonUtil.toJson(constructLanCidrs(subnetList)));
         }
 
         if(NeRoleType.VPC.getName().equals(nbiIpsec.getDestNeRole())) {
             String peerVpcId = srcSbiNeIpsec.getPeerNeId();
             Vpc vpc = VpcUtil.queryById(peerVpcId);
             srcSbiNeIpsec.setPeerAddress(JsonUtil.toJson(new SbiIp(vpc.getExternalIp())));
-            List<Subnet> subnetList = VpcUtil.querySubnetByVpcId(peerVpcId);
-            srcSbiNeIpsec.setPeerLanCidrs(JsonUtil.toJson(constructLanCidrs(subnetList)));
         }
 
         srcSbiNeIpsec.setSoureIfName(nbiIpsec.getSrcPortName());
@@ -171,32 +165,16 @@ public class NbiModelToSbiModel {
             Vpc vpc = VpcUtil.queryById(srcVpcId);
             destSbiNeIpsec.setControllerId(vpc.getOsControllerId());
             destSbiNeIpsec.setSourceAddress(JsonUtil.toJson(new SbiIp(vpc.getExternalIp())));
-            List<Subnet> subnetList = VpcUtil.querySubnetByVpcId(srcVpcId);
-            destSbiNeIpsec.setSourceLanCidrs(JsonUtil.toJson(constructLanCidrs(subnetList)));
         }
 
         if(NeRoleType.VPC.getName().equals(nbiIpsec.getSrcNeRole())) {
             String peerVpcId = destSbiNeIpsec.getPeerNeId();
             Vpc vpc = VpcUtil.queryById(peerVpcId);
             destSbiNeIpsec.setPeerAddress(JsonUtil.toJson(new SbiIp(vpc.getExternalIp())));
-            List<Subnet> subnetList = VpcUtil.querySubnetByVpcId(peerVpcId);
-            destSbiNeIpsec.setPeerLanCidrs(JsonUtil.toJson(constructLanCidrs(subnetList)));
         }
 
         destSbiNeIpsec.setSoureIfName(nbiIpsec.getDestPortName());
         destSbiNeIpsec.setDestIfName(nbiIpsec.getSrcPortName());
         destSbiNeIpsec.setLocalNeRole(nbiIpsec.getDestNeRole());
-    }
-
-    private static List<SbiIp> constructLanCidrs(List<Subnet> subnetList) {
-        List<SbiIp> lanCidrList = new ArrayList<SbiIp>();
-        for(Subnet curSubnet : subnetList) {
-            SbiIp lanCidr = new SbiIp();
-            lanCidr.setIpv4(IpUtils.getIPFromCIDR(curSubnet.getCidr()));
-            Integer ipMask = IpUtils.maskToPrefix(IpUtils.getNetMaskFromCIDR(curSubnet.getCidr()));
-            lanCidr.setIpMask(String.valueOf(ipMask));
-            lanCidrList.add(lanCidr);
-        }
-        return lanCidrList;
     }
 }
