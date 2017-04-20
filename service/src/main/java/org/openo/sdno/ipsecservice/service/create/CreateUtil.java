@@ -73,13 +73,16 @@ public class CreateUtil {
             LOGGER.info("No fs ipsec connection need to create");
             return;
         }
-
-        ResultRsp<SbiNeIpSec> createRst = createSbiNeIpsecToFs(sbiNeIpsecList);
-        if(!CollectionUtils.isEmpty(createRst.getSuccessed())) {
-            fsCreateResult.getSuccessed().addAll(createRst.getSuccessed());
-        }
-        if(!CollectionUtils.isEmpty(createRst.getFail())) {
-            fsCreateResult.getFail().addAll(createRst.getFail());
+        for(SbiNeIpSec sbiNeIpSec : sbiNeIpsecList) {
+            List<SbiNeIpSec> sbiNeIpSecs = new ArrayList<>();
+            sbiNeIpSecs.add(sbiNeIpSec);
+            ResultRsp<SbiNeIpSec> createRst = createSbiNeIpsecToFs(sbiNeIpSecs);
+            if(!CollectionUtils.isEmpty(createRst.getSuccessed())) {
+                fsCreateResult.getSuccessed().addAll(createRst.getSuccessed());
+            }
+            if(!CollectionUtils.isEmpty(createRst.getFail())) {
+                fsCreateResult.getFail().addAll(createRst.getFail());
+            }
         }
     }
 

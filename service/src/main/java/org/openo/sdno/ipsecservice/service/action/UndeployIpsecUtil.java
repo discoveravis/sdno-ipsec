@@ -121,36 +121,41 @@ public class UndeployIpsecUtil {
         if(CollectionUtils.isEmpty(fsActiveNeIpsecs)) {
             return;
         }
+        for(SbiNeIpSec sbiNeIpSec : fsActiveNeIpsecs) {
+            List<SbiNeIpSec> sbiNeIpSecList = new ArrayList<>();
+            sbiNeIpSecList.add(sbiNeIpSec);
+            List<SbiNeIpSec> delSbiData = new ArrayList<>();
+            setSbiRawDataOfFs(delSbiData, sbiNeIpSecList);
 
-        List<SbiNeIpSec> delSbiData = new ArrayList<>();
-        setSbiRawDataOfFs(delSbiData, fsActiveNeIpsecs);
+            RestfulParametes restPara = new RestfulParametes();
+            restPara.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
+            String ctrlId = sbiNeIpSecList.get(0).getControllerId();
+            restPara.putHttpContextHeader("X-Driver-Parameter", "extSysID=" + ctrlId);
+            restPara.setRawData(JsonUtil.toJson(delSbiData));
 
-        RestfulParametes restPara = new RestfulParametes();
-        restPara.putHttpContextHeader(HttpContext.CONTENT_TYPE_HEADER, HttpContext.MEDIA_TYPE_JSON);
-        String ctrlId = fsActiveNeIpsecs.get(0).getControllerId();
-        restPara.putHttpContextHeader("X-Driver-Parameter", "extSysID=" + ctrlId);
-        restPara.setRawData(JsonUtil.toJson(delSbiData));
+            String url = AdapterUrlConst.ADAPTER_BASE_URL + AdapterUrlConst.UNDEPLOY_IPSECS_FS;
 
-        String url = AdapterUrlConst.ADAPTER_BASE_URL + AdapterUrlConst.UNDEPLOY_IPSECS_FS;
+            RestfulResponse rsp = RestfulProxy.post(url, restPara);
+            LOGGER.info(
+                    "fs ipsec undeploy finish. httpcode: " + rsp.getStatus() + ", body is " + rsp.getResponseContent());
 
-        RestfulResponse rsp = RestfulProxy.post(url, restPara);
-        LOGGER.info("fs ipsec undeploy finish. httpcode: " + rsp.getStatus() + ", body is " + rsp.getResponseContent());
-
-        if(HttpCode.isSucess(rsp.getStatus())) {
-            try {
-                String rspContent = ResponseUtils.transferResponse(rsp);
-                ResultRsp<SbiNeIpSec> restResult =
-                        JsonUtil.fromJson(rspContent, new TypeReference<ResultRsp<SbiNeIpSec>>() {});
-                fsUndeployRsp.getSuccessed().addAll(restResult.getSuccessed());
-                return;
-            } catch(ServiceException e) {
-                LOGGER.error("undeployByFs exception. e: ", e);
-                throw new InnerErrorServiceException("undeployByFs failed");
+            if(HttpCode.isSucess(rsp.getStatus())) {
+                try {
+                    String rspContent = ResponseUtils.transferResponse(rsp);
+                    ResultRsp<SbiNeIpSec> restResult =
+                            JsonUtil.fromJson(rspContent, new TypeReference<ResultRsp<SbiNeIpSec>>() {});
+                    fsUndeployRsp.getSuccessed().addAll(restResult.getSuccessed());
+                    return;
+                } catch(ServiceException e) {
+                    LOGGER.error("undeployByFs exception. e: ", e);
+                    throw new InnerErrorServiceException("undeployByFs failed");
+                }
+            } else {
+                LOGGER.error("undeployByFs fail.  response is: " + JsonUtil.toJson(rsp));
+                throw new InnerErrorServiceException("undeployByFs failed!Rsp status is not success.");
             }
-        } else {
-            LOGGER.error("undeployByFs fail.  response is: " + JsonUtil.toJson(rsp));
-            throw new InnerErrorServiceException("undeployByFs failed!Rsp status is not success.");
         }
+
     }
 
     private static void setSbiRawDataOfFs(List<SbiNeIpSec> delSbiData, List<SbiNeIpSec> fsActiveNeIpsecs)
